@@ -1,0 +1,9 @@
+{
+  "ok": true,
+  "cent": 140,
+  "euro": "1,40",
+  "checkout_url": "https://buy.stripe.com/7sYaEW6YH8dg1eR1qXfIs01",
+  "danke_url": "https://manibauriedl-cmyk.github.io/acrisum-shop/danke.html",
+  "datum": "2026-08-08",
+  "hinweis": "Tagespreis — vor GitHub-Deploy sync ausführen"
+}

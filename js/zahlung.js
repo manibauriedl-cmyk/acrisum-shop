@@ -2,7 +2,7 @@
 window.ACRISUM_ZAHLUNG = {
   anbieter: "stripe",
   checkout_dynamisch: false,
-  checkout_url: "https://buy.stripe.com/3cI7sK96Pbps7Df3z5fIs00",
+  checkout_url: "https://buy.stripe.com/7sYaEW6YH8dg1eR1qXfIs01",
   preis_api: "",
   danke_url: "https://manibauriedl-cmyk.github.io/acrisum-shop/danke.html",
   danke_path: "danke.html",
@@ -14,12 +14,11 @@ window.ACRISUM_ZAHLUNG = {
   test_code: "2233",
   test_danke_url: "danke.html",
   preis: {
-    /* GitHub Pages: fester Payment Link 1,00 € — Anzeige = Abbuchung */
-    steigerung_aktiv: false,
+    steigerung_aktiv: true,
     start_datum: "2026-08-04",
     start_cent: 100,
     plus_cent_pro_tag: 10,
     deckel_cent: 500,
-    hinweis_sparen: "Einführungspreis 1,00 € über Stripe."
+    hinweis_sparen: "Wer früher kauft, zahlt weniger."
   }
 };
