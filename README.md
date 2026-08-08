@@ -2,7 +2,7 @@
 
 Öffentliche Test-Homepage — **24/7**, PC zu Hause kann aus sein.
 
-**URL:** https://manibauriedl.github.io/acrisum-shop/
+**URL:** https://manibauriedl-cmyk.github.io/acrisum-shop/
 
 ## Neu deployen
 
@@ -15,7 +15,7 @@ git add -A && git commit -m "Shop aktualisiert" && git push
 ## Stripe
 
 Im Stripe-Dashboard → Payment Link → Nach Zahlung weiterleiten zu:
-`https://manibauriedl.github.io/acrisum-shop/danke.html`
+`https://manibauriedl-cmyk.github.io/acrisum-shop/danke.html`
 
 ## Tester
 
