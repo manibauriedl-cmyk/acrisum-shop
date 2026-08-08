@@ -14,11 +14,12 @@ window.ACRISUM_ZAHLUNG = {
   test_code: "2233",
   test_danke_url: "danke.html",
   preis: {
-    steigerung_aktiv: true,
+    /* GitHub Pages: fester Payment Link 1,00 € — Anzeige = Abbuchung */
+    steigerung_aktiv: false,
     start_datum: "2026-08-04",
     start_cent: 100,
     plus_cent_pro_tag: 10,
     deckel_cent: 500,
-    hinweis_sparen: "Wer früher kauft, zahlt weniger."
+    hinweis_sparen: "Einführungspreis 1,00 € über Stripe."
   }
 };

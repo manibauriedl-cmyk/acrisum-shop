@@ -65,18 +65,28 @@
     var dynamisch = root.checkout_dynamisch !== false;
 
     function zuFallback(grund) {
-      /* Kein stiller Wechsel auf festen 1-€-Link — sonst Anzeige ≠ Abbuchung. */
-      if (note) {
-        note.textContent =
-          "Kauf gerade nicht möglich: " +
-          (grund || "kein Checkout") +
-          ". Bitte STRIPE_SECRET_KEY in zahlung/stripe.env setzen und Dashboard :6019 neu starten.";
+      if (!dynamisch) {
+        if (note) {
+          note.textContent =
+            "Zahlungslink gerade nicht erreichbar. Bitte später erneut versuchen oder Testcode nutzen.";
+        }
+        window.alert(
+          "Stripe-Zahlungslink nicht verfügbar.\n\n" + (grund || "") +
+            "\n\nAlternativ: Testcode auf der Startseite (Download ohne Bezahlung)."
+        );
+      } else {
+        if (note) {
+          note.textContent =
+            "Kauf gerade nicht möglich: " +
+            (grund || "kein Checkout") +
+            ". Bitte STRIPE_SECRET_KEY in zahlung/stripe.env setzen und Dashboard :6019 neu starten.";
+        }
+        window.alert(
+          "Dynamischer Stripe-Checkout nicht bereit.\n\n" +
+            (grund || "") +
+            "\n\nSecret-Key in:\nD:\\winsu\\projekte\\winsu-vermarktung\\zahlung\\stripe.env"
+        );
       }
-      window.alert(
-        "Dynamischer Stripe-Checkout nicht bereit.\n\n" +
-          (grund || "") +
-          "\n\nSecret-Key in:\nD:\\winsu\\projekte\\winsu-vermarktung\\zahlung\\stripe.env"
-      );
       btn.removeAttribute("aria-busy");
       btn.classList.remove("is-loading");
     }
