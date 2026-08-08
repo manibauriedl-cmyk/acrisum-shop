@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Acrisum Launcher — Einblick</title>
+<style>
+:root {
+  --accent: #c4a35a;
+  --accent-soft: rgba(196, 163, 90, 0.18);
+  --border: #2a3444;
+  --muted: #8b96a8;
+  --text: #eef2f6;
+  --bar: #9ec5eb;
+  --bar-w: 59px;
+  --bar-h: 45px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: #0c1014;
+  color: var(--text);
+  padding: 0.75rem 0.85rem 1rem;
+}
+.demo-wrap { max-width: 720px; margin: 0 auto; overflow: visible; padding-bottom: 8px; }
+.demo-stage {
+  position: relative; width: 100%; height: 440px;
+  border: 1px solid #2a4a6a; border-radius: 6px; overflow: hidden;
+  background: #245edc;
+  --pad-t: 0px; --pad-l: 0px; --pad-r: 0px;
+  --zoom: 1;
+}
+/* Mega-Menü darf bewusst aus dem blauen Rahmen hängen */
+.demo-stage.mega-on {
+  overflow: visible;
+  z-index: 5;
+}
+.demo-stage.mega-on .badge { opacity: 0; pointer-events: none; }
+.desk {
+  position: absolute; z-index: 2;
+  top: var(--pad-t); left: var(--pad-l); right: var(--pad-r); bottom: 0;
+  padding: 10px 8px 8px;
+  overflow: hidden;
+  transition: top .55s ease, left .55s ease, right .55s ease;
+}
+.desk-cols {
+  display: flex; gap: 6px; flex-wrap: wrap;
+  align-content: flex-start; height: 100%;
+}
+.desk-col { display: flex; flex-direction: column; gap: 4px; width: 72px; flex-shrink: 0; }
+.dicon {
+  width: 72px; min-height: 56px;
+  display: flex; flex-direction: column; align-items: center;
+  color: #fff; font: 400 10px/1.15 "Segoe UI", sans-serif;
+  text-shadow: 1px 1px 1px #000;
+}
+.dicon .pic { font-size: 22px; line-height: 1.2; filter: drop-shadow(0 1px 1px #0005); }
+.dicon .lbl {
+  max-width: 70px; text-align: center; word-break: break-word;
+}
+
+/* —— Leiste: nie mittig abschneiden —— */
+.lbar {
+  position: absolute; z-index: 10; background: var(--bar);
+  box-shadow: 0 2px 6px rgba(0,0,0,.22);
+  transform-origin: left top;
+  transition: left .5s ease, right .5s ease, top .5s ease,
+              width .45s ease, height .45s ease, opacity .28s ease, transform .5s ease;
+  overflow: visible;
+}
+.lbar img { display: block; max-width: none; }
+.lbar.pos-hidden {
+  opacity: 0; pointer-events: none;
+  left: 0; top: 0; height: var(--bar-h);
+  transform: translateY(-120%) scale(var(--zoom));
+}
+.lbar.pos-top {
+  opacity: 1; left: 0; top: 0; right: auto; bottom: auto;
+  height: var(--bar-h); width: auto;
+  border-bottom: 1px solid #7898b0;
+  transform: scale(var(--zoom));
+  transform-origin: left top;
+}
+.lbar.pos-top img { height: var(--bar-h); width: auto; }
+.lbar.pos-left {
+  opacity: 1; left: 0; top: 0; bottom: 0; right: auto;
+  width: var(--bar-w); height: 100%;
+  border-right: 1px solid #7898b0;
+  transform: scale(var(--zoom));
+  transform-origin: left top;
+}
+.lbar.pos-left img {
+  width: var(--bar-w); height: 100%;
+  object-fit: cover; object-position: top;
+}
+.lbar.pos-right {
+  opacity: 1; right: 0; left: auto; top: 0; bottom: 0;
+  width: var(--bar-w); height: 100%;
+  border-left: 1px solid #7898b0;
+  transform: scale(var(--zoom));
+  transform-origin: right top;
+}
+.lbar.pos-right img {
+  width: var(--bar-w); height: 100%;
+  object-fit: cover; object-position: top;
+}
+
+/* Anheften-Fenster (wie Original) */
+.panel {
+  position: absolute; z-index: 15; width: 240px; max-height: 280px;
+  background: #ece9d8; border: 1px solid #404040;
+  box-shadow: 2px 2px 8px rgba(0,0,0,.35);
+  opacity: 0; transform: scale(.97);
+  pointer-events: none; transition: opacity .3s ease, transform .3s ease, left .45s ease, right .45s ease;
+  overflow: hidden; display: flex; flex-direction: column;
+}
+.demo-stage.panel-on .panel { opacity: 1; transform: none; }
+.panel .pt {
+  background: linear-gradient(180deg, #0a246a, #3a6ea5);
+  color: #fff; padding: 4px 8px; font: 600 11px/1.3 "Segoe UI", sans-serif;
+}
+.panel .ps {
+  background: #fff; margin: 4px; border: 1px solid #7f9db9; padding: 3px 6px;
+  font: 11px/1.2 "Segoe UI", sans-serif; color: #666;
+}
+.panel .pb { padding: 4px 6px 8px; overflow: auto; flex: 1; }
+.panel .cat {
+  background: #6d6d6d; color: #fff; font: 600 10px/1.4 "Segoe UI", sans-serif;
+  padding: 2px 6px; margin: 4px 0 3px;
+}
+.panel .row {
+  display: flex; align-items: center; gap: 6px;
+  padding: 3px 4px; font: 11px/1.2 "Segoe UI", sans-serif; color: #222;
+}
+.panel .row .ic { font-size: 14px; width: 18px; text-align: center; }
+.panel .pf {
+  border-top: 1px solid #aca899; padding: 5px 8px; font: 10px/1.2 "Segoe UI", sans-serif; color: #333;
+  background: #ece9d8; display: flex; justify-content: space-between; align-items: center;
+}
+.panel .pf button {
+  font: 11px "Segoe UI", sans-serif; padding: 2px 10px; border: 1px solid #003c74;
+  background: #ece9d8; cursor: default;
+}
+
+/* Kontextmenü Vergrößern (6/13) */
+.ctx {
+  position: absolute; z-index: 18; min-width: 210px;
+  background: #f0f0f0; border: 1px solid #a0a0a0;
+  box-shadow: 2px 2px 6px rgba(0,0,0,.28);
+  font: 12px/1.35 "Segoe UI", Tahoma, sans-serif; color: #111;
+  opacity: 0; pointer-events: none; transform: translateY(-4px);
+  transition: opacity .25s ease, transform .25s ease;
+  padding: 3px 0;
+}
+.demo-stage.ctx-on .ctx { opacity: 1; transform: none; }
+.ctx .mi { padding: 3px 18px 3px 14px; white-space: nowrap; }
+.ctx .mi.hi { background: #0078d7; color: #fff; }
+.ctx .mi.dim { color: #222; }
+.ctx .sep { height: 1px; background: #d0d0d0; margin: 3px 8px; }
+.ctx .cursor {
+  position: absolute; width: 22px; height: 22px; pointer-events: none;
+  opacity: 0; transition: opacity .2s ease, left .45s ease, top .45s ease, transform .15s ease;
+  filter: drop-shadow(0 1px 1px #0008); transform-origin: 20% 15%;
+}
+.demo-stage.cursor-on .ctx .cursor { opacity: 1; }
+.ctx .cursor.clicking { transform: scale(.82); }
+.ctx .cursor .ring {
+  position: absolute; left: 2px; top: 10px; width: 16px; height: 16px;
+  border: 2px solid #ffeb3b; border-radius: 50%; opacity: 0;
+}
+.ctx .cursor.clicking .ring { animation: clickRing .42s ease-out; }
+@keyframes clickRing {
+  0% { opacity: .95; transform: scale(.35); }
+  100% { opacity: 0; transform: scale(1.9); }
+}
+
+/* Eigenschaften-Dialog (neues Layout) */
+.prop {
+  position: absolute; z-index: 19; left: 120px; top: 58px; width: 320px;
+  background: #d4d0c8; border: 1px solid #404040; box-shadow: 2px 2px 8px rgba(0,0,0,.35);
+  font: 11px/1.3 "Segoe UI", Tahoma, sans-serif; color: #111;
+  opacity: 0; pointer-events: none; transform: translateY(8px) scale(.97);
+  transition: opacity .3s ease, transform .3s ease; padding: 8px 10px 10px;
+}
+.demo-stage.prop-on .prop { opacity: 1; transform: none; }
+.prop .pttl { font-weight: 700; margin-bottom: 6px; font-size: 12px; }
+.prop .prow { display: flex; gap: 6px; align-items: center; margin: 3px 0; }
+.prop .plbl { width: 108px; flex-shrink: 0; }
+.prop .plbl.g { color: #008000; font-weight: 700; }
+.prop .pfld {
+  flex: 1; background: #fff; border: 1px solid #808080; padding: 2px 5px; min-height: 16px;
+}
+.prop .pfld.g { color: #008000; font-weight: 700; }
+.prop .pfld.focus { outline: 2px solid #008000; outline-offset: -1px; }
+.prop .phint { font-size: 9px; color: #505050; margin: 4px 0 6px; }
+.prop .pchk { display: flex; align-items: center; gap: 5px; margin: 4px 0; }
+.prop .pbox {
+  width: 12px; height: 12px; border: 1px solid #404040; background: #fff;
+  display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700;
+}
+.prop .pbox.on::before { content: "✓"; color: #008000; }
+.prop .pok {
+  float: right; border: 1px solid #808080; padding: 2px 12px; margin-top: 6px; background: #d4d0c8;
+}
+.prop .pok.hot { outline: 2px solid #ffeb3b; }
+
+.stage-hand {
+  position: absolute; z-index: 22; width: 26px; height: 26px; pointer-events: none;
+  opacity: 0; transition: opacity .25s ease, left .85s ease, top .85s ease, transform .15s ease;
+  filter: drop-shadow(0 1px 2px #000a); transform-origin: 20% 15%;
+}
+.demo-stage.shand-on .stage-hand { opacity: 1; }
+.stage-hand.clicking { transform: scale(.82); }
+.stage-hand .ring {
+  position: absolute; left: 2px; top: 10px; width: 16px; height: 16px;
+  border: 2px solid #ffeb3b; border-radius: 50%; opacity: 0;
+}
+.stage-hand.clicking .ring { animation: clickRing .42s ease-out; }
+
+/* Griff / Sechs-Punkte — kurz aufblinken, wenn die Maus hinwandert */
+.grip-hint {
+  position: absolute; z-index: 21; left: 2px; top: 2px; width: 22px; height: 28px;
+  border: 2px solid #ffeb3b; border-radius: 4px; pointer-events: none;
+  opacity: 0; box-shadow: 0 0 0 3px rgba(255,235,59,.35);
+  transition: opacity .25s ease;
+}
+.demo-stage.grip-on .grip-hint { opacity: 1; animation: gripPulse 1s ease-in-out infinite; }
+@keyframes gripPulse {
+  0%, 100% { box-shadow: 0 0 0 2px rgba(255,235,59,.4); }
+  50% { box-shadow: 0 0 0 6px rgba(255,235,59,.15); }
+}
+
+/* Langes Rechtsklick-Menü — am Griff (links), ragt aus dem Rahmen */
+.mega {
+  position: absolute; z-index: 30; left: 10px; top: 36px; width: 248px;
+  background: #c0c0c0; border: 2px solid; border-color: #fff #404040 #404040 #fff;
+  box-shadow: 4px 6px 0 #0005, 0 12px 28px rgba(0,0,0,.35);
+  font: 12px/1.25 "Segoe UI", Tahoma, sans-serif; color: #000;
+  padding: 2px 0 4px;
+  opacity: 0; pointer-events: none;
+  transform: translateY(-8px) scale(.98);
+  transform-origin: top left;
+  transition: opacity .35s ease, transform .4s cubic-bezier(.2,.9,.3,1);
+  max-height: none;
+}
+.demo-stage.mega-on .mega {
+  opacity: 1; transform: none;
+}
+.mega .row {
+  display: flex; align-items: center; gap: 4px;
+  padding: 2px 12px 2px 8px; white-space: nowrap;
+}
+.mega .row .chk { width: 14px; text-align: center; font-weight: 700; flex-shrink: 0; }
+.mega .row.bold { font-weight: 700; }
+.mega .row.hi { background: #000080; color: #fff; }
+.mega .sep {
+  height: 1px; background: #808080; margin: 3px 4px;
+  border-bottom: 1px solid #fff;
+}
+.mega-fade {
+  position: absolute; left: 0; right: 0; bottom: -2px; height: 36px;
+  background: linear-gradient(180deg, transparent, rgba(12,16,20,.55));
+  pointer-events: none; opacity: 0;
+}
+.demo-stage.mega-on .mega-fade { opacity: 1; }
+
+/* Demo-Fenster: kann die Leiste nicht verdecken */
+.demo-win {
+  position: absolute; z-index: 12;
+  left: 118px; width: 270px; height: 150px;
+  background: #ece9d8; border: 1px solid #404040;
+  box-shadow: 3px 3px 10px rgba(0,0,0,.4);
+  opacity: 0; pointer-events: none;
+  transition: opacity .35s ease, top .95s cubic-bezier(.2,.7,.3,1);
+}
+.demo-stage.win-on .demo-win { opacity: 1; }
+.demo-win .dw-title {
+  background: linear-gradient(180deg, #0a246a, #3a6ea5);
+  color: #fff; padding: 4px 8px; font: 600 11px/1.3 "Segoe UI", sans-serif;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.demo-win .dw-title .dw-x {
+  opacity: .85; font-weight: 400; font-size: 12px; padding: 0 2px;
+}
+.demo-win .dw-body {
+  height: calc(100% - 22px);
+  background: #fff;
+  background-image: repeating-linear-gradient(
+    180deg, #fff 0 16px, #f0f0f0 16px 17px
+  );
+}
+.demo-win.at-edge {
+  box-shadow: 0 -3px 0 2px #ffeb3b, 3px 3px 10px rgba(0,0,0,.4);
+}
+.edge-flash {
+  position: absolute; z-index: 11; left: 0; right: 0;
+  top: var(--pad-t); height: 3px;
+  background: #ffeb3b; opacity: 0; pointer-events: none;
+  transition: opacity .2s ease;
+  box-shadow: 0 0 8px #ffeb3b;
+}
+.demo-stage.edge-on .edge-flash { opacity: 1; }
+
+.badge {
+  position: absolute; z-index: 20; left: 10px; bottom: 10px; right: 10px;
+  background: rgba(0,0,0,.86); color: #fff; font-size: 13px; padding: 9px 12px;
+  border-radius: 8px; line-height: 1.35;
+  transition: opacity .25s ease;
+}
+.badge strong { color: #e8d4a0; }
+.badge.ok { background: rgba(18,85,40,.93); }
+.badge.info { background: rgba(20,50,100,.92); }
+.badge.fun { background: rgba(70,40,10,.93); }
+
+.demo-wrap.has-mega {
+  padding-bottom: 12px;
+}
+.demo-wrap.has-mega .demo-controls {
+  margin-top: 210px;
+}
+.demo-controls { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.65rem; align-items: center; }
+.demo-controls button {
+  border: 1px solid var(--border); background: #141a22; color: var(--text);
+  border-radius: 6px; padding: 0.4rem 0.75rem; cursor: pointer; font: inherit; font-size: 0.88rem;
+}
+.demo-controls button.primary { background: var(--accent); color: #1a1408; border-color: var(--accent); }
+.demo-controls #phaseLabel { font-size: 0.85rem; color: var(--muted); }
+.timeline { display: flex; gap: 0.3rem; margin-top: 0.55rem; flex-wrap: wrap; }
+.timeline span {
+  font-size: 0.7rem; padding: 0.2rem 0.4rem; border-radius: 999px;
+  background: #1a2433; color: var(--muted);
+  cursor: pointer; border: 1px solid transparent;
+  user-select: none;
+}
+.timeline span:hover {
+  color: var(--text); border-color: var(--border);
+}
+.timeline span.on { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+
+/* Fenstergemetzel — Desktop unter vielen Fenstern kaum erreichbar */
+.chaos {
+  position: absolute; z-index: 6; inset: 0;
+  pointer-events: none; opacity: 0;
+  transition: opacity .4s ease;
+}
+.demo-stage.chaos-on .chaos { opacity: 1; }
+.chaos .cw {
+  position: absolute;
+  background: #ece9d8; border: 1px solid #303030;
+  box-shadow: 4px 4px 0 #0004, 0 8px 18px rgba(0,0,0,.35);
+  overflow: hidden;
+}
+.chaos .cw .ct {
+  background: linear-gradient(180deg, #0a246a, #3a6ea5);
+  color: #fff; font: 600 10px/1.2 "Segoe UI", sans-serif;
+  padding: 3px 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.chaos .cw .cb {
+  background: #fff; height: calc(100% - 18px);
+  background-image: repeating-linear-gradient(180deg, #fff 0 14px, #eee 14px 15px);
+}
+.chaos .cw.w1 { left: 48px; top: 52px; width: 340px; height: 210px; z-index: 1; }
+.chaos .cw.w2 { left: 90px; top: 78px; width: 360px; height: 230px; z-index: 2; }
+.chaos .cw.w3 { left: 130px; top: 108px; width: 380px; height: 240px; z-index: 3; }
+.chaos .cw.w4 { left: 168px; top: 138px; width: 320px; height: 200px; z-index: 4; }
+.chaos .cw.w5 { left: 210px; top: 168px; width: 300px; height: 190px; z-index: 5; }
+
+/* Transparent bei Überlappung — Inhalt hinter der Leiste sichtbar */
+.lbar.bar-ghost {
+  opacity: .38 !important;
+  background: rgba(158, 197, 235, 0.35) !important;
+  box-shadow: none;
+  outline: 2px solid rgba(255, 235, 59, 0.95);
+  outline-offset: 0;
+}
+.lbar.bar-ghost img {
+  opacity: .92;
+  mix-blend-mode: multiply;
+}
+.ghost-tag {
+  position: absolute; z-index: 21; left: 50%; top: calc(var(--pad-t) + 6px);
+  transform: translateX(-50%);
+  background: rgba(0,0,0,.88); color: #ffe082; font: 600 11px/1.2 "Segoe UI", sans-serif;
+  padding: 4px 10px; border-radius: 6px; opacity: 0; pointer-events: none;
+  transition: opacity .25s ease; white-space: nowrap;
+  box-shadow: 0 2px 8px #0008;
+}
+.demo-stage.ghost-on .ghost-tag { opacity: 1; }
+/* Fenster, das unter die transparente Leiste greift */
+.under-bar {
+  position: absolute; z-index: 8; left: 80px; right: 40px;
+  top: 0; height: 120px;
+  background: linear-gradient(180deg, #fff 0%, #e8eef8 40%, #d4d0c8 100%);
+  border: 1px solid #404040; border-top: 0;
+  box-shadow: 2px 4px 12px rgba(0,0,0,.35);
+  opacity: 0; pointer-events: none;
+  transition: opacity .35s ease;
+  overflow: hidden;
+}
+.demo-stage.under-on .under-bar { opacity: 1; }
+.under-bar .ub-title {
+  margin-top: 48px;
+  background: linear-gradient(180deg, #0a246a, #3a6ea5);
+  color: #fff; font: 600 11px/1.3 "Segoe UI", sans-serif;
+  padding: 4px 8px;
+}
+.under-bar .ub-body {
+  height: 50px;
+  background: repeating-linear-gradient(180deg, #fff 0 12px, #f3f3f3 12px 13px);
+  padding: 6px 8px; font: 11px/1.3 "Segoe UI", sans-serif; color: #333;
+}
+</style>
+</head>
+<body>
+<div class="demo-wrap">
+  <div class="demo-stage" id="stage" data-phase="0">
+    <div class="desk" id="desk"><div class="desk-cols" id="cols"></div></div>
+
+    <div class="chaos" id="chaos" aria-hidden="true">
+      <div class="cw w1"><div class="ct">Mail — 47 ungelesen</div><div class="cb"></div></div>
+      <div class="cw w2"><div class="ct">Excel — Auswertung.xlsx</div><div class="cb"></div></div>
+      <div class="cw w3"><div class="ct">Browser — 12 Tabs</div><div class="cb"></div></div>
+      <div class="cw w4"><div class="ct">PDF — Vertrag-Entwurf</div><div class="cb"></div></div>
+      <div class="cw w5"><div class="ct">Word — Angebot.docx</div><div class="cb"></div></div>
+    </div>
+
+    <div class="lbar pos-hidden" id="lbar">
+      <img id="lbarImg" src="bilder/demo/leiste-kurz.png?v=m48" alt="Acrisum Launcher" height="45">
+    </div>
+    <div class="under-bar" id="underBar" aria-hidden="true">
+      <div class="ub-title">Browser — Fenster unter der Leiste</div>
+      <div class="ub-body">Inhalt scheint durch die transparente Leiste — Programme bleiben klickbar.</div>
+    </div>
+    <div class="ghost-tag" id="ghostTag">Transparent bei Überlappung</div>
+    <div class="grip-hint" id="gripHint" aria-hidden="true" title="Sechs Punkte"></div>
+
+    <div class="panel" id="panel" aria-hidden="true">
+      <div class="pt">Anheften — Symbol anklicken</div>
+      <div class="ps">Suchen …</div>
+      <div class="pb">
+        <div class="cat">System (5)</div>
+        <div class="row"><span class="ic">💻</span>Computerverwaltung</div>
+        <div class="row"><span class="ic">🖨️</span>Drucker</div>
+        <div class="row"><span class="ic">⚙️</span>Einstellungen</div>
+        <div class="row"><span class="ic">🔍</span>Geräte-Manager</div>
+        <div class="row"><span class="ic">📊</span>Task-Manager</div>
+        <div class="cat">Programme (…)</div>
+        <div class="row"><span class="ic">📄</span>Word</div>
+        <div class="row"><span class="ic">📊</span>Excel</div>
+      </div>
+      <div class="pf"><span>Klick = anheften</span><button type="button">Schließen</button></div>
+    </div>
+
+    <div class="ctx" id="ctx" aria-hidden="true">
+      <div class="mi dim">Alle</div>
+      <div class="sep"></div>
+      <div class="mi hi" id="miZoom">Vergrößern (6/13)</div>
+      <div class="mi dim">Verkleinern (6/13)</div>
+      <div class="sep"></div>
+      <div class="mi dim">Oben links</div>
+      <div class="mi dim">Oben</div>
+      <div class="mi dim">Rechts (Seite)</div>
+      <svg class="cursor" id="hand" viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="#fff" stroke="#222" stroke-width="1.2"
+          d="M8 13V6.5a1.5 1.5 0 0 1 3 0V12h1V4.5a1.5 1.5 0 0 1 3 0V12h1V5.5a1.5 1.5 0 0 1 3 0V14c0 3.5-2 6-5.5 6H11c-2.8 0-5-1.7-5-4.5V13z"/>
+        <circle class="ring" cx="8" cy="16" r="0" fill="none"/>
+      </svg>
+    </div>
+
+    <div class="prop" id="prop" aria-hidden="true">
+      <div class="pttl" id="propTtl">Eigenschaften — Handy-Foto</div>
+      <div class="prow"><span class="plbl g">Angezeigter Name:</span><span class="pfld g" id="propAnz">6018 Handy-Foto (LAN normal)</span></div>
+      <div class="prow"><span class="plbl">Originalname:</span><span class="pfld">6018 Handy-Foto (LAN normal)</span></div>
+      <div class="phint">Grün = was auf der Leiste steht. Original bleibt für den Maus-Hinweis.</div>
+      <div class="prow">
+        <span class="plbl g">Beschriftung:</span>
+        <span class="pchk"><span class="pbox on" id="propBox"></span> Name unter dem Symbol zeigen</span>
+      </div>
+      <div class="pok" id="propOk">OK</div>
+    </div>
+
+    <div class="mega" id="mega" aria-hidden="true">
+      <div class="row bold"><span class="chk"></span>Verbindungen anheften…</div>
+      <div class="row"><span class="chk"></span>Erkunden</div>
+      <div class="sep"></div>
+      <div class="row"><span class="chk"></span>Alle Namen aus (flache Leiste)</div>
+      <div class="row"><span class="chk">*</span>Desktop-Platz reservieren</div>
+      <div class="sep"></div>
+      <div class="row"><span class="chk"></span>Grau (Standard)</div>
+      <div class="row"><span class="chk"></span>Dunkelgrau</div>
+      <div class="row"><span class="chk"></span>Schwarz</div>
+      <div class="row"><span class="chk"></span>Office-Grün</div>
+      <div class="row"><span class="chk">*</span>Wie Windows-Leiste</div>
+      <div class="row"><span class="chk"></span>Blau</div>
+      <div class="row"><span class="chk"></span>Hellgrau</div>
+      <div class="sep"></div>
+      <div class="row"><span class="chk"></span>Hintergrund transparent</div>
+      <div class="row"><span class="chk"></span>Transparent bei Überlappung</div>
+      <div class="sep"></div>
+      <div class="row" id="mega0"><span class="chk"></span>0 — nur Programme</div>
+      <div class="row" id="mega3"><span class="chk"></span>3 Symbole</div>
+      <div class="row" id="mega5"><span class="chk"></span>5 Symbole</div>
+      <div class="row" id="mega7"><span class="chk"></span>7 Symbole</div>
+      <div class="row" id="mega12"><span class="chk">*</span>12 Symbole</div>
+      <div class="row hi" id="megaAlle"><span class="chk"></span>Alle</div>
+      <div class="sep"></div>
+      <div class="row"><span class="chk"></span>Vergrößern  (6/13)</div>
+      <div class="row"><span class="chk"></span>Verkleinern  (6/13)</div>
+      <div class="sep"></div>
+      <div class="row"><span class="chk"></span>Oben links</div>
+      <div class="row"><span class="chk"></span>Oben</div>
+      <div class="row"><span class="chk"></span>Oben rechts</div>
+      <div class="row"><span class="chk"></span>Links (Seite)</div>
+      <div class="row"><span class="chk"></span>Rechts (Seite)</div>
+      <div class="row"><span class="chk"></span>Unten links</div>
+      <div class="row"><span class="chk"></span>Unten</div>
+      <div class="row"><span class="chk"></span>Unten rechts</div>
+      <div class="sep"></div>
+      <div class="row"><span class="chk"></span>Version 1.1.0</div>
+      <div class="row"><span class="chk"></span>Hilfe…</div>
+      <div class="sep"></div>
+      <div class="row"><span class="chk"></span>Leiste ausblenden</div>
+      <div class="row"><span class="chk"></span>Launcher beenden…</div>
+    </div>
+    <div class="mega-fade" aria-hidden="true"></div>
+
+    <div class="edge-flash" id="edgeFlash" aria-hidden="true"></div>
+    <div class="demo-win" id="demoWin" aria-hidden="true">
+      <div class="dw-title"><span>Dokument — Entwurf</span><span class="dw-x">×</span></div>
+      <div class="dw-body"></div>
+    </div>
+
+    <svg class="stage-hand" id="shand" viewBox="0 0 24 24" aria-hidden="true">
+      <path fill="#fff" stroke="#222" stroke-width="1.2"
+        d="M8 13V6.5a1.5 1.5 0 0 1 3 0V12h1V4.5a1.5 1.5 0 0 1 3 0V12h1V5.5a1.5 1.5 0 0 1 3 0V14c0 3.5-2 6-5.5 6H11c-2.8 0-5-1.7-5-4.5V13z"/>
+      <circle class="ring" r="8" cx="8" cy="16" fill="none" stroke="#ffeb3b" stroke-width="2" opacity="0"/>
+    </svg>
+
+    <div class="badge info" id="badge">Nur wenige Programme auf der Leiste — der Desktop bleibt voll nutzbar.</div>
+  </div>
+  <div class="demo-controls">
+    <button type="button" class="primary" id="btnPlay">▶ Animation starten</button>
+    <button type="button" id="btnPause">⏸ Pause</button>
+    <button type="button" id="btnReset">⟲ Von vorn</button>
+    <span id="phaseLabel">Bereit</span>
+  </div>
+  <div class="timeline" id="timeline"></div>
+</div>
+<script>
+(function () {
+  const IMG = "bilder/demo/";
+  const BAR_W = 59;
+  const BAR_H = 45;
+  const Z = [0.62, 0.67, 0.75, 0.83, 0.92, 1.0, 1.08, 1.21, 1.33, 1.46, 1.62, 1.79, 1.96];
+
+  const ICONS = [
+    {ico:"🗑️", name:"Papierkorb"}, {ico:"💻", name:"Dieser PC"}, {ico:"📁", name:"winsu_p20"},
+    {ico:"🌐", name:"Chrome"}, {ico:"✉️", name:"Thunderbird"}, {ico:"⚙️", name:"Start.bat"},
+    {ico:"📁", name:"Projekte"}, {ico:"📄", name:"notiz.txt"}, {ico:"🐋", name:"Docker"},
+    {ico:"📁", name:"Backup"}, {ico:"📄", name:"scan.pdf"}, {ico:"🖼️", name:"foto.jpg"},
+    {ico:"📁", name:"Kunden"}, {ico:"⚙️", name:"Update.cmd"}, {ico:"📄", name:"liste.xlsx"},
+    {ico:"🌐", name:"Edge"}, {ico:"📁", name:"Tools"}, {ico:"📄", name:"todo.txt"},
+    {ico:"📁", name:"Temp"}, {ico:"✉️", name:"Mail"}, {ico:"📄", name:"vertrag.pdf"},
+    {ico:"📁", name:"Archiv"}, {ico:"⚙️", name:"Dienst.bat"}, {ico:"🖼️", name:"shot.png"},
+    {ico:"📁", name:"Dev"}, {ico:"📄", name:"cfg.json"}, {ico:"🌐", name:"Browser"},
+    {ico:"📁", name:"Export"}, {ico:"📄", name:"alt.doc"}, {ico:"⚙️", name:"run.cmd"},
+  ];
+  const colsEl = document.getElementById("cols");
+  const COLS = 6, PER = Math.ceil(ICONS.length / COLS);
+  for (let c = 0; c < COLS; c++) {
+    const col = document.createElement("div");
+    col.className = "desk-col";
+    for (let r = 0; r < PER; r++) {
+      const idx = c * PER + r;
+      if (idx >= ICONS.length) break;
+      const it = ICONS[idx];
+      const el = document.createElement("div");
+      el.className = "dicon";
+      el.innerHTML = '<div class="pic">' + it.ico + '</div><div class="lbl">' + it.name + '</div>';
+      col.appendChild(el);
+    }
+    colsEl.appendChild(col);
+  }
+
+  const stage = document.getElementById("stage");
+  const lbar = document.getElementById("lbar");
+  const img = document.getElementById("lbarImg");
+  const panel = document.getElementById("panel");
+  const ctx = document.getElementById("ctx");
+  const prop = document.getElementById("prop");
+  const hand = document.getElementById("hand");
+  const shand = document.getElementById("shand");
+  const miZoom = document.getElementById("miZoom");
+  const badge = document.getElementById("badge");
+  const label = document.getElementById("phaseLabel");
+  const timeline = document.getElementById("timeline");
+  const propAnz = document.getElementById("propAnz");
+  const propBox = document.getElementById("propBox");
+  const propOk = document.getElementById("propOk");
+  const propTtl = document.getElementById("propTtl");
+  const demoWin = document.getElementById("demoWin");
+
+  function mouseClick(el) {
+    if (!el) return;
+    el.classList.add("clicking");
+    setTimeout(() => el.classList.remove("clicking"), 420);
+  }
+
+  function setPad(t, l, r) {
+    stage.style.setProperty("--pad-t", t + "px");
+    stage.style.setProperty("--pad-l", l + "px");
+    stage.style.setProperty("--pad-r", r + "px");
+  }
+  function setZoom(z) {
+    stage.style.setProperty("--zoom", String(z));
+  }
+  function placePanel(side) {
+    panel.style.top = "52px";
+    if (side === "right") {
+      panel.style.left = "auto";
+      panel.style.right = (BAR_W + 10) + "px";
+    } else if (side === "left") {
+      panel.style.right = "auto";
+      panel.style.left = (BAR_W + 10) + "px";
+    } else {
+      panel.style.right = "auto";
+      panel.style.left = "24px";
+    }
+  }
+  function placeCtx(side) {
+    if (side === "right") {
+      ctx.style.left = "auto";
+      ctx.style.right = (BAR_W + 8) + "px";
+      ctx.style.top = "70px";
+    } else {
+      ctx.style.right = "auto";
+      ctx.style.left = (BAR_W + 8) + "px";
+      ctx.style.top = "70px";
+    }
+    hand.style.left = "150px";
+    hand.style.top = "38px";
+  }
+  function placeProp() {
+    prop.style.left = "110px";
+    prop.style.top = "56px";
+  }
+  function placeShand(x, y) {
+    shand.style.left = x + "px";
+    shand.style.top = y + "px";
+  }
+
+  const H = IMG + "leiste-kurz.png?v=m48";
+  const H5 = IMG + "leiste-5.png?v=m48";
+  const V = IMG + "leiste-kurz-vert.png?v=m48";
+  // Vertikal-PNG = Zoom ~4/13 (59px) — zoom:1.0, nicht hochskalieren (sonst klobig)
+  const ZV = 1.0;
+  // Eigenschaften nur 2×: 1) Schnelldurchlauf am Anfang 2) nach Ups langsamer — nie wieder am Ende
+  // Bis Ups: Inhalt gleich, nur etwas schneller (nicht kürzen)
+  const phases = [
+    {
+      tip: "1 Chaos", name: "Fenstergemetzel", cls: "info",
+      text: "Viele Fenster — Desktop kaum erreichbar. Oft denken Nutzer: <strong>alles minimieren</strong>. Braucht es nicht.",
+      bar: "pos-top", src: H, pad: [BAR_H, 0, 0], zoom: Z[5],
+      panel: false, ctx: false, prop: false, mega: false, chaos: true, dwell: 1100
+    },
+    {
+      tip: "2 Name!", name: "Name (schnell)", cls: "ok",
+      text: "<strong>Eigenschaften</strong> — Schnelldurchlauf: <span style=\"color:#9fdf9f\">Angezeigter Name</span> + Beschriftung.",
+      bar: "pos-top", src: H, pad: [BAR_H, 0, 0], zoom: Z[5],
+      panel: false, ctx: false, prop: true, mega: false, propShort: true, propCheck: true,
+      chaos: true, shand: [300, 100], click: true, dwell: 650
+    },
+    {
+      tip: "3 Turbo", name: "Turbo", cls: "fun",
+      text: "Und so geht’s auch an die Seite …",
+      bar: "pos-left", src: V, pad: [0, 0, 0], zoom: ZV,
+      panel: false, ctx: false, prop: false, mega: false, chaos: true, dwell: 220
+    },
+    {
+      tip: "4 Ups", name: "Ups", cls: "fun",
+      text: "<strong>Ups</strong> — das war zu schnell. Ich mach’s mal langsamer 🙂",
+      bar: "pos-top", src: H, pad: [BAR_H, 0, 0], zoom: Z[5],
+      panel: false, ctx: false, prop: false, mega: false, chaos: true, dwell: 1400
+    },
+    {
+      tip: "5 Name", name: "Name (langsam)", cls: "ok",
+      text: "Nochmal langsam: <span style=\"color:#9fdf9f\">Angezeigter Name</span> kürzen — Original bleibt für den Maus-Hinweis.",
+      bar: "pos-top", src: H, pad: [BAR_H, 0, 0], zoom: Z[5],
+      panel: false, ctx: false, prop: true, mega: false, propShort: true, propCheck: true,
+      chaos: true, shand: [300, 100], click: true, dwell: 3800
+    },
+    {
+      tip: "6 Menü!", name: "Alles drin", cls: "fun",
+      text: "Maus zum <strong>Griff (⋮⋮ sechs Punkte)</strong> — Rechtsklick öffnet das lange Menü.",
+      bar: "pos-top", src: H, pad: [BAR_H, 0, 0], zoom: Z[5],
+      panel: false, ctx: false, prop: false, mega: true,
+      chaos: true, shandFrom: [260, 160], shand: [4, 6], click: true, dwell: 3200
+    },
+    {
+      tip: "7 ×5", name: "5 Symbole", cls: "ok",
+      text: "Klick auf <strong>5 Symbole</strong> — nur fünf Programme sichtbar, Rest hinter ».",
+      bar: "pos-top", src: H, pad: [BAR_H, 0, 0], zoom: Z[5],
+      panel: false, ctx: false, prop: false, mega: true, megaStay: true,
+      chaos: true, megaPick: "5", click: true, dwell: 2400
+    },
+    {
+      tip: "8 Kürzer", name: "Leiste kürzer", cls: "ok",
+      text: "Leiste wird <strong>kürzer</strong> — am Ende steht die richtige Zahl: <strong>»21</strong>.",
+      bar: "pos-top", src: H5, pad: [BAR_H, 0, 0], zoom: Z[5],
+      panel: false, ctx: false, prop: false, mega: true, megaStay: true,
+      chaos: true, megaPick: "5", dwell: 2600
+    },
+    {
+      tip: "9 Zoom", name: "Größe ändern", cls: "ok",
+      text: "<strong>Vergrößern</strong> — die Leiste hat Zoom-Stufen. Nicht nur Icons: ganze Leiste größer/kleiner.",
+      bar: "pos-top", src: H5, pad: [BAR_H, 0, 0], zoom: Z[8],
+      panel: false, ctx: true, prop: false, mega: false, chaos: true,
+      zoomLabel: "Vergrößern (9/13)", cursor: true, shand: [BAR_W + 160, 88], click: true, dwell: 2800
+    },
+    {
+      tip: "10 Kurz", name: "Alltag kurz", cls: "ok",
+      text: "Wieder Normalgröße — kurze Leiste bleibt greifbar, auch wenn Fenster den Desktop zudecken.",
+      bar: "pos-top", src: H5, pad: [BAR_H, 0, 0], zoom: Z[5],
+      panel: false, ctx: false, prop: false, mega: false, chaos: true, dwell: 2000
+    },
+    {
+      tip: "11 →Links", name: "Platz nach links", cls: "ok",
+      text: "Leiste nach <strong>links</strong>: oben wird frei, Desktop-Symbole rücken nach — <strong>links Platz</strong> für die Leiste.",
+      bar: "pos-left", src: V, pad: [0, BAR_W, 0], zoom: ZV,
+      panel: false, ctx: false, prop: false, mega: false, chaos: true, dwell: 2800
+    },
+    {
+      tip: "12 →Oben", name: "Platz wieder oben", cls: "ok",
+      text: "Zurück nach <strong>oben</strong>: Symbole wieder links an alter Stelle — oben wird wieder <strong>Raum für die Leiste</strong> freigemacht.",
+      bar: "pos-top", src: H5, pad: [BAR_H, 0, 0], zoom: Z[5],
+      panel: false, ctx: false, prop: false, mega: false, chaos: true, dwell: 2800
+    },
+    {
+      tip: "13 Hinweis", name: "Fenster-Hinweis", cls: "info",
+      text: "Wichtig: Ein Fenster kann die Leiste <strong>nicht verdecken</strong>. Beim Hochziehen bleibt es am Rand stehen.",
+      bar: "pos-top", src: H5, pad: [BAR_H, 0, 0], zoom: Z[5],
+      panel: false, ctx: false, prop: false, mega: false, chaos: true,
+      win: true, winY: 118, dwell: 2400
+    },
+    {
+      tip: "14 Stopp", name: "Fenster stoppt", cls: "ok",
+      text: "Maus zieht das Fenster hoch — am Launcher-<strong>Rand bleibt es stehen</strong> (gelber Blitz).",
+      bar: "pos-top", src: H5, pad: [BAR_H, 0, 0], zoom: Z[5],
+      panel: false, ctx: false, prop: false, mega: false, chaos: true,
+      win: true, winDrag: true, winFrom: 118, winTo: BAR_H,
+      shandFrom: [340, 200], shand: [250, 58], click: true, dwell: 3200
+    },
+    {
+      tip: "15 Transparent", name: "Transparent", cls: "ok",
+      text: "<strong>Transparent bei Überlappung</strong> — Fenster liegt unter der Leiste, Inhalt scheint durch. Keine undurchsichtige Kiste.",
+      bar: "pos-top", src: H5, pad: [BAR_H, 0, 0], zoom: Z[5],
+      panel: false, ctx: false, prop: false, mega: false, chaos: true,
+      win: false, barGhost: true, underBar: true, dwell: 3800
+    },
+    {
+      tip: "16 Links", name: "Links", cls: "ok",
+      text: "Links schmal (Zoom ~4/13) — <strong>nicht klobig</strong>, Icons bleiben lesbar.",
+      bar: "pos-left", src: V, pad: [0, BAR_W, 0], zoom: ZV,
+      panel: false, ctx: false, prop: false, mega: false, chaos: true, dwell: 2000
+    },
+    {
+      tip: "17 Anheften L", name: "Anheften links", cls: "ok",
+      text: "Grüner Knopf öffnet <strong>Anheften</strong> — Programme &amp; Ordner wählen.",
+      bar: "pos-left", src: V, pad: [0, BAR_W, 0], zoom: ZV,
+      panel: true, ctx: false, prop: false, mega: false, panelSide: "left",
+      chaos: true, shand: [BAR_W + 40, 70], click: true, dwell: 2200
+    },
+    {
+      tip: "18 Rechts", name: "Rechts", cls: "ok",
+      text: "Rechts genauso: schmale Leiste — Platz reserviert, nichts abgeschnitten.",
+      bar: "pos-right", src: V, pad: [0, 0, BAR_W], zoom: ZV,
+      panel: false, ctx: false, prop: false, mega: false, chaos: true, dwell: 1800
+    },
+    {
+      tip: "19 Anheften R", name: "Anheften rechts", cls: "ok",
+      text: "<strong>Anheften auch rechts</strong> — Fenster öffnet sich neben der Leiste.",
+      bar: "pos-right", src: V, pad: [0, 0, BAR_W], zoom: ZV,
+      panel: true, ctx: false, prop: false, mega: false, panelSide: "right",
+      chaos: true, shand: [420, 90], click: true, dwell: 2200
+    },
+    {
+      tip: "20 Fertig", name: "Fertig", cls: "ok",
+      text: "Fazit: Programme greifen <strong>ohne alles zu minimieren</strong> — kurze Leiste, Platz, Zoom, Transparenz.",
+      bar: "pos-top", src: H5, pad: [BAR_H, 0, 0], zoom: Z[5],
+      panel: false, ctx: false, prop: false, mega: false, chaos: true, dwell: 2800
+    },
+  ];
+
+  phases.forEach((ph, i) => {
+    const s = document.createElement("span");
+    s.textContent = ph.tip;
+    s.setAttribute("data-i", String(i));
+    s.title = "Schritt " + (i + 1) + " erneut abspielen";
+    s.setAttribute("role", "button");
+    s.tabIndex = 0;
+    timeline.appendChild(s);
+  });
+
+
+  function megaResetChecks() {
+    ["mega0","mega3","mega5","mega7","mega12","megaAlle"].forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.classList.remove("hi");
+      const chk = el.querySelector(".chk");
+      if (chk) chk.textContent = "";
+    });
+    const m12 = document.getElementById("mega12");
+    if (m12) { m12.querySelector(".chk").textContent = "*"; }
+    const alle = document.getElementById("megaAlle");
+    if (alle) alle.classList.add("hi");
+  }
+  function megaPick5() {
+    ["mega0","mega3","mega5","mega7","mega12","megaAlle"].forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.classList.remove("hi");
+      const chk = el.querySelector(".chk");
+      if (chk) chk.textContent = "";
+    });
+    const m5 = document.getElementById("mega5");
+    if (m5) {
+      m5.classList.add("hi");
+      m5.querySelector(".chk").textContent = "*";
+    }
+  }
+  function handToMega5() {
+    const row = document.getElementById("mega5");
+    if (!row) return;
+    const sr = stage.getBoundingClientRect();
+    const rr = row.getBoundingClientRect();
+    placeShand(rr.left - sr.left + 28, rr.top - sr.top + 2);
+  }
+
+  let i = 0, timer = null, playing = false;
+  let animTimers = [];
+
+  function clearAnimTimers() {
+    animTimers.forEach(clearTimeout);
+    animTimers = [];
+  }
+  function later(fn, ms) {
+    const t = setTimeout(fn, ms);
+    animTimers.push(t);
+    return t;
+  }
+
+  function apply(idx) {
+    const ph = phases[idx];
+    const z = ph.zoom || 1;
+    clearAnimTimers();
+    stage.setAttribute("data-phase", String(idx));
+    stage.classList.toggle("panel-on", !!ph.panel);
+    stage.classList.toggle("ctx-on", !!ph.ctx);
+    stage.classList.toggle("cursor-on", !!ph.cursor);
+    stage.classList.toggle("prop-on", !!ph.prop);
+    stage.classList.toggle("win-on", !!ph.win);
+    stage.classList.toggle("chaos-on", !!ph.chaos);
+    stage.classList.toggle("ghost-on", !!ph.barGhost);
+    stage.classList.toggle("under-on", !!ph.underBar);
+    stage.classList.remove("grip-on", "edge-on");
+    if (demoWin) {
+      demoWin.classList.remove("at-edge");
+      demoWin.style.transition = "opacity .35s ease, top .95s cubic-bezier(.2,.7,.3,1)";
+    }
+    /* Mega erst nach Maus zum Griff — nicht sofort; megaStay = schon offen */
+    const megaDelayed = !!(ph.mega && ph.shandFrom);
+    const winHand = !!(ph.winDrag && ph.shandFrom);
+    const megaOn = !!(ph.mega && (!megaDelayed || ph.megaStay));
+    stage.classList.toggle("mega-on", megaOn && !megaDelayed);
+    stage.classList.toggle("shand-on", !!(ph.shand || ph.click || ph.shandFrom || ph.megaPick));
+    stage.parentElement.classList.toggle("has-mega", megaOn && !megaDelayed);
+    /* className setzt Position — bar-ghost mit anhängen (sonst fehlt Transparenz) */
+    lbar.className = "lbar " + ph.bar + (ph.barGhost ? " bar-ghost" : "");
+    if (img.getAttribute("src") !== ph.src) img.setAttribute("src", ph.src);
+    const pad = ph.pad.slice();
+    if (ph.bar === "pos-top" && pad[0] > 0) pad[0] = Math.ceil(BAR_H * z);
+    if (ph.bar === "pos-left" && pad[1] > 0) pad[1] = Math.ceil(BAR_W * z);
+    if (ph.bar === "pos-right" && pad[2] > 0) pad[2] = Math.ceil(BAR_W * z);
+    setPad(pad[0], pad[1], pad[2]);
+    setZoom(z);
+    if (ph.panel) placePanel(ph.panelSide || "left");
+    if (ph.ctx) {
+      /* Zoom-Menü unter der oberen Leiste */
+      ctx.style.left = "28px";
+      ctx.style.right = "auto";
+      ctx.style.top = Math.ceil(BAR_H * z) + 6 + "px";
+      hand.style.left = "150px";
+      hand.style.top = "38px";
+    }
+    if (ph.prop) placeProp();
+    if (ph.propReset) {
+      propAnz.textContent = "6018 Handy-Foto (LAN normal)";
+      propAnz.classList.add("g");
+      propAnz.classList.remove("focus");
+      propBox.classList.add("on");
+      propOk.classList.remove("hot");
+      propTtl.textContent = "Eigenschaften — 6018 Handy…";
+    }
+    if (ph.propShort) {
+      propAnz.classList.add("focus", "g");
+      propAnz.textContent = "Handy-Foto";
+      propTtl.textContent = "Eigenschaften — Handy-Foto";
+    }
+    if (ph.propCheck) {
+      propAnz.classList.remove("focus");
+      propBox.classList.add("on");
+      propOk.classList.add("hot");
+    }
+    if (ph.zoomLabel) {
+      miZoom.textContent = ph.zoomLabel;
+      miZoom.classList.remove("hi");
+      miZoom.classList.add("dim");
+    } else if (ph.ctx) {
+      miZoom.textContent = "Vergrößern (4/13)";
+      miZoom.classList.add("hi");
+      miZoom.classList.remove("dim");
+    }
+    badge.className = "badge " + ph.cls;
+    badge.innerHTML = ph.text;
+    label.textContent = "Schritt " + (idx + 1) + "/" + phases.length + " — " + ph.name;
+    timeline.querySelectorAll("span").forEach((el) =>
+      el.classList.toggle("on", Number(el.getAttribute("data-i")) === idx));
+
+    /* Demo-Fenster: Ruheposition oder Ziehen bis Leistenrand */
+    if (ph.win && demoWin) {
+      const stopY = (ph.winTo != null) ? ph.winTo : Math.ceil(BAR_H * z);
+      const startY = (ph.winFrom != null) ? ph.winFrom : (ph.winY != null ? ph.winY : 118);
+      if (ph.winDrag) {
+        demoWin.style.transition = "none";
+        demoWin.style.top = startY + "px";
+        void demoWin.offsetWidth;
+        demoWin.style.transition = "opacity .35s ease, top .95s cubic-bezier(.2,.7,.3,1)";
+        later(() => {
+          demoWin.style.top = stopY + "px";
+        }, 350);
+        later(() => {
+          demoWin.classList.add("at-edge");
+          stage.classList.add("edge-on");
+        }, 1250);
+      } else {
+        demoWin.style.top = startY + "px";
+      }
+    }
+
+    if (!ph.megaPick) megaResetChecks();
+    if (ph.megaPick === "5" && !(ph.src || "").includes("leiste-5")) {
+      /* Menü schon offen: Maus wandert zu „5 Symbole“ */
+      stage.classList.add("mega-on", "shand-on");
+      stage.parentElement.classList.add("has-mega");
+      megaResetChecks();
+      shand.style.transition = "opacity .25s ease, transform .15s ease";
+      placeShand(40, 50);
+      void shand.offsetWidth;
+      later(() => {
+        shand.style.transition = "opacity .25s ease, left .75s ease, top .75s ease, transform .15s ease";
+        handToMega5();
+      }, 100);
+      later(() => {
+        megaPick5();
+        mouseClick(shand);
+      }, 950);
+    } else if (ph.megaPick === "5") {
+      /* Nach Klick: kurze Leiste, Menü mit * auf 5, ohne Maus */
+      stage.classList.add("mega-on");
+      stage.parentElement.classList.add("has-mega");
+      stage.classList.remove("shand-on");
+      megaPick5();
+    } else if (megaDelayed) {
+      /* 1) Maus sichtbar starten 2) zu Sechs-Punkten 3) Klick 4) Menü */
+      megaResetChecks();
+      shand.style.transition = "opacity .25s ease, transform .15s ease";
+      placeShand(ph.shandFrom[0], ph.shandFrom[1]);
+      stage.classList.add("shand-on", "grip-on");
+      void shand.offsetWidth;
+      later(() => {
+        shand.style.transition = "opacity .25s ease, left .85s ease, top .85s ease, transform .15s ease";
+        placeShand(ph.shand[0], ph.shand[1]);
+      }, 120);
+      later(() => mouseClick(shand), 1100);
+      later(() => {
+        stage.classList.add("mega-on");
+        stage.parentElement.classList.add("has-mega");
+        stage.classList.remove("grip-on");
+      }, 1400);
+    } else if (winHand) {
+      /* Fenster ziehen: Maus mit dem Fenstertitel nach oben zum Leistenrand */
+      shand.style.transition = "opacity .25s ease, transform .15s ease";
+      placeShand(ph.shandFrom[0], ph.shandFrom[1]);
+      stage.classList.add("shand-on");
+      void shand.offsetWidth;
+      later(() => {
+        shand.style.transition = "opacity .25s ease, left .9s ease, top .9s ease, transform .15s ease";
+        placeShand(ph.shand[0], ph.shand[1]);
+      }, 280);
+      later(() => mouseClick(shand), 1300);
+    } else {
+      shand.style.transition = "";
+      if (ph.shand) placeShand(ph.shand[0], ph.shand[1]);
+      if (ph.clickHand) later(() => mouseClick(hand), 400);
+      if (ph.click && !ph.winDrag) later(() => mouseClick(shand), 450);
+    }
+  }
+
+  function scheduleNext() {
+    if (!playing) return;
+    timer = setTimeout(() => {
+      i = (i + 1) % phases.length;
+      apply(i);
+      scheduleNext();
+    }, phases[i].dwell);
+  }
+  function jumpTo(idx) {
+    if (idx < 0 || idx >= phases.length) return;
+    if (timer) { clearTimeout(timer); timer = null; }
+    clearAnimTimers();
+    i = idx;
+    apply(i);
+    playing = true;
+    document.getElementById("btnPlay").textContent = "▶ Läuft …";
+    scheduleNext();
+  }
+  function play() {
+    if (playing) return;
+    playing = true;
+    document.getElementById("btnPlay").textContent = "▶ Läuft …";
+    if (timer) clearTimeout(timer);
+    scheduleNext();
+  }
+  function pause() {
+    playing = false;
+    clearAnimTimers();
+    document.getElementById("btnPlay").textContent = "▶ Weiter";
+    if (timer) { clearTimeout(timer); timer = null; }
+  }
+  function reset() {
+    pause(); i = 0; apply(0);
+    document.getElementById("btnPlay").textContent = "▶ Animation starten";
+  }
+  document.getElementById("btnPlay").onclick = () => { if (!playing) play(); };
+  document.getElementById("btnPause").onclick = pause;
+  document.getElementById("btnReset").onclick = reset;
+  timeline.querySelectorAll("span").forEach((el) => {
+    el.addEventListener("click", () => jumpTo(Number(el.getAttribute("data-i"))));
+    el.addEventListener("keydown", (ev) => {
+      if (ev.key === "Enter" || ev.key === " ") {
+        ev.preventDefault();
+        jumpTo(Number(el.getAttribute("data-i")));
+      }
+    });
+  });
+  apply(0);
+  setTimeout(play, 500);
+})();
+</script>
+</body>
+</html>

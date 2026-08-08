@@ -1,0 +1,45 @@
+﻿Launcher 2 — Hinweise zur Version 1.2.0
+=======================================
+
+Datum: 2026-08-06
+
+
+Was sich für Sie ändert
+-----------------------
+• Die interne Laufzeit erscheint nicht mehr als eigenes Programm
+  und wird im Installationsordner ausgeblendet.
+• Start und Taskverwaltung nutzen den Host-Namen „Launcher2Host“
+  statt einer Interpreter-Bezeichnung.
+• Setup- und Starttexte nennen keine Laufzeit-Produkte mehr.
+
+
+Technisch (Kurz)
+----------------
+• Gekapselte Laufzeit bleibt lokal im App-Ordner; kein PATH, keine
+  Dateizuordnung, keine Standardprogramm-Registrierung.
+• Host-Alias (Kopie der fensterlosen Runtime) wird beim Setup
+  bzw. beim ersten Start nachgezogen.
+• Ordnerattribut „versteckt“ auf dem Runtime-Verzeichnis.
+• SemVer 1.2.0 — bestehende Einstellungen unter
+  %APPDATA%\Launcher2\ bleiben unberührt.
+
+
+Abwärtskompatibilität
+---------------------
+Ältere Installationen ohne Host-Alias werden beim nächsten
+Setup oder Start automatisch ergänzt. Kein manueller Eingriff.
+
+
+Vollständiges Protokoll: CHANGELOG.txt
+
+Ausblick
+--------
+Schon nach den ersten Tests haben uns Tester den Nutzwert bestätigt.
+
+Geplante Erweiterungen:
+• Benutzung auf mehreren Bildschirmen
+• Mehrere Launcher
+• und vieles mehr
+
+Auch Ihre Ideen sind gefragt.
+

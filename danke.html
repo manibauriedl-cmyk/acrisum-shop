@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Danke — Acrisum Launcher</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="bilder/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="bilder/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="shortcut icon" href="bilder/favicon.ico">
+  <link rel="apple-touch-icon" href="bilder/apple-touch-icon.png">
+  <link rel="stylesheet" href="css/site.css">
+  <script src="js/zahlung.js" defer></script>
+  <script src="js/download-zaehler.js" defer></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var z = window.ACRISUM_ZAHLUNG || {};
+      var a = document.getElementById("btn-download");
+      if (a && z.download_url) a.href = z.download_url;
+    });
+  </script>
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="index.html#oben">Acrisum</a>
+    <nav class="nav">
+      <a href="index.html#oben">Start</a>
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+    </nav>
+  </header>
+
+  <main class="legal">
+    <h1>Danke für Ihren Kauf</h1>
+    <p>Die Zahlung ist eingegangen. Hier können Sie den <strong>Acrisum Launcher</strong> herunterladen.</p>
+
+    <p style="margin: 1.75rem 0;">
+      <a class="btn btn-primary" id="btn-download" href="download/Acrisum-Launcher-Setup-1.2.0.exe">
+        Setup herunterladen
+      </a>
+    </p>
+    <p id="dl-zaehler" hidden style="font-size:0.95rem;opacity:0.85;margin:-0.75rem 0 1rem;"></p>
+    <p style="font-size:0.95rem;opacity:0.85;">Version <strong>1.2.0</strong> —
+      <a href="download/WAS-IST-NEU.txt">Was ist neu?</a>
+    </p>
+
+    <p style="font-size:0.95rem;max-width:36rem;">
+      <strong>Neue Versionen:</strong> Der Launcher meldet Updates noch nicht selbst.
+      An die E-Mail aus dem Kauf schicken wir bei Bedarf den Hinweis und Download-Link
+      zur neuesten Version. Nicht gewünscht?
+      <a href="mailto:manibauriedl@gmail.com?subject=Acrisum%20—%20keine%20Update-Mails">Per Mail abbestellen</a>
+      (siehe auch <a href="datenschutz.html">Datenschutz</a>).
+    </p>
+
+    <div class="ausblick" style="margin:1.25rem 0 0;">
+      <p class="positiv"><strong>Schon nach den ersten Tests</strong> haben uns Tester den Nutzwert bestätigt.</p>
+      <p><strong>Geplante Erweiterungen:</strong> mehrere Bildschirme · mehrere Launcher · und vieles mehr.</p>
+      <p class="ideen">Auch Ihre Ideen sind gefragt.</p>
+    </div>
+
+    <h2>Installation</h2>
+    <ul>
+      <li>Datei speichern und öffnen (Windows).</li>
+      <li>Den Schritten im Setup folgen — kein Administrator nötig.</li>
+      <li>Bei SmartScreen: „Weitere Informationen“ → trotzdem ausführen (selbst signiertes Zertifikat).</li>
+      <li><strong>Norton / Telekom-Sicherheit:</strong> kann das Setup als „Verdächtige Datei“ blockieren — das ist ein Fehlalarm bei neuen, noch wenig bekannten Programmen. In Norton: Details → Datei zulassen / Ausnahme für <code>Acrisum-Launcher-Setup-1.2.0.exe</code>. Danach Setup erneut starten.</li>
+    </ul>
+
+    <h2>Hilfe</h2>
+    <p>
+      Kauf / Download / Erstattung:
+      <a href="mailto:manibauriedl@gmail.com?subject=Acrisum%20Launcher%20%E2%80%94%20Download">manibauriedl@gmail.com</a>
+    </p>
+  </main>
+
+  <footer class="footer">
+    <a href="index.html#oben">Start</a>
+    <a href="datenschutz.html">Datenschutz</a>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,27 @@
+Acrisum Launcher — Ausblick (Kunden- & Interntext)
+==================================================
+
+Stand: 2026-08-06 · überall gleich halten (Homepage, Danke, Hilfe, WAS-IST-NEU, Intern)
+
+
+Positiv (Marketing)
+-------------------
+Schon nach den ersten Tests haben uns Tester den Nutzwert bestätigt.
+
+
+Geplante Erweiterungen
+---------------------
+• Benutzung auf mehreren Bildschirmen
+• Mehrere Launcher
+• und vieles mehr
+
+
+Mitmachen
+---------
+Auch Ihre Ideen sind gefragt.
+
+
+Intern (Verweis)
+----------------
+Technik-Backlog: D:\winsu\projekte\launcher2\ZUKUNFT-MULTI-MONITOR-UND-MAGIE.md
+Vermarktung:     D:\winsu\projekte\winsu-vermarktung\docs\TODO.md
