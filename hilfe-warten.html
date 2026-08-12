@@ -36,7 +36,9 @@
   }
 
   var jsonUrls = [
-    "https://manibauriedl-cmyk.github.io/acrisum-shop/hilfe-sessions/" + encodeURIComponent(sid) + ".json"
+    "https://manibauriedl-cmyk.github.io/acrisum-shop/hilfe-sessions/" + encodeURIComponent(sid) + ".json",
+    // Rohdatei oft schneller als Pages-CDN nach dem Ping
+    "https://raw.githubusercontent.com/manibauriedl-cmyk/acrisum-shop/main/hilfe-sessions/" + encodeURIComponent(sid) + ".json"
   ];
   // Gleiche Origin (Shop-Spiegel unter :6019 oder Pages-Pfad)
   try {
