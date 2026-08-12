@@ -215,9 +215,9 @@
         kaufenStarten(root, btn, note);
       });
       if (note) {
-        note.textContent = dynamisch
-          ? "Zahlung über Stripe (PayPal, Karte u. a.) — Betrag = heutiger Tagespreis. Nach dem Bezahlen kommst du zur Download-Seite."
-          : "Zahlung über Stripe (PayPal, Karte u. a.) im gleichen Fenster. Nach dem Bezahlen kommst du automatisch zur Download-Seite.";
+        note.innerHTML = dynamisch
+          ? 'Zahlung über Stripe (PayPal, Karte u. a.) — Betrag = heutiger Tagespreis. Es gelten <a href="agb.html">AGB</a> und <a href="widerruf.html">Widerrufsbelehrung</a>. Nach dem Bezahlen kommst du zur Download-Seite.'
+          : 'Zahlung über Stripe (PayPal, Karte u. a.) im gleichen Fenster. Es gelten <a href="agb.html">AGB</a> und <a href="widerruf.html">Widerrufsbelehrung</a>. Nach dem Bezahlen kommst du automatisch zur Download-Seite.';
       }
     } else {
       btn.href = "#kaufen";

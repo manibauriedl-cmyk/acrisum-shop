@@ -2,7 +2,7 @@
 window.ACRISUM_ZAHLUNG = {
   anbieter: "stripe",
   checkout_dynamisch: false,
-  checkout_url: "https://buy.stripe.com/7sYaEW6YH8dg1eR1qXfIs01",
+  checkout_url: "https://buy.stripe.com/cNieVc2Ir1OSaPrc5BfIs02",
   preis_api: "",
   danke_url: "https://manibauriedl-cmyk.github.io/acrisum-shop/danke.html",
   danke_path: "danke.html",

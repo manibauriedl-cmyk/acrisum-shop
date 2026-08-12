@@ -10,82 +10,159 @@
   <link rel="apple-touch-icon" href="bilder/apple-touch-icon.png">
   <link rel="stylesheet" href="css/site.css">
 </head>
-<body>
+<body data-seite="datenschutz">
   <header class="top">
     <a class="brand" href="index.html#oben">Acrisum</a>
     <nav class="nav">
       <a href="index.html#oben">Start</a>
       <a href="impressum.html">Impressum</a>
       <a href="datenschutz.html">Datenschutz</a>
+      <a href="agb.html">AGB</a>
+      <a href="widerruf.html">Widerruf</a>
     </nav>
   </header>
 
   <main class="legal">
     <h1>Datenschutzerklärung</h1>
-    <p>Stand: August 2026 · Kurzfassung für die statische Infoseite (ohne Login, ohne Tracking-Pixel).</p>
+    <p>Stand: 13.08.2026 · Acrisum-Shop (statische Seiten, ohne Login, ohne Tracking-Pixel).</p>
+    <p class="legal-toc">
+      <a href="#hosting">Hosting</a> ·
+      <a href="#cookies">Cookies &amp; Speicher</a> ·
+      <a href="#zahlung">Zahlung</a> ·
+      <a href="#updates">Updates</a> ·
+      <a href="#kontakt">Kontakt</a> ·
+      <a href="#rechte">Rechte</a>
+    </p>
 
-    <h2>1. Verantwortlicher</h2>
+    <h2 id="verantwortlicher">1. Verantwortlicher</h2>
     <p>
       Manfred Bauriedl<br>
       Geranienweg 1<br>
       85598 Baldham<br>
+      Deutschland<br>
       E-Mail: <a href="mailto:manibauriedl@gmail.com">manibauriedl@gmail.com</a><br>
       Telefon: +49 171 2323524<br>
       USt-IdNr.: DE129568872
     </p>
+    <p>Kein Datenschutzbeauftragter bestellt (nicht gesetzlich erforderlich).</p>
 
-    <h2>2. Hosting</h2>
+    <h2 id="hosting">2. Hosting</h2>
     <p>
-      Diese Website kann bei einem Hosting-Anbieter (z.&nbsp;B. Cloudflare Pages, Netlify
-      oder GitHub Pages) betrieben werden. Dabei können Verbindungsdaten
-      (IP-Adresse, Zeitpunkt, abgerufene Datei) in Server-Logs technisch nötig
-      verarbeitet werden. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO (Bereitstellung
-      der Website). Details entnehmen Sie ggf. der Datenschutzerklärung des Hosters.
+      Die öffentliche Website läuft über <strong>GitHub Pages</strong>
+      (GitHub, Inc., USA). Beim Abruf können Verbindungsdaten
+      (IP-Adresse, Zeitpunkt, abgerufene Datei, User-Agent) in Server-Logs
+      technisch nötig verarbeitet werden. Rechtsgrundlage: Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;f DSGVO
+      (Bereitstellung und Sicherheit der Website).
+    </p>
+    <p>
+      Details: <a href="https://docs.github.com/de/site-policy/privacy-policies/github-privacy-statement" rel="noopener noreferrer" target="_blank">GitHub Privacy Statement</a>.
+      Eine lokale Entwickler-Vorschau kann unter unserem Dev-Dashboard laufen;
+      dort gelten dieselben Grundsätze (keine Tracking-Cookies).
     </p>
 
-    <h2>3. Keine Analyse-Cookies (aktuell)</h2>
+    <h2 id="cookies">3. Cookies, Speicher &amp; Zählung (TTDSG / DSGVO)</h2>
     <p>
-      Auf den Seiten werden derzeit keine Analyse- oder Marketing-Cookies gesetzt
-      und kein Nutzerkonto geführt.
+      Wir setzen <strong>keine Analyse- oder Marketing-Cookies</strong>, kein Tracking-Pixel,
+      keine Werbenetzwerke und führen kein Nutzerkonto. Es gibt keinen Warenkorb-Cookie.
+    </p>
+    <p><strong>Was wir im Browser speichern (technisch):</strong></p>
+    <ul>
+      <li>
+        <strong>Hinweisstreifen „OK“</strong> — <code>localStorage</code>-Merkzeichen
+        (<code>acrisum_cookie_hinweis_ok</code>), damit der Hinweis nicht erneut erscheint.
+        Rechtsgrundlage: §&nbsp;25 Abs.&nbsp;2 TTDSG / Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;f DSGVO.
+      </li>
+      <li>
+        <strong>Seitenaufruf (Session)</strong> — <code>sessionStorage</code>-Merkzeichen
+        (z.&nbsp;B. <code>acrisum_aufruf_…</code>), damit in einer Sitzung nicht mehrfach
+        gezählt wird. Nur ein Flag, keine Personendaten. Ende mit Schließen des Tabs.
+      </li>
+    </ul>
+    <p><strong>Anonyme Zähler (nur Server, keine Personenprofile):</strong></p>
+    <p>
+      Aufrufe und Setup-Downloads können als reine Zahlen auf unserem Server
+      gespeichert werden (ohne Name, ohne E-Mail, ohne dauerhafte Geräte-ID).
+      Rechtsgrundlage: Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;f DSGVO (Betrieb / grobe Nachfrage).
+      Auf GitHub Pages entfällt dieser Zähler; dort zählen ggf. Hosting-Statistiken von GitHub.
+    </p>
+    <p>
+      <button type="button" class="btn-legal" id="btn-cookie-reset">Hinweisstreifen wieder anzeigen</button>
+      (löscht nur das OK-Merkzeichen im Browser)
     </p>
 
-    <h2>4. Zahlung (Stripe)</h2>
+    <h2 id="zahlung">4. Zahlung (Stripe / PayPal)</h2>
     <p>
-      Käufe laufen über <strong>Stripe</strong> (PayPal, Karte u.&nbsp;a.). Stripe verarbeitet
-      Zahlungs- und Kontaktdaten (z.&nbsp;B. E-Mail) zur Abwicklung. Rechtsgrundlage:
-      Art. 6 Abs. 1 lit. b DSGVO. Es gelten zusätzlich die Datenschutzhinweise von Stripe.
+      Käufe laufen über <strong>Stripe</strong> (Stripe Payments Europe Ltd. / Stripe, Inc.).
+      Zahlungsarten können PayPal, Karte u.&nbsp;a. umfassen. Stripe verarbeitet
+      Zahlungs- und Kontaktdaten (z.&nbsp;B. E-Mail) zur Vertragsabwicklung.
+      Rechtsgrundlage: Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;b DSGVO.
+    </p>
+    <p>
+      Dabei können Daten in Drittländer (u.&nbsp;a. USA) übermittelt werden; Stripe nutzt
+      hierfür geeignete Garantien (z.&nbsp;B. Standardvertragsklauseln). Es gelten die Hinweise von
+      <a href="https://stripe.com/de/privacy" rel="noopener noreferrer" target="_blank">Stripe</a>
+      und — bei Wahl von PayPal —
+      <a href="https://www.paypal.com/de/webapps/mpp/ua/privacy-full" rel="noopener noreferrer" target="_blank">PayPal</a>.
     </p>
 
-    <h2>5. Produkt-Updates an Kaufkunden</h2>
+    <h2 id="updates">5. Produkt-Updates an Kaufkunden</h2>
     <p>
       Der Acrisum Launcher meldet neue Versionen derzeit <strong>nicht selbst</strong>.
       Wenn Sie gekauft haben, können wir die beim Kauf angegebene E-Mail nutzen, um Sie
       über <strong>neue Versionen und wichtige Produkt-Updates</strong> zum Launcher zu
-      informieren (ähnliches Produkt, Bestandskunde). Rechtsgrundlage: Art. 6 Abs. 1 lit. f
-      DSGVO i.&nbsp;V.&nbsp;m. §&nbsp;7 Abs. 3 UWG. Kein allgemeiner Themen-Newsletter.
+      informieren (ähnliches Produkt, Bestandskunde). Rechtsgrundlage: Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;f
+      DSGVO i.&nbsp;V.&nbsp;m. §&nbsp;7 Abs.&nbsp;3 UWG. Kein allgemeiner Themen-Newsletter.
       Widerspruch jederzeit per Mail an
       <a href="mailto:manibauriedl@gmail.com?subject=Acrisum%20—%20keine%20Update-Mails">manibauriedl@gmail.com</a>
-      (Betreff z.&nbsp;B. „keine Update-Mails“) — danach keine solchen Mails mehr.
+      — danach keine solchen Mails mehr.
     </p>
 
-    <h2>6. Kontaktaufnahme</h2>
+    <h2 id="kontakt">6. Kontaktaufnahme</h2>
     <p>
       Wenn Sie uns per Telefon oder E-Mail kontaktieren, verarbeiten wir
       die von Ihnen mitgeteilten Daten zur Bearbeitung der Anfrage
-      (Art. 6 Abs. 1 lit. b bzw. f DSGVO). Kontaktadressen ohne Kauf werden nicht
+      (Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;b bzw. f DSGVO). Kontaktadressen ohne Kauf werden nicht
       für Update-Mails verwendet.
     </p>
 
-    <h2>7. Ihre Rechte</h2>
-    <p>Sie haben nach DSGVO unter anderem Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Widerspruch und Beschwerde bei einer Aufsichtsbehörde.</p>
+    <h2 id="rechte">7. Ihre Rechte</h2>
+    <p>
+      Sie haben nach DSGVO insbesondere Rechte auf Auskunft, Berichtigung, Löschung,
+      Einschränkung der Verarbeitung, Datenübertragbarkeit, Widerspruch sowie
+      Beschwerde bei einer Aufsichtsbehörde.
+    </p>
+    <p>
+      Zuständig u.&nbsp;a.:
+      <strong>Bayerisches Landesamt für Datenschutzaufsicht (BayLDA)</strong>,
+      Promenade 18, 91522 Ansbach —
+      <a href="https://www.lda.bayern.de/" rel="noopener noreferrer" target="_blank">lda.bayern.de</a>.
+    </p>
 
-    <h2>8. Speicherdauer</h2>
-    <p>Technische Logs beim Hoster nur so lange, wie für Betrieb und Sicherheit erforderlich bzw. vom Hoster vorgesehen. Anfrage- und Kaufdaten nur so lange, wie zur Bearbeitung, Buchhaltung bzw. Update-Info nötig — bei Widerspruch gegen Update-Mails endet diese Nutzung.</p>
+    <h2 id="speicherdauer">8. Speicherdauer</h2>
+    <p>
+      Hosting-Logs nur so lange, wie für Betrieb und Sicherheit nötig bzw. vom Hoster vorgesehen.
+      <code>sessionStorage</code>-Merkzeichen enden mit der Browser-Sitzung;
+      das OK-<code>localStorage</code> bleibt, bis Sie es löschen (Button oben oder Browser-Daten).
+      Anonyme Zählerzahlen und Kauf-/Anfragedaten nur so lange, wie zur Bearbeitung,
+      Buchhaltung bzw. Update-Info nötig — bei Widerspruch gegen Update-Mails endet diese Nutzung.
+    </p>
+
+    <h2 id="aenderung">9. Änderung dieser Erklärung</h2>
+    <p>
+      Wir passen diesen Text an, wenn Technik oder Rechtslage es erfordern.
+      Es gilt die jeweils hier veröffentlichte Fassung (Stand oben).
+    </p>
   </main>
 
   <footer class="footer">
     <a href="index.html#oben">Start</a>
     <a href="impressum.html">Impressum</a>
+    <a href="agb.html">AGB</a>
+    <a href="widerruf.html">Widerruf</a>
+    <a href="datenschutz.html#cookies">Cookies</a>
   </footer>
+
+  <script src="js/cookie-hinweis.js" defer></script>
+  <script src="js/statistik.js" defer></script>
 </body>
 </html>

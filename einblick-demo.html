@@ -36,27 +36,52 @@ body {
   z-index: 5;
 }
 .demo-stage.mega-on .badge { opacity: 0; pointer-events: none; }
+/* Symbole: eigene Position — Tapete bleibt, Fenster bewegen sich getrennt (Chaos/Pad) */
 .desk {
   position: absolute; z-index: 2;
-  top: var(--pad-t); left: var(--pad-l); right: var(--pad-r); bottom: 0;
-  padding: 10px 8px 8px;
+  inset: 0;
   overflow: hidden;
-  transition: top .55s ease, left .55s ease, right .55s ease;
+  pointer-events: none;
 }
 .desk-cols {
-  display: flex; gap: 6px; flex-wrap: wrap;
-  align-content: flex-start; height: 100%;
+  position: absolute;
+  display: flex; gap: 2px; flex-wrap: nowrap;
+  align-content: flex-start; align-items: flex-start;
+  transition: left .55s ease, right .55s ease, top .55s ease, opacity .4s ease;
 }
-.desk-col { display: flex; flex-direction: column; gap: 4px; width: 72px; flex-shrink: 0; }
+.desk-cols-left { left: 8px; top: 8px; }
+.desk-cols-mid {
+  left: 210px; top: 8px;
+  opacity: 0;
+}
+.desk-cols-right { right: 8px; top: 8px; justify-content: flex-end; }
+/* Links: Spalten starten neben der Leiste — rechts bleiben Symbole am freien Rand */
+.demo-stage.bar-left .desk-cols-left { left: calc(var(--pad-l) + 6px); top: 8px; }
+.demo-stage.bar-left .desk-cols-mid { opacity: 0; }
+.demo-stage.bar-left .desk-cols-right { right: 6px; top: 8px; opacity: 1; }
+/* Oben: nur Symbol-Packungen unter die Leiste — Fenster separat via Chaos-Pad */
+.demo-stage.bar-top .desk-cols-left,
+.demo-stage.bar-top .desk-cols-mid,
+.demo-stage.bar-top .desk-cols-right {
+  top: calc(var(--pad-t) + 4px);
+}
+.demo-stage.bar-top .desk-cols-left { left: 6px; }
+.demo-stage.bar-top .desk-cols-mid { left: 200px; opacity: 1; }
+.demo-stage.bar-top .desk-cols-right { right: 6px; opacity: 1; }
+/* Rechts: links bleiben, Mitte füllt Leerraum, rechte Packung vor der Leiste */
+.demo-stage.bar-right .desk-cols-left { left: 6px; top: 8px; }
+.demo-stage.bar-right .desk-cols-mid { left: 200px; top: 8px; opacity: 1; }
+.demo-stage.bar-right .desk-cols-right { right: calc(var(--pad-r) + 6px); top: 8px; opacity: 1; }
+.desk-col { display: flex; flex-direction: column; gap: 2px; width: 64px; flex-shrink: 0; }
 .dicon {
-  width: 72px; min-height: 56px;
+  width: 64px; min-height: 48px;
   display: flex; flex-direction: column; align-items: center;
-  color: #fff; font: 400 10px/1.15 "Segoe UI", sans-serif;
+  color: #fff; font: 400 9px/1.1 "Segoe UI", sans-serif;
   text-shadow: 1px 1px 1px #000;
 }
-.dicon .pic { font-size: 22px; line-height: 1.2; filter: drop-shadow(0 1px 1px #0005); }
+.dicon .pic { font-size: 20px; line-height: 1.15; filter: drop-shadow(0 1px 1px #0005); }
 .dicon .lbl {
-  max-width: 70px; text-align: center; word-break: break-word;
+  max-width: 62px; text-align: center; word-break: break-word;
 }
 
 /* —— Leiste: nie mittig abschneiden —— */
@@ -77,6 +102,7 @@ body {
 .lbar.pos-top {
   opacity: 1; left: 0; top: 0; right: auto; bottom: auto;
   height: var(--bar-h); width: auto; max-width: 100%;
+  background: #9ec5eb;
   border-bottom: 1px solid #7898b0;
   transform: scale(var(--zoom));
   transform-origin: left top;
@@ -338,11 +364,12 @@ body {
 }
 .timeline span.on { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
 
-/* Fenstergemetzel — Desktop unter vielen Fenstern kaum erreichbar */
+/* Fenster: nur Arbeitsfläche (Pad) — unabhängig von Symbol-Packungen, Tapete bleibt */
 .chaos {
-  position: absolute; z-index: 6; inset: 0;
-  pointer-events: none; opacity: 0;
-  transition: opacity .4s ease;
+  position: absolute; z-index: 6;
+  top: var(--pad-t); left: var(--pad-l); right: var(--pad-r); bottom: 0;
+  pointer-events: none; opacity: 0; overflow: hidden;
+  transition: opacity .4s ease, top .55s ease, left .55s ease, right .55s ease;
 }
 .demo-stage.chaos-on .chaos { opacity: 1; }
 .chaos .cw {
@@ -350,6 +377,7 @@ body {
   background: #ece9d8; border: 1px solid #303030;
   box-shadow: 4px 4px 0 #0004, 0 8px 18px rgba(0,0,0,.35);
   overflow: hidden;
+  transition: left .55s ease, top .55s ease, width .55s ease;
 }
 .chaos .cw .ct {
   background: linear-gradient(180deg, #0a246a, #3a6ea5);
@@ -360,47 +388,27 @@ body {
   background: #fff; height: calc(100% - 18px);
   background-image: repeating-linear-gradient(180deg, #fff 0 14px, #eee 14px 15px);
 }
-.chaos .cw.w1 { left: 36px; top: 48px; width: 300px; height: 200px; z-index: 1; }
-.chaos .cw.w2 { left: 78px; top: 72px; width: 320px; height: 220px; z-index: 2; }
-.chaos .cw.w3 { left: 118px; top: 100px; width: 340px; height: 230px; z-index: 3; }
-.chaos .cw.w4 { left: 156px; top: 128px; width: 300px; height: 195px; z-index: 4; }
-.chaos .cw.w5 { left: 198px; top: 156px; width: 280px; height: 185px; z-index: 5; }
-.chaos .cw.w6 { left: 400px; top: 56px; width: 250px; height: 170px; z-index: 6; }
-.chaos .cw.w7 { left: 440px; top: 120px; width: 230px; height: 160px; z-index: 7; }
-.chaos .cw.w8 { left: 380px; top: 210px; width: 260px; height: 150px; z-index: 8; }
+.chaos .cw.w1 { left: 36px; top: 36px; width: 300px; height: 200px; z-index: 1; }
+.chaos .cw.w2 { left: 78px; top: 60px; width: 320px; height: 220px; z-index: 2; }
+.chaos .cw.w3 { left: 118px; top: 88px; width: 340px; height: 230px; z-index: 3; }
+.chaos .cw.w4 { left: 156px; top: 116px; width: 300px; height: 195px; z-index: 4; }
+.chaos .cw.w5 { left: 198px; top: 144px; width: 280px; height: 185px; z-index: 5; }
+.chaos .cw.w6 { left: 380px; top: 44px; width: 250px; height: 170px; z-index: 6; }
+.chaos .cw.w7 { left: 430px; top: 108px; width: 230px; height: 160px; z-index: 7; }
+.chaos .cw.w8 { left: 360px; top: 198px; width: 260px; height: 150px; z-index: 8; }
+/* Rechts: Fenster in die freie Fläche — nicht nur abschneiden */
+.demo-stage.bar-right .chaos .cw.w1 { left: 16px; }
+.demo-stage.bar-right .chaos .cw.w2 { left: 48px; }
+.demo-stage.bar-right .chaos .cw.w3 { left: 80px; }
+.demo-stage.bar-right .chaos .cw.w4 { left: 112px; }
+.demo-stage.bar-right .chaos .cw.w5 { left: 140px; }
+.demo-stage.bar-right .chaos .cw.w6 { left: 290px; }
+.demo-stage.bar-right .chaos .cw.w7 { left: 330px; }
+.demo-stage.bar-right .chaos .cw.w8 { left: 260px; }
 .chaos .cw .ct .badge-mail {
   display: inline-block; margin-left: 4px; background: #c00; color: #fff;
   font: 700 9px/1 "Segoe UI", sans-serif; padding: 1px 4px; border-radius: 8px;
   vertical-align: middle;
-}
-/* Seiten-Leiste: Fenster werden schmal (wie Desktop mit rechter Leiste) */
-.chaos .cw {
-  transition: left .55s ease, top .55s ease, width .55s ease, height .55s ease;
-}
-.demo-stage.chaos-side-right .chaos .cw.w1 { left: 6px; top: 36px; width: 44px; height: 78%; z-index: 1; }
-.demo-stage.chaos-side-right .chaos .cw.w2 { left: 28px; top: 48px; width: 48px; height: 82%; z-index: 2; }
-.demo-stage.chaos-side-right .chaos .cw.w3 { left: 54px; top: 42px; width: 52px; height: 80%; z-index: 3; }
-.demo-stage.chaos-side-right .chaos .cw.w4 { left: 84px; top: 58px; width: 40px; height: 72%; z-index: 4; }
-.demo-stage.chaos-side-right .chaos .cw.w5 { left: 110px; top: 70px; width: 46px; height: 68%; z-index: 5; }
-.demo-stage.chaos-side-right .chaos .cw.w6,
-.demo-stage.chaos-side-right .chaos .cw.w7,
-.demo-stage.chaos-side-right .chaos .cw.w8 { opacity: 0; width: 0; pointer-events: none; }
-.demo-stage.chaos-side-left .chaos .cw.w1 { left: auto; right: 6px; top: 36px; width: 44px; height: 78%; }
-.demo-stage.chaos-side-left .chaos .cw.w2 { left: auto; right: 28px; top: 48px; width: 48px; height: 82%; }
-.demo-stage.chaos-side-left .chaos .cw.w3 { left: auto; right: 54px; top: 42px; width: 52px; height: 80%; }
-.demo-stage.chaos-side-left .chaos .cw.w4 { left: auto; right: 84px; top: 58px; width: 40px; height: 72%; }
-.demo-stage.chaos-side-left .chaos .cw.w5 { left: auto; right: 110px; top: 70px; width: 46px; height: 68%; }
-.demo-stage.chaos-side-left .chaos .cw.w6,
-.demo-stage.chaos-side-left .chaos .cw.w7,
-.demo-stage.chaos-side-left .chaos .cw.w8 { opacity: 0; width: 0; pointer-events: none; }
-.demo-stage.chaos-side-left .chaos .cw,
-.demo-stage.chaos-side-right .chaos .cw {
-  box-shadow: 2px 2px 0 #0003, 0 4px 10px rgba(0,0,0,.3);
-}
-.demo-stage.chaos-side-left .chaos .cw .ct,
-.demo-stage.chaos-side-right .chaos .cw .ct {
-  writing-mode: horizontal-tb;
-  font-size: 8px; padding: 2px 3px;
 }
 
 /* » Abschneiden — Restsymbole hinter der kurzen Leiste */
@@ -414,7 +422,46 @@ body {
 .demo-stage.cut-on .cut-hint { opacity: 1; }
 .cut-hint small { display: block; font-weight: 400; font-size: 10px; color: #ccc; margin-top: 2px; }
 
-/* Transparent: Fenster-Inhalt klar hinter der Leiste */
+/* 1) Hintergrund transparent: hellblaue Platte weg — Desktop scheint durch die Lücken */
+.lbar.bar-solid {
+  background: #9ec5eb !important;
+  box-shadow: 0 3px 0 #5a7a9a !important;
+  outline: 2px solid rgba(255, 235, 59, 0.55);
+  outline-offset: 0;
+}
+.lbar.bar-bg-clear {
+  background: transparent !important;
+  box-shadow: none !important;
+  border-bottom-color: transparent !important;
+  opacity: 1 !important;
+  outline: 2px solid rgba(255, 235, 59, 0.95);
+  outline-offset: 0;
+}
+.lbar.bar-bg-clear img {
+  opacity: 1 !important;
+  mix-blend-mode: normal;
+}
+/* Eigene Schicht UNTER der Leiste (z=9 < Leiste z=10) — sonst stecken Icons in .desk z=2 und wirken unsichtbar */
+.desk-peek {
+  position: absolute; z-index: 9;
+  left: 0; right: 0; top: 0; height: 48px;
+  display: flex; align-items: flex-start; gap: 36px;
+  padding: 2px 0 0 78px;
+  opacity: 0; pointer-events: none;
+  transition: opacity .3s ease;
+}
+.demo-stage.peek-on .desk-peek { opacity: 1; }
+.desk-peek .pk {
+  width: 56px; display: flex; flex-direction: column; align-items: center;
+  color: #fff; font: 700 10px/1.1 "Segoe UI", sans-serif;
+  text-shadow: 0 1px 2px #000, 0 0 4px #000a;
+}
+.desk-peek .pk .pic { font-size: 22px; line-height: 1.1; filter: drop-shadow(0 1px 1px #0008); }
+.demo-stage.bg-clear-on .desk-cols-mid,
+.demo-stage.bg-clear-on .desk-cols-right { opacity: 0.45; }
+.demo-stage.bg-clear-on .chaos { opacity: 0.22; }
+
+/* 2) Transparent bei Überlappung — Fenster unter der Leiste scheint durch */
 .lbar.bar-ghost {
   opacity: .42 !important;
   background: rgba(158, 197, 235, 0.28) !important;
@@ -436,7 +483,7 @@ body {
 }
 .demo-stage.ghost-on .ghost-tag { opacity: 1; }
 .under-bar {
-  position: absolute; z-index: 8; left: 40px; right: 40px;
+  position: absolute; z-index: 9; left: 40px; right: 40px;
   top: 0; height: 150px;
   background: linear-gradient(180deg, #fff 0%, #e8eef8 40%, #d4d0c8 100%);
   border: 1px solid #404040; border-top: 0;
@@ -446,23 +493,29 @@ body {
   overflow: hidden;
 }
 .demo-stage.under-on .under-bar { opacity: 1; }
+.demo-stage.ghost-on .chaos { z-index: 5; }
 .under-bar .ub-title {
-  margin-top: 52px;
+  margin-top: 14px;
   background: linear-gradient(180deg, #0a246a, #3a6ea5);
   color: #fff; font: 600 12px/1.3 "Segoe UI", sans-serif;
   padding: 5px 10px;
 }
 .under-bar .ub-body {
-  height: 70px;
+  height: 90px;
   background: repeating-linear-gradient(180deg, #fff 0 12px, #f3f3f3 12px 13px);
   padding: 8px 10px; font: 12px/1.35 "Segoe UI", sans-serif; color: #222;
 }
+.demo-stage.chaos-on:has(#lbar.bar-ghost) .chaos { opacity: .28; }
 </style>
 </head>
 <body>
 <div class="demo-wrap">
   <div class="demo-stage" id="stage" data-phase="0">
-    <div class="desk" id="desk"><div class="desk-cols" id="cols"></div></div>
+    <div class="desk" id="desk">
+      <div class="desk-cols desk-cols-left" id="cols"></div>
+      <div class="desk-cols desk-cols-mid" id="colsMid"></div>
+      <div class="desk-cols desk-cols-right" id="colsRight"></div>
+    </div>
 
     <div class="chaos" id="chaos" aria-hidden="true">
       <div class="cw w1"><div class="ct">Mail — 47 ungelesen <span class="badge-mail">47</span></div><div class="cb"></div></div>
@@ -475,6 +528,13 @@ body {
       <div class="cw w8"><div class="ct">Explorer — Kunden</div><div class="cb"></div></div>
     </div>
 
+    <div class="desk-peek" id="deskPeek" aria-hidden="true">
+      <div class="pk"><div class="pic">📁</div><div class="lbl">Kunden</div></div>
+      <div class="pk"><div class="pic">📄</div><div class="lbl">Angebot</div></div>
+      <div class="pk"><div class="pic">🗑️</div><div class="lbl">Papierkorb</div></div>
+      <div class="pk"><div class="pic">🐋</div><div class="lbl">Docker</div></div>
+      <div class="pk"><div class="pic">🌐</div><div class="lbl">Shop</div></div>
+    </div>
     <div class="lbar pos-hidden" id="lbar">
       <img id="lbarImg" src="bilder/leiste-kurz.png?v=m53" alt="Acrisum Launcher" height="45">
     </div>
@@ -510,7 +570,7 @@ body {
       <div class="mi dim">Alle</div>
       <div class="sep"></div>
       <div class="mi hi" id="miZoom">Vergrößern (6/13)</div>
-      <div class="mi dim">Verkleinern (6/13)</div>
+      <div class="mi dim" id="miShrink">Verkleinern (6/13)</div>
       <div class="sep"></div>
       <div class="mi dim">Oben links</div>
       <div class="mi dim">Oben</div>
@@ -549,8 +609,8 @@ body {
       <div class="row"><span class="chk"></span>Blau</div>
       <div class="row"><span class="chk"></span>Hellgrau</div>
       <div class="sep"></div>
-      <div class="row"><span class="chk"></span>Hintergrund transparent</div>
-      <div class="row"><span class="chk"></span>Transparent bei Überlappung</div>
+      <div class="row" id="megaGhostBg"><span class="chk"></span>Hintergrund transparent</div>
+      <div class="row" id="megaGhostOverlap"><span class="chk"></span>Transparent bei Überlappung</div>
       <div class="sep"></div>
       <div class="row" id="mega0"><span class="chk"></span>0 — nur Programme</div>
       <div class="row" id="mega3"><span class="chk"></span>3 Symbole</div>
@@ -608,34 +668,46 @@ body {
   const BAR_H = 45;
   const Z = [0.62, 0.67, 0.75, 0.83, 0.92, 1.0, 1.08, 1.21, 1.33, 1.46, 1.62, 1.79, 1.96];
 
-  const ICONS = [
+  const ICONS_L = [
     {ico:"🗑️", name:"Papierkorb"}, {ico:"💻", name:"Dieser PC"}, {ico:"📁", name:"winsu_p20"},
     {ico:"🌐", name:"Chrome"}, {ico:"✉️", name:"Thunderbird"}, {ico:"⚙️", name:"Start.bat"},
     {ico:"📁", name:"Projekte"}, {ico:"📄", name:"notiz.txt"}, {ico:"🐋", name:"Docker"},
     {ico:"📁", name:"Backup"}, {ico:"📄", name:"scan.pdf"}, {ico:"🖼️", name:"foto.jpg"},
     {ico:"📁", name:"Kunden"}, {ico:"⚙️", name:"Update.cmd"}, {ico:"📄", name:"liste.xlsx"},
     {ico:"🌐", name:"Edge"}, {ico:"📁", name:"Tools"}, {ico:"📄", name:"todo.txt"},
+  ];
+  const ICONS_R = [
     {ico:"📁", name:"Temp"}, {ico:"✉️", name:"Mail"}, {ico:"📄", name:"vertrag.pdf"},
     {ico:"📁", name:"Archiv"}, {ico:"⚙️", name:"Dienst.bat"}, {ico:"🖼️", name:"shot.png"},
     {ico:"📁", name:"Dev"}, {ico:"📄", name:"cfg.json"}, {ico:"🌐", name:"Browser"},
     {ico:"📁", name:"Export"}, {ico:"📄", name:"alt.doc"}, {ico:"⚙️", name:"run.cmd"},
+    {ico:"📁", name:"USB"}, {ico:"📄", name:"plan.md"}, {ico:"🌐", name:"Shop"},
+    {ico:"📁", name:"Logs"}, {ico:"📄", name:"rechnung"}, {ico:"⚙️", name:"fix.bat"},
   ];
-  const colsEl = document.getElementById("cols");
-  const COLS = 6, PER = Math.ceil(ICONS.length / COLS);
-  for (let c = 0; c < COLS; c++) {
-    const col = document.createElement("div");
-    col.className = "desk-col";
-    for (let r = 0; r < PER; r++) {
-      const idx = c * PER + r;
-      if (idx >= ICONS.length) break;
-      const it = ICONS[idx];
-      const el = document.createElement("div");
-      el.className = "dicon";
-      el.innerHTML = '<div class="pic">' + it.ico + '</div><div class="lbl">' + it.name + '</div>';
-      col.appendChild(el);
+  const ICONS_M = [
+    {ico:"📁", name:"Post"}, {ico:"📄", name:"notiz2"}, {ico:"🌐", name:"LAN"},
+    {ico:"📁", name:"Scans"}, {ico:"⚙️", name:"Hilf.bat"}, {ico:"📄", name:"liste2"},
+  ];
+  function fillCols(host, icons, cols) {
+    const per = Math.ceil(icons.length / cols);
+    for (let c = 0; c < cols; c++) {
+      const col = document.createElement("div");
+      col.className = "desk-col";
+      for (let r = 0; r < per; r++) {
+        const idx = c * per + r;
+        if (idx >= icons.length) break;
+        const it = icons[idx];
+        const el = document.createElement("div");
+        el.className = "dicon";
+        el.innerHTML = '<div class="pic">' + it.ico + '</div><div class="lbl">' + it.name + '</div>';
+        col.appendChild(el);
+      }
+      host.appendChild(col);
     }
-    colsEl.appendChild(col);
   }
+  fillCols(document.getElementById("cols"), ICONS_L, 3);
+  fillCols(document.getElementById("colsMid"), ICONS_M, 2);
+  fillCols(document.getElementById("colsRight"), ICONS_R, 3);
 
   const stage = document.getElementById("stage");
   const lbar = document.getElementById("lbar");
@@ -646,6 +718,8 @@ body {
   const hand = document.getElementById("hand");
   const shand = document.getElementById("shand");
   const miZoom = document.getElementById("miZoom");
+  const miShrink = document.getElementById("miShrink");
+  const ghostTag = document.getElementById("ghostTag");
   const badge = document.getElementById("badge");
   const label = document.getElementById("phaseLabel");
   const timeline = document.getElementById("timeline");
@@ -706,6 +780,7 @@ body {
 
   const H = IMG + "leiste-kurz.png?v=m53";
   const H5 = IMG + "leiste-5.png?v=m53";
+  const H5K = IMG + "leiste-5-klar.png?v=m66";
   const V = IMG + "leiste-kurz-vert.png?v=m53";
   // Vertikal-PNG = Zoom ~4/13 (59px) — zoom:1.0, nicht hochskalieren (sonst klobig)
   const ZV = 1.0;
@@ -727,8 +802,8 @@ body {
     {
       tip: "3 Turbo", name: "Turbo", cls: "fun",
       text: "Und so geht’s auch an die Seite …",
-      bar: "pos-left", src: V, pad: [0, 0, 0], zoom: ZV,
-      panel: false, ctx: false, prop: false, mega: false, chaos: true, chaosSide: "left", dwell: 500
+      bar: "pos-left", src: V, pad: [0, BAR_W, 0], zoom: ZV,
+      panel: false, ctx: false, prop: false, mega: false, chaos: true, dwell: 500
     },
     {
       tip: "4 Ups", name: "Ups", cls: "fun",
@@ -765,27 +840,28 @@ body {
       chaos: true, megaPick: "5", cutHint: true, dwell: 4000
     },
     {
-      tip: "9 Zoom", name: "Größe ändern", cls: "ok",
-      text: "<strong>Vergrößern</strong> — die Leiste hat Zoom-Stufen. Nicht nur Icons: ganze Leiste größer/kleiner.",
-      bar: "pos-top", src: H5, pad: [BAR_H, 0, 0], zoom: Z[8],
+      tip: "9 +Zoom", name: "Vergrößern", cls: "ok",
+      text: "Maus auf <strong>Vergrößern</strong> — die ganze Leiste wird größer (nicht nur Icons).",
+      bar: "pos-top", src: H5, pad: [BAR_H, 0, 0], zoom: Z[5], zoomTo: Z[8],
       panel: false, ctx: true, prop: false, mega: false, chaos: true, cutHint: true,
-      zoomLabel: "Vergrößern (9/13)", cursor: true, shand: [BAR_W + 160, 88], click: true, dwell: 3400
+      zoomPick: "up", dwell: 4800
     },
     {
-      tip: "10 Kurz", name: "Alltag kurz", cls: "ok",
-      text: "Wieder Normalgröße — kurze Leiste bleibt greifbar, auch wenn Fenster den Desktop zudecken.",
-      bar: "pos-top", src: H5, pad: [BAR_H, 0, 0], zoom: Z[5],
-      panel: false, ctx: false, prop: false, mega: false, chaos: true, cutHint: true, dwell: 2800
+      tip: "10 −Zoom", name: "Verkleinern", cls: "ok",
+      text: "Maus auf <strong>Verkleinern</strong> — wieder kleiner. Beide Einträge bleiben im Menü.",
+      bar: "pos-top", src: H5, pad: [BAR_H, 0, 0], zoom: Z[8], zoomTo: Z[5],
+      panel: false, ctx: true, prop: false, mega: false, chaos: true, cutHint: true,
+      zoomPick: "down", dwell: 4500
     },
     {
       tip: "11 →Links", name: "Platz nach links", cls: "ok",
-      text: "Leiste nach <strong>links</strong>: Fenster werden schmaler (Platz für die Leiste) — Desktop-Symbole rücken nach.",
+      text: "Leiste <strong>links</strong>: Symbole starten neben der Leiste — Fenster liegen in der freien Fläche. Der Desktop-Hintergrund bleibt stehen.",
       bar: "pos-left", src: V, pad: [0, BAR_W, 0], zoom: ZV,
-      panel: false, ctx: false, prop: false, mega: false, chaos: true, chaosSide: "left", dwell: 4000
+      panel: false, ctx: false, prop: false, mega: false, chaos: true, dwell: 4000
     },
     {
       tip: "12 →Oben", name: "Platz wieder oben", cls: "ok",
-      text: "Zurück nach <strong>oben</strong>: Fenster wieder breit — oben wird Raum für die Leiste freigemacht.",
+      text: "Leiste <strong>oben</strong>: Symbole als Reihe darunter — Fenster rücken separat nach unten. Nicht der ganze Hintergrund verrutscht.",
       bar: "pos-top", src: H5, pad: [BAR_H, 0, 0], zoom: Z[5],
       panel: false, ctx: false, prop: false, mega: false, chaos: true, cutHint: true, dwell: 3400
     },
@@ -805,40 +881,55 @@ body {
       shandFrom: [340, 200], shand: [250, 58], click: true, dwell: 3800
     },
     {
-      tip: "15 Transparent", name: "Transparent", cls: "ok",
-      text: "<strong>Hintergrund transparent</strong> — Fenster liegt unter der Leiste, Text scheint durch. Keine undurchsichtige Kiste.",
+      tip: "15 Immer", name: "Hintergrund transparent", cls: "ok",
+      text: "Maus auf <strong>Hintergrund transparent</strong> — Hintergrundfarbe weg, <strong>Desktop scheint durch</strong> (immer an).",
       bar: "pos-top", src: H5, pad: [BAR_H, 0, 0], zoom: Z[5],
       panel: false, ctx: false, prop: false, mega: false, chaos: true,
-      win: false, barGhost: true, underBar: true, dwell: 5500
+      megaPick: "transparent_always", shandFrom: [280, 140], shand: [8, 8],
+      dwell: 9000
     },
     {
-      tip: "16 Links", name: "Links", cls: "ok",
-      text: "Links schmal (Zoom ~4/13) — Fenster werden schmal, <strong>nicht klobig</strong>, Icons bleiben lesbar.",
+      tip: "16 Überlapp.", name: "Transparent bei Überlappung", cls: "ok",
+      text: "Maus auf <strong>Transparent bei Überlappung</strong> — zuerst undurchsichtig, erst wenn ein Fenster darunter liegt: transparent.",
+      bar: "pos-top", src: H5, pad: [BAR_H, 0, 0], zoom: Z[5],
+      panel: false, ctx: false, prop: false, mega: false, chaos: true,
+      megaPick: "transparent_auto", shandFrom: [280, 140], shand: [8, 8],
+      dwell: 8000
+    },
+    {
+      tip: "17 Links", name: "Links", cls: "ok",
+      text: "Links schmal (Zoom ~4/13) — Leiste <strong>nicht klobig</strong>, Icons lesbar. Fenster bleiben normal.",
       bar: "pos-left", src: V, pad: [0, BAR_W, 0], zoom: ZV,
-      panel: false, ctx: false, prop: false, mega: false, chaos: true, chaosSide: "left", dwell: 3200
+      panel: false, ctx: false, prop: false, mega: false, chaos: true, dwell: 3200
     },
     {
-      tip: "17 Anheften L", name: "Anheften links", cls: "ok",
+      tip: "18 Anheften L", name: "Anheften links", cls: "ok",
       text: "Grüner Knopf öffnet <strong>Anheften</strong> — Programme &amp; Ordner wählen.",
       bar: "pos-left", src: V, pad: [0, BAR_W, 0], zoom: ZV,
       panel: true, ctx: false, prop: false, mega: false, panelSide: "left",
-      chaos: true, chaosSide: "left", shand: [BAR_W + 40, 70], click: true, dwell: 3200
+      chaos: true, shand: [BAR_W + 40, 70], click: true, dwell: 3200
     },
     {
-      tip: "18 Rechts", name: "Rechts", cls: "ok",
-      text: "Leiste <strong>rechts</strong>: Fenster werden schmal (Platz reserviert) — wie auf dem echten Desktop.",
+      tip: "19 →Oben", name: "Platz nach oben", cls: "ok",
+      text: "Von links nach <strong>oben</strong>: Symbole legen sich unter die Leiste — Fenster machen separat Platz. Hintergrund bleibt.",
+      bar: "pos-top", src: H5, pad: [BAR_H, 0, 0], zoom: Z[5],
+      panel: false, ctx: false, prop: false, mega: false, chaos: true, cutHint: true, dwell: 4200
+    },
+    {
+      tip: "20 →Rechts", name: "Platz nach rechts", cls: "ok",
+      text: "Leiste <strong>rechts</strong>: linke Symbole bleiben, Mitte füllt Leerraum, rechte Packung vor der Leiste — Fenster rücken getrennt.",
       bar: "pos-right", src: V, pad: [0, 0, BAR_W], zoom: ZV,
-      panel: false, ctx: false, prop: false, mega: false, chaos: true, chaosSide: "right", dwell: 4000
+      panel: false, ctx: false, prop: false, mega: false, chaos: true, dwell: 4500
     },
     {
-      tip: "19 Anheften R", name: "Anheften rechts", cls: "ok",
+      tip: "21 Anheften R", name: "Anheften rechts", cls: "ok",
       text: "<strong>Anheften auch rechts</strong> — Fenster öffnet sich neben der Leiste.",
       bar: "pos-right", src: V, pad: [0, 0, BAR_W], zoom: ZV,
       panel: true, ctx: false, prop: false, mega: false, panelSide: "right",
-      chaos: true, chaosSide: "right", shand: [420, 90], click: true, dwell: 3400
+      chaos: true, shand: [420, 90], click: true, dwell: 3400
     },
     {
-      tip: "20 Fertig", name: "Fertig", cls: "ok",
+      tip: "22 Fertig", name: "Fertig", cls: "ok",
       text: "Fazit: Programme greifen <strong>ohne alles zu minimieren</strong> — kurze Leiste, Platz, Zoom, Transparenz.",
       bar: "pos-top", src: H5, pad: [BAR_H, 0, 0], zoom: Z[5],
       panel: false, ctx: false, prop: false, mega: false, chaos: true, cutHint: true, dwell: 4000
@@ -857,7 +948,7 @@ body {
 
 
   function megaResetChecks() {
-    ["mega0","mega3","mega5","mega7","mega12","megaAlle"].forEach((id) => {
+    ["mega0","mega3","mega5","mega7","mega12","megaAlle","megaGhostBg","megaGhostOverlap"].forEach((id) => {
       const el = document.getElementById(id);
       if (!el) return;
       el.classList.remove("hi");
@@ -883,12 +974,24 @@ body {
       m5.querySelector(".chk").textContent = "*";
     }
   }
-  function handToMega5() {
-    const row = document.getElementById("mega5");
+  function handToRow(id) {
+    const row = document.getElementById(id);
     if (!row) return;
     const sr = stage.getBoundingClientRect();
     const rr = row.getBoundingClientRect();
     placeShand(rr.left - sr.left + 28, rr.top - sr.top + 2);
+  }
+  function handToMega5() { handToRow("mega5"); }
+  function megaHighlight(id, star) {
+    ["megaGhostBg","megaGhostOverlap"].forEach((rid) => {
+      const el = document.getElementById(rid);
+      if (!el) return;
+      el.classList.toggle("hi", rid === id);
+      const chk = el.querySelector(".chk");
+      if (!chk) return;
+      if (rid === id && star) chk.textContent = "*";
+      else if (rid !== id) chk.textContent = "";
+    });
   }
 
   let i = 0, timer = null, playing = false;
@@ -918,9 +1021,12 @@ body {
     stage.classList.toggle("ghost-on", !!ph.barGhost);
     stage.classList.toggle("under-on", !!ph.underBar);
     stage.classList.toggle("cut-on", !!ph.cutHint);
-    stage.classList.toggle("chaos-side-left", ph.chaosSide === "left");
-    stage.classList.toggle("chaos-side-right", ph.chaosSide === "right");
-    stage.classList.remove("grip-on", "edge-on");
+    stage.classList.remove("chaos-side-left", "chaos-side-right");
+    stage.classList.remove("grip-on", "edge-on", "bg-clear-on", "peek-on");
+    stage.classList.remove("bar-top", "bar-left", "bar-right");
+    if (ph.bar === "pos-top") stage.classList.add("bar-top");
+    else if (ph.bar === "pos-left") stage.classList.add("bar-left");
+    else if (ph.bar === "pos-right") stage.classList.add("bar-right");
     if (demoWin) {
       demoWin.classList.remove("at-edge");
       demoWin.style.transition = "opacity .35s ease, top .95s cubic-bezier(.2,.7,.3,1)";
@@ -969,14 +1075,23 @@ body {
       propBox.classList.add("on");
       propOk.classList.add("hot");
     }
-    if (ph.zoomLabel) {
-      miZoom.textContent = ph.zoomLabel;
-      miZoom.classList.remove("hi");
-      miZoom.classList.add("dim");
-    } else if (ph.ctx) {
-      miZoom.textContent = "Vergrößern (4/13)";
-      miZoom.classList.add("hi");
-      miZoom.classList.remove("dim");
+    if (miZoom && miShrink) {
+      if (ph.zoomPick === "up") {
+        miZoom.textContent = "Vergrößern (9/13)";
+        miShrink.textContent = "Verkleinern (5/13)";
+        miZoom.classList.add("hi"); miZoom.classList.remove("dim");
+        miShrink.classList.add("dim"); miShrink.classList.remove("hi");
+      } else if (ph.zoomPick === "down") {
+        miZoom.textContent = "Vergrößern (9/13)";
+        miShrink.textContent = "Verkleinern (5/13)";
+        miShrink.classList.add("hi"); miShrink.classList.remove("dim");
+        miZoom.classList.add("dim"); miZoom.classList.remove("hi");
+      } else if (ph.ctx) {
+        miZoom.textContent = "Vergrößern (6/13)";
+        miShrink.textContent = "Verkleinern (6/13)";
+        miZoom.classList.add("hi"); miZoom.classList.remove("dim");
+        miShrink.classList.add("dim"); miShrink.classList.remove("hi");
+      }
     }
     badge.className = "badge " + ph.cls;
     badge.innerHTML = ph.text;
@@ -1028,6 +1143,129 @@ body {
       stage.parentElement.classList.add("has-mega");
       stage.classList.remove("shand-on");
       megaPick5();
+    } else if (ph.megaPick === "transparent_always") {
+      /* Vorher Platte / Nachher klar-PNG + Desk-Peek unter den Lücken */
+      megaResetChecks();
+      shand.style.transition = "opacity .25s ease, transform .15s ease";
+      placeShand(ph.shandFrom[0], ph.shandFrom[1]);
+      stage.classList.add("shand-on", "grip-on");
+      stage.classList.remove("ghost-on", "under-on", "bg-clear-on", "peek-on");
+      lbar.className = "lbar " + ph.bar;
+      img.setAttribute("src", H5);
+      if (ghostTag) ghostTag.textContent = "Hintergrund transparent";
+      void shand.offsetWidth;
+      later(() => {
+        shand.style.transition = "opacity .25s ease, left .85s ease, top .85s ease, transform .15s ease";
+        placeShand(ph.shand[0], ph.shand[1]);
+      }, 120);
+      later(() => mouseClick(shand), 900);
+      later(() => {
+        stage.classList.add("mega-on", "shand-on");
+        stage.parentElement.classList.add("has-mega");
+        stage.classList.remove("grip-on");
+      }, 1200);
+      later(() => {
+        shand.style.transition = "opacity .25s ease, left .75s ease, top .75s ease, transform .15s ease";
+        handToRow("megaGhostBg");
+      }, 1600);
+      later(() => {
+        megaHighlight("megaGhostBg", true);
+        mouseClick(shand);
+      }, 2500);
+      later(() => {
+        /* VORHER: hellblaue Platte deckt Desktop-Peek komplett */
+        stage.classList.add("ghost-on", "peek-on");
+        stage.classList.remove("under-on", "bg-clear-on");
+        lbar.className = "lbar " + ph.bar + " bar-solid";
+        img.setAttribute("src", H5);
+        if (ghostTag) ghostTag.textContent = "Vorher: Hintergrund undurchsichtig — Desktop verdeckt";
+      }, 2900);
+      later(() => {
+        /* Menü zu, damit die Leiste voll sichtbar ist */
+        stage.classList.remove("mega-on", "shand-on");
+        stage.parentElement.classList.remove("has-mega");
+      }, 4200);
+      later(() => {
+        /* NACHHER: Platte weg — Peek-Icons scheinen zwischen den Programmen durch */
+        stage.classList.add("bg-clear-on", "ghost-on", "peek-on");
+        stage.classList.remove("under-on", "mega-on", "shand-on");
+        stage.parentElement.classList.remove("has-mega");
+        lbar.className = "lbar " + ph.bar + " bar-bg-clear";
+        img.setAttribute("src", H5K);
+        if (ghostTag) ghostTag.textContent = "Nachher: Hintergrund weg — Desktop scheint durch";
+      }, 4600);
+    } else if (ph.megaPick === "transparent_auto") {
+      /* Menüzeile „Transparent bei Überlappung“ — erst undurchsichtig, dann bei Fenster darunter */
+      megaResetChecks();
+      shand.style.transition = "opacity .25s ease, transform .15s ease";
+      placeShand(ph.shandFrom[0], ph.shandFrom[1]);
+      stage.classList.add("shand-on", "grip-on");
+      stage.classList.remove("ghost-on", "under-on");
+      lbar.className = "lbar " + ph.bar;
+      if (ghostTag) ghostTag.textContent = "Transparent bei Überlappung";
+      void shand.offsetWidth;
+      later(() => {
+        shand.style.transition = "opacity .25s ease, left .85s ease, top .85s ease, transform .15s ease";
+        placeShand(ph.shand[0], ph.shand[1]);
+      }, 120);
+      later(() => mouseClick(shand), 900);
+      later(() => {
+        stage.classList.add("mega-on", "shand-on");
+        stage.parentElement.classList.add("has-mega");
+        stage.classList.remove("grip-on");
+      }, 1200);
+      later(() => {
+        shand.style.transition = "opacity .25s ease, left .75s ease, top .75s ease, transform .15s ease";
+        handToRow("megaGhostOverlap");
+      }, 1600);
+      later(() => {
+        megaHighlight("megaGhostOverlap", true);
+        mouseClick(shand);
+      }, 2500);
+      later(() => handToRow("megaGhostOverlap"), 3000);
+      later(() => {
+        stage.classList.remove("mega-on", "shand-on");
+        stage.parentElement.classList.remove("has-mega");
+        stage.classList.remove("under-on");
+        stage.classList.add("ghost-on");
+        lbar.className = "lbar " + ph.bar;
+        if (ghostTag) ghostTag.textContent = "Kein Fenster darunter — undurchsichtig";
+      }, 4000);
+      later(() => {
+        stage.classList.add("under-on");
+        lbar.className = "lbar " + ph.bar + " bar-ghost";
+        if (ghostTag) ghostTag.textContent = "Fenster darunter — jetzt transparent";
+      }, 5600);
+    } else if (ph.zoomPick === "up" || ph.zoomPick === "down") {
+      /* Vergrößern / Verkleinern mit Maus — darf nicht verschwinden */
+      const startZ = ph.zoom || 1;
+      const endZ = (ph.zoomTo != null) ? ph.zoomTo : startZ;
+      setZoom(startZ);
+      if (ph.bar === "pos-top") setPad(Math.ceil(BAR_H * startZ), 0, 0);
+      stage.classList.add("shand-on");
+      shand.style.transition = "opacity .25s ease, transform .15s ease";
+      placeShand(40, 70);
+      void shand.offsetWidth;
+      later(() => {
+        shand.style.transition = "opacity .25s ease, left .7s ease, top .7s ease, transform .15s ease";
+        handToRow(ph.zoomPick === "up" ? "miZoom" : "miShrink");
+      }, 200);
+      later(() => {
+        mouseClick(shand);
+        setZoom(endZ);
+        if (ph.bar === "pos-top") setPad(Math.ceil(BAR_H * endZ), 0, 0);
+        if (ph.ctx) {
+          ctx.style.top = Math.ceil(BAR_H * endZ) + 6 + "px";
+        }
+        if (ph.zoomPick === "up" && miZoom && miShrink) {
+          miZoom.textContent = "Vergrößern (9/13)";
+          miShrink.textContent = "Verkleinern (9/13)";
+        }
+        if (ph.zoomPick === "down" && miZoom && miShrink) {
+          miZoom.textContent = "Vergrößern (5/13)";
+          miShrink.textContent = "Verkleinern (5/13)";
+        }
+      }, 1100);
     } else if (megaDelayed) {
       /* 1) Maus sichtbar starten 2) zu Sechs-Punkten 3) Klick 4) Menü */
       megaResetChecks();

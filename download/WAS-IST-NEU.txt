@@ -11,6 +11,9 @@ Was sich für Sie ändert
 • Start und Taskverwaltung nutzen den Host-Namen „Launcher2Host“
   statt einer Interpreter-Bezeichnung.
 • Setup- und Starttexte nennen keine Laufzeit-Produkte mehr.
+• Eigenschaften: Angezeigter Name beginnt mit dem Originalnamen
+  (nicht mit :9119 o. Ä.). Text kopieren/einfügen geht wie gewohnt
+  (Strg+C / Strg+V oder Rechtsklick).
 
 
 Technisch (Kurz)
