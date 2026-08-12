@@ -16,8 +16,8 @@
   </style>
 </head>
 <body>
-  <h1>Hardware-Hilfe</h1>
-  <p class="muted">Bitte warten — der PC sucht Anweisungen und legt sie auf dieser Homepage ab.</p>
+  <h1>Hilfe für Ihren PC</h1>
+  <p class="muted">Bitte einen Moment warten — die Anleitung für Ihren Computer wird vorbereitet.</p>
   <p class="msg" id="msg">Verbinde…</p>
   <div class="card" id="out" hidden></div>
   <p class="muted" id="hint"></p>
@@ -50,23 +50,23 @@
     jsonUrls.push(location.origin + "/api/speicher/hilfe/session?s=" + encodeURIComponent(sid));
   }
 
-  hint.textContent = "Sitzung " + sid + " · öffentlich über Shop";
+  hint.textContent = "";
 
   function showFertig(d) {
     msg.className = "msg ok";
-    msg.textContent = d.meldung || "Anweisung bereit";
+    msg.textContent = "Ihre Anleitung ist da:";
     out.hidden = false;
     out.textContent = d.anweisung_text || "(leer)";
   }
 
   function tick() {
     if (n++ > 90) {
-      msg.textContent = "Noch keine Anweisung. PC noch am Suchen/Veröffentlichen? Seite später neu laden.";
+      msg.textContent = "Noch keine Anleitung. Bitte am PC die Hilfe nochmal starten und diesen QR erneut scannen.";
       return;
     }
     (function pollList(idx) {
       if (idx >= jsonUrls.length) {
-        msg.textContent = "Warte auf Homepage-Update… (" + n + ")";
+        msg.textContent = "Bitte warten… (" + n + ")";
         setTimeout(tick, 2500);
         return;
       }
@@ -84,10 +84,10 @@
             return;
           }
           if (d.status === "fehler") {
-            msg.textContent = d.meldung || "Fehler";
+            msg.textContent = "Die Anleitung konnte nicht erstellt werden. Bitte am PC nochmal starten.";
             return;
           }
-          msg.textContent = d.meldung || d.status || "Bitte warten…";
+          msg.textContent = "Bitte warten — Anleitung wird vorbereitet…";
           setTimeout(tick, 2500);
         })
         .catch(function () {
