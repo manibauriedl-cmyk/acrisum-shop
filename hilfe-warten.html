@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hilfe — bitte warten</title>
+  <style>
+    :root { --bg:#0f1419; --card:#1a2332; --text:#e7ecf3; --muted:#8b9cb3; --accent:#3d8bfd; --yellow:#d29922; --green:#3fb950; }
+    body { font-family:"Segoe UI",system-ui,sans-serif; background:var(--bg); color:var(--text); margin:0; padding:1rem; line-height:1.45; }
+    h1 { font-size:1.25rem; margin:0 0 .4rem; }
+    .msg { color:var(--yellow); margin:.75rem 0; font-weight:600; }
+    .card { background:var(--card); border-radius:12px; padding:1rem; white-space:pre-wrap; font-size:.9rem; }
+    .muted { color:var(--muted); font-size:.85rem; }
+    a { color:var(--accent); }
+    .ok { color:var(--green); }
+  </style>
+</head>
+<body>
+  <h1>Hardware-Hilfe</h1>
+  <p class="muted">Bitte warten — der PC sucht Anweisungen und legt sie auf dieser Homepage ab.</p>
+  <p class="msg" id="msg">Verbinde…</p>
+  <div class="card" id="out" hidden></div>
+  <p class="muted" id="hint"></p>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var sid = (q.get("s") || q.get("id") || "").trim();
+  var msg = document.getElementById("msg");
+  var out = document.getElementById("out");
+  var hint = document.getElementById("hint");
+  var n = 0;
+
+  if (!sid) {
+    msg.textContent = "Keine Sitzungs-ID. Bitte QR erneut aus dem Speicher-Manager scannen.";
+    return;
+  }
+
+  var jsonUrls = [
+    "https://manibauriedl-cmyk.github.io/acrisum-shop/hilfe-sessions/" + encodeURIComponent(sid) + ".json"
+  ];
+  // Gleiche Origin (Shop-Spiegel unter :6019 oder Pages-Pfad)
+  try {
+    var basePath = location.pathname.replace(/[^/]+$/, "");
+    jsonUrls.unshift(location.origin + basePath + "hilfe-sessions/" + encodeURIComponent(sid) + ".json");
+  } catch (e) {}
+  if (location.port === "6019") {
+    jsonUrls.push(location.origin + "/dashboard/acrisum-shop/hilfe-sessions/" + encodeURIComponent(sid) + ".json");
+    jsonUrls.push(location.origin + "/api/speicher/hilfe/session?s=" + encodeURIComponent(sid));
+  }
+
+  hint.textContent = "Sitzung " + sid + " · öffentlich über Shop";
+
+  function showFertig(d) {
+    msg.className = "msg ok";
+    msg.textContent = d.meldung || "Anweisung bereit";
+    out.hidden = false;
+    out.textContent = d.anweisung_text || "(leer)";
+  }
+
+  function tick() {
+    if (n++ > 90) {
+      msg.textContent = "Noch keine Anweisung. PC noch am Suchen/Veröffentlichen? Seite später neu laden.";
+      return;
+    }
+    (function pollList(idx) {
+      if (idx >= jsonUrls.length) {
+        msg.textContent = "Warte auf Homepage-Update… (" + n + ")";
+        setTimeout(tick, 2500);
+        return;
+      }
+      var base = jsonUrls[idx];
+      var url = base + (base.indexOf("?") >= 0 ? "&" : "?") + "t=" + Date.now();
+      fetch(url, { cache: "no-store" })
+        .then(function (r) {
+          if (!r.ok) throw new Error("http " + r.status);
+          return r.json();
+        })
+        .then(function (d) {
+          if (!d) throw new Error("leer");
+          if ((d.status === "fertig" || d.status === "veroeffentlicht") && d.anweisung_text) {
+            showFertig(d);
+            return;
+          }
+          if (d.status === "fehler") {
+            msg.textContent = d.meldung || "Fehler";
+            return;
+          }
+          msg.textContent = d.meldung || d.status || "Bitte warten…";
+          setTimeout(tick, 2500);
+        })
+        .catch(function () {
+          pollList(idx + 1);
+        });
+    })(0);
+  }
+  tick();
+})();
+</script>
+</body>
+</html>
