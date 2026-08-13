@@ -1,8 +1,8 @@
 {
   "ok": true,
   "id": "TnPbAKy",
-  "status": "veroeffentlicht",
-  "meldung": "Anweisung fertig — wird auf die Homepage gelegt…",
+  "status": "fertig",
+  "meldung": "Anweisung auf der Homepage — Handy-QR scannen (Shop zeigt den Text).",
   "fingerprint_kurz": "GMKtec NucBox K8 Plus · 32.0 GB verbaut / 23.82 GB Windows · GPU: NVIDIA GeForce RTX 3090, AMD Radeon 780M Graphics",
   "anweisung_text": "Ihr PC: GMKtec NucBox K8 Plus\nGrafikkarten: NVIDIA GeForce RTX 3090, AMD Radeon 780M Graphics\nArbeitsspeicher: 32.0 GB stecken, Windows nutzt 23.82 GB (ca. 8 GB für die eingebaute Grafik reserviert).\n\nFestgestellt:\n• Zu viel RAM geht an die eingebaute Grafik (ca. 8 GB). Die RTX 3090 braucht das nicht.\n• Resizable BAR ist aus — die 3090 wird für große KI-Modelle ausgebremst.\n• NVIDIA GeForce RTX 3090 bleibt im Leerlauf laut (Lüfter).\n\nMachen Sie genau das (Reihenfolge):\n1. PC neu starten → Entf oder F2 tippen → BIOS öffnen.\n2. Im BIOS: Advanced → PCI Subsystem Settings\n   Above 4G Decoding = Enabled\n   Re-Size BAR Support = Enabled\n   CSM = Disabled\n   Speichern & Beenden (F10).\n3. Im BIOS: UMA / Frame Buffer / Shared Graphics Memory = 2G\n   Speichern & Beenden (F10).\n4. Im BIOS: Advanced → AMD PBS oder PCIe Configuration → ASPM = L1\n5. In Windows: NVIDIA Profile Inspector → Power management mode = Optimal Power; CUDA - Force P2 State = Off → Apply.\n6. In Windows: NVIDIA-Systemsteuerung → Hilfe → Systeminformationen → Resizable BAR = Yes.\n\nNicht anfassen: BIOS flashen, CPU-Spannung, Secure Boot löschen.\n\nHandbuch (nur zur Menü-Suche): https://de.gmktec.com/en/collections/frontpage\n\nStand 13.08.2026 23:43:16",
   "manuals": [
