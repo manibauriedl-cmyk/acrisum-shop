@@ -1,8 +1,63 @@
 {
   "ok": true,
   "id": "TnPbAKy",
-  "status": "wartet",
-  "meldung": "Bitte warten — PC sucht Anweisungen…",
-  "anweisung_text": "",
-  "aktualisiert": "13.08.2026 23:43:10"
+  "status": "veroeffentlicht",
+  "meldung": "Anweisung fertig — wird auf die Homepage gelegt…",
+  "fingerprint_kurz": "GMKtec NucBox K8 Plus · 32.0 GB verbaut / 23.82 GB Windows · GPU: NVIDIA GeForce RTX 3090, AMD Radeon 780M Graphics",
+  "anweisung_text": "Ihr PC: GMKtec NucBox K8 Plus\nGrafikkarten: NVIDIA GeForce RTX 3090, AMD Radeon 780M Graphics\nArbeitsspeicher: 32.0 GB stecken, Windows nutzt 23.82 GB (ca. 8 GB für die eingebaute Grafik reserviert).\n\nFestgestellt:\n• Zu viel RAM geht an die eingebaute Grafik (ca. 8 GB). Die RTX 3090 braucht das nicht.\n• Resizable BAR ist aus — die 3090 wird für große KI-Modelle ausgebremst.\n• NVIDIA GeForce RTX 3090 bleibt im Leerlauf laut (Lüfter).\n\nMachen Sie genau das (Reihenfolge):\n1. PC neu starten → Entf oder F2 tippen → BIOS öffnen.\n2. Im BIOS: Advanced → PCI Subsystem Settings\n   Above 4G Decoding = Enabled\n   Re-Size BAR Support = Enabled\n   CSM = Disabled\n   Speichern & Beenden (F10).\n3. Im BIOS: UMA / Frame Buffer / Shared Graphics Memory = 2G\n   Speichern & Beenden (F10).\n4. Im BIOS: Advanced → AMD PBS oder PCIe Configuration → ASPM = L1\n5. In Windows: NVIDIA Profile Inspector → Power management mode = Optimal Power; CUDA - Force P2 State = Off → Apply.\n6. In Windows: NVIDIA-Systemsteuerung → Hilfe → Systeminformationen → Resizable BAR = Yes.\n\nNicht anfassen: BIOS flashen, CPU-Spannung, Secure Boot löschen.\n\nHandbuch (nur zur Menü-Suche): https://de.gmktec.com/en/collections/frontpage\n\nStand 13.08.2026 23:43:16",
+  "manuals": [
+    {
+      "art": "board_manual",
+      "query": "GMKtec NucBox K8 Plus user manual filetype:pdf",
+      "title": "Home page – GMKtec EU",
+      "body": "As a leading brand and manufacturer of mini PCs, GMKtec offers the best mini computers. Slim and powerful. Unleash lightning-fast speed. One …",
+      "href": "https://de.gmktec.com/en/collections/frontpage",
+      "score": 18,
+      "schwach": true
+    },
+    {
+      "art": "board_manual",
+      "query": "GMKtec NucBox K8 Plus user manual filetype:pdf",
+      "title": "Mini PC - GMKtec",
+      "body": "GMKtec is a global Mini PC brand dedicated to redefining compact computing and becoming The Leader in Desktop AI Supercomputing. Driven …",
+      "href": "https://www.gmktec.com/collections/mini-pc",
+      "score": 18,
+      "schwach": true
+    }
+  ],
+  "manual_suche": {
+    "ok": true,
+    "anzahl": 2,
+    "meldung": "2 Manual-/Handbuch-Treffer für GMKtec NucBox K8 Plus",
+    "queries": [
+      {
+        "art": "board_manual",
+        "query": "GMKtec NucBox K8 Plus user manual filetype:pdf"
+      },
+      {
+        "art": "board_manual",
+        "query": "GMKtec NucBox K8 Plus handbook filetype:pdf"
+      },
+      {
+        "art": "board_manual",
+        "query": "GMKtec NucBox K8 Plus user manual PDF"
+      },
+      {
+        "art": "bios_manual",
+        "query": "GMKtec NucBox K8 Plus BIOS UEFI manual filetype:pdf"
+      },
+      {
+        "art": "bios_manual",
+        "query": "GMKtec NucBox K8 Plus BIOS setup guide PDF"
+      },
+      {
+        "art": "bios_manual",
+        "query": "GMKtec NucBox K8 Plus UMA Frame Buffer Size BIOS"
+      }
+    ],
+    "gefunden_am": "13.08.2026 23:43:16",
+    "aus_cache": false
+  },
+  "aktualisiert": "13.08.2026 23:43:16",
+  "hinweis": "Temporäre Hardware-Hilfe — keine Kontodaten. Lokal erzeugt, für Handy über die Shop-Seite."
 }
