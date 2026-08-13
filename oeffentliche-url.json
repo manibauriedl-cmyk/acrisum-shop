@@ -1,9 +1,17 @@
 {
   "typ": "github-pages",
   "fest": true,
+  "aktiv": "fallback",
   "github_user": "manibauriedl-cmyk",
+  "github_repo": "acrisum-shop",
+  "canonical_host": "acrisum.com",
+  "canonical_base": "https://acrisum.com",
+  "fallback_base": "https://manibauriedl-cmyk.github.io/acrisum-shop",
   "shop_url": "https://manibauriedl-cmyk.github.io/acrisum-shop/",
   "danke_url": "https://manibauriedl-cmyk.github.io/acrisum-shop/danke.html",
-  "hinweis": "Statisch bei GitHub — URL ändert sich nicht. PC kann aus sein.",
-  "aktualisiert": "2026-08-13"
+  "hilfe_warten_url": "https://manibauriedl-cmyk.github.io/acrisum-shop/hilfe-warten.html",
+  "hilfe_google_url": "https://manibauriedl-cmyk.github.io/acrisum-shop/hilfe-google.html",
+  "hinweis": "Kunden-URL: acrisum.com (Custom Domain). AKTIV: Fallback github.io bis DNS steht.",
+  "aktualisiert": "2026-08-13",
+  "stand_unix": 1786579881
 }
