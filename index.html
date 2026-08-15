@@ -307,7 +307,7 @@
       </div>
       <div class="stimme-form-box">
         <h3>Ihre Meinung schreiben</h3>
-        <p class="stimme-form-hinweis">Für Bekannte und Tester: Name + ein paar Sätze. Absenden öffnet Ihre Mail — danach Prüfung, dann sichtbar hier.</p>
+        <p class="stimme-form-hinweis">Name + ein paar Sätze — erscheint für alle Besucher. Spam löscht der Chef unter Homepage verwalten. Live-Seite braucht danach einmal „Live-Push“.</p>
         <form id="stimme-form" class="stimme-form" action="#" method="get">
           <label>Name
             <input type="text" id="stimme-name" name="name" maxlength="80" required autocomplete="name" placeholder="Vorname oder Kurzname">
@@ -318,7 +318,8 @@
           <label>Meinung
             <textarea id="stimme-text" name="text" rows="4" maxlength="800" required placeholder="Was hat geholfen? Was stört?"></textarea>
           </label>
-          <button type="submit" class="btn btn-primary">Per Mail absenden</button>
+          <button type="submit" class="btn btn-primary">Absenden</button>
+          <input type="text" id="stimme_website" name="website" value="" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;opacity:0">
           <p id="stimme-status" class="stimme-status" role="status"></p>
         </form>
       </div>
