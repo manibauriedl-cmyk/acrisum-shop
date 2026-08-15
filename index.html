@@ -23,6 +23,31 @@
   <link rel="stylesheet" href="css/site.css?v=de-home1">
   <script src="js/zahlung.js?v=paypal1" defer></script>
   <script src="js/kaufen.js?v=paypal1" defer></script>
+  <script src="js/bewertungen.js?v=1" defer></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Acrisum Launcher",
+    "description": "Zweite Taskleiste fürs Büro: Programme und Ordner anheften, Desktop-Platz statt Überlagerung.",
+    "url": "https://acrisum.com/",
+    "image": "https://acrisum.com/bilder/acrisum-launcher.png",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Windows 8.1, Windows 10, Windows 11",
+    "softwareVersion": "1.2.0",
+    "offers": {
+      "@type": "Offer",
+      "price": "1.00",
+      "priceCurrency": "EUR",
+      "availability": "https://schema.org/InStock",
+      "url": "https://acrisum.com/"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Manfred Bauriedl"
+    }
+  }
+  </script>
 </head>
 
 <body id="oben" data-seite="index">
@@ -33,8 +58,10 @@
       <a href="#nutzen">Nutzen</a>
       <a href="#platz">Desktop-Platz</a>
       <a href="#funktionen">Funktionen</a>
+      <a href="#system">System</a>
       <a href="#probleme">Typische Probleme</a>
       <a href="#einblick">Einblick</a>
+      <a href="#stimmen">Stimmen</a>
       <a href="#faq">FAQ</a>
     </nav>
   </header>
@@ -73,6 +100,9 @@
       <p class="note note-preis" id="preis-steigerung" hidden></p>
       <p class="note note-quiet" id="zahlarten">
         Zahlen mit <strong>PayPal</strong>, Karte und weiteren Methoden.
+      </p>
+      <p class="note note-quiet">
+        Läuft auf <strong>Windows 8.1, 10 und 11</strong> (64 Bit) — siehe <a href="#system">Systemanforderungen</a>.
       </p>
       <p class="note note-quiet">
         Zahlung im gleichen Fenster. Zurück: oben <strong>Start</strong> oder Logo <strong>Acrisum</strong>.
@@ -168,6 +198,30 @@
       </div>
     </section>
 
+    <section class="section" id="system">
+      <h2>Systemanforderungen</h2>
+      <p class="einblick-lead">Kurz und klar — damit niemand nach dem Kauf überrascht ist.</p>
+      <ul class="problem-liste">
+        <li>
+          <strong>Windows</strong>
+          <strong>8.1</strong>, <strong>10</strong> und <strong>11</strong> — jeweils <strong>64 Bit</strong>.
+          (Windows 7 und 32-Bit-Systeme: nicht vorgesehen.)
+        </li>
+        <li>
+          <strong>Installation</strong>
+          Setup-Datei oder Ordner-Paket; auch vom USB-Stick. Für den Normalbetrieb <strong>kein Administrator</strong> nötig.
+        </li>
+        <li>
+          <strong>Einstellungen</strong>
+          Pro Benutzer unter <code>%APPDATA%\Launcher2\</code> — bleiben bei Updates erhalten.
+        </li>
+        <li>
+          <strong>Hinweis Win 8.1</strong>
+          „Einstellungen“ öffnet dort die Systemsteuerung statt der neueren Windows-Einstellungen — bewusst so.
+        </li>
+      </ul>
+    </section>
+
     <section class="section" id="probleme">
       <h2>Typische Probleme</h2>
       <p class="einblick-lead">Wenn Sie schon einmal eine schwebende Leiste am Rand ausprobiert haben, kennen Sie das vielleicht.</p>
@@ -245,6 +299,31 @@
       </div>
     </section>
 
+    <section class="section" id="stimmen">
+      <h2>Stimmen aus dem Umfeld</h2>
+      <p class="einblick-lead">Kurze Meinungen von Bekannten und ersten Testern — ehrlich, ohne Agentur-Text.</p>
+      <div id="stimmen-liste" class="stimmen-liste" aria-live="polite">
+        <p class="stimmen-leer">Lädt …</p>
+      </div>
+      <div class="stimme-form-box">
+        <h3>Ihre Meinung schreiben</h3>
+        <p class="stimme-form-hinweis">Für Bekannte und Tester: Name + ein paar Sätze. Absenden öffnet Ihre Mail — danach Prüfung, dann sichtbar hier.</p>
+        <form id="stimme-form" class="stimme-form" action="#" method="get">
+          <label>Name
+            <input type="text" id="stimme-name" name="name" maxlength="80" required autocomplete="name" placeholder="Vorname oder Kurzname">
+          </label>
+          <label>Ort / Bezug <span class="opt">(optional)</span>
+            <input type="text" id="stimme-ort" name="ort" maxlength="80" placeholder="z. B. Büro, Bekannte, Tester">
+          </label>
+          <label>Meinung
+            <textarea id="stimme-text" name="text" rows="4" maxlength="800" required placeholder="Was hat geholfen? Was stört?"></textarea>
+          </label>
+          <button type="submit" class="btn btn-primary">Per Mail absenden</button>
+          <p id="stimme-status" class="stimme-status" role="status"></p>
+        </form>
+      </div>
+    </section>
+
     <section class="section" id="faq">
       <h2>Häufige Fragen</h2>
       <div class="faq">
@@ -315,7 +394,7 @@
         </details>
         <details>
           <summary>Für welches Windows?</summary>
-          <p>Windows 8.1, 10 und 11 (64 Bit). Installation per Setup; Einstellungen pro Benutzer unter <code>%APPDATA%\Launcher2\</code>.</p>
+          <p>Windows <strong>8.1</strong>, <strong>10</strong> und <strong>11</strong> (64 Bit). Details: <a href="#system">Systemanforderungen</a>. Installation per Setup; Einstellungen pro Benutzer unter <code>%APPDATA%\Launcher2\</code>.</p>
         </details>
         <details>
           <summary>Welche Zahlungsmethoden gibt es?</summary>
