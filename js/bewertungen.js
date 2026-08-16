@@ -18,6 +18,25 @@
     });
   }
 
+  function renderEine(s, istAntwort) {
+    var name = esc(s.name || "Anonym");
+    var text = esc(s.text || "");
+    var meta = esc([s.ort, s.datum || s.datum_anzeige].filter(Boolean).join(" · "));
+    var kids = (s.antworten || []).map(function (a) {
+      return renderEine(a, true);
+    }).join("");
+    return (
+      '<blockquote class="stimme' + (istAntwort ? " stimme-antwort" : "") + '">' +
+      "<p>" + text + "</p>" +
+      "<footer><strong>" + name + "</strong>" +
+      (meta ? '<span class="stimme-meta"> · ' + meta + "</span>" : "") +
+      (istAntwort ? '<span class="stimme-meta"> · Antwort</span>' : "") +
+      "</footer>" +
+      (kids ? '<div class="stimme-antworten">' + kids + "</div>" : "") +
+      "</blockquote>"
+    );
+  }
+
   function renderListe(list) {
     var box = document.getElementById("stimmen-liste");
     if (!box) return;
@@ -28,16 +47,7 @@
       return;
     }
     box.innerHTML = list.map(function (s) {
-      var name = esc(s.name || "Anonym");
-      var text = esc(s.text || "");
-      var meta = esc([s.ort, s.datum || s.datum_anzeige].filter(Boolean).join(" · "));
-      return (
-        '<blockquote class="stimme">' +
-        "<p>" + text + "</p>" +
-        "<footer><strong>" + name + "</strong>" +
-        (meta ? '<span class="stimme-meta"> · ' + meta + "</span>" : "") +
-        "</footer></blockquote>"
-      );
+      return renderEine(s, false);
     }).join("");
   }
 

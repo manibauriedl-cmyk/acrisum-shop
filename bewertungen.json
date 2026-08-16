@@ -1,4 +1,37 @@
 {
   "_hinweis": "Von :6019 gespiegelt — nicht von Hand pflegen, außer Notfall.",
-  "stimmen": []
+  "stimmen": [
+    {
+      "id": "77dbd80d6b06",
+      "name": "Test Besucher",
+      "text": "Die Homepage sieht gut aus — aber wo kann ich Fragen stellen?",
+      "ort": "Passau",
+      "datum": "16.08.2026",
+      "datum_anzeige": "16.08.2026",
+      "von": "test",
+      "parent_id": "",
+      "antworten": [
+        {
+          "id": "6e87c08aad52",
+          "name": "Acrisum",
+          "text": "Nachtrag: Und wer den Code sieht — keine Panik, der macht nur Kaffee und Kommas.",
+          "ort": "",
+          "datum": "16.08.2026",
+          "datum_anzeige": "16.08.2026",
+          "von": "chef",
+          "parent_id": "77dbd80d6b06"
+        },
+        {
+          "id": "f4038d7e2f36",
+          "name": "Acrisum",
+          "text": "Gute Frage! Am besten hier — und wenn niemand antwortet, antwortet wenigstens der Kaffee.",
+          "ort": "Team",
+          "datum": "16.08.2026",
+          "datum_anzeige": "16.08.2026",
+          "von": "chef",
+          "parent_id": "77dbd80d6b06"
+        }
+      ]
+    }
+  ]
 }
