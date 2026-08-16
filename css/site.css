@@ -583,28 +583,49 @@ body.has-cookie-hinweis { padding-bottom: 5.5rem; }
   font-size: 0.88em;
 }
 
-.stimmen-liste { margin: 0.75rem 0 1.25rem; }
+.stimmen-liste { margin: 0.75rem 0 1.25rem; display: flex; flex-direction: column; gap: 0.85rem; }
 .stimmen-leer { font-size: 0.9rem; color: var(--muted); margin: 0; }
 .stimme {
-  margin: 0 0 0.85rem;
-  padding: 0.85rem 1rem;
+  margin: 0;
+  padding: 0.95rem 1.05rem;
   background: var(--bg2);
   border: 1px solid var(--line);
   border-left: 3px solid var(--ok);
   border-radius: 8px;
 }
-.stimme p { margin: 0 0 0.45rem; font-size: 0.95rem; line-height: 1.45; color: var(--text); }
-.stimme footer { font-size: 0.82rem; color: var(--muted); }
+.stimme > p { margin: 0 0 0.45rem; font-size: 0.95rem; line-height: 1.45; color: var(--text); }
+.stimme > footer { font-size: 0.82rem; color: var(--muted); }
 .stimme-meta { font-weight: 400; }
-.stimme-antworten { margin-top: 0.65rem; }
-.stimme-antwort {
-  margin: 0.55rem 0 0;
-  padding: 0.7rem 0.85rem;
-  background: var(--bg);
-  border-left: 3px solid var(--accent, #3d8bfd);
-  border-radius: 6px;
+/* Google/Trustpilot-Stil: Antwort unter der Stimme, eine Ebene, kein zweites „Karten-Chaos“ */
+.stimme-antworten {
+  margin-top: 0.75rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
 }
-.stimme-antwort p { font-size: 0.9rem; }
+.stimme-antwort {
+  margin: 0;
+  padding: 0.55rem 0 0.15rem 0.85rem;
+  background: transparent;
+  border: none;
+  border-left: 2px solid var(--accent);
+  border-radius: 0;
+}
+.stimme-antwort-label {
+  margin: 0 0 0.25rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.01em;
+}
+.stimme-antwort-label strong { color: var(--text); font-weight: 650; }
+.stimme-antwort > p:not(.stimme-antwort-label) {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: var(--text);
+}
 .stimme-form-box {
   margin-top: 0.5rem;
   padding: 1rem 1.1rem;

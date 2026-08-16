@@ -8,7 +8,6 @@
     if (location.port === "6019" || /127\.0\.0\.1|localhost/i.test(location.hostname)) {
       return location.origin;
     }
-    /* Live acrisum.com: Versuch LAN-Dashboard (nur wenn PC erreichbar) */
     return "http://127.0.0.1:6019";
   }
 
@@ -18,22 +17,49 @@
     });
   }
 
-  function renderEine(s, istAntwort) {
+  /** Wie Google/Trustpilot: eine Stimme, darunter ruhige Firmenantworten — keine Karten-in-Karten. */
+  function renderEine(s) {
     var name = esc(s.name || "Anonym");
     var text = esc(s.text || "");
     var meta = esc([s.ort, s.datum || s.datum_anzeige].filter(Boolean).join(" · "));
-    var kids = (s.antworten || []).map(function (a) {
-      return renderEine(a, true);
-    }).join("");
+    var antworten = s.antworten || [];
+    var antwortHtml = "";
+    if (antworten.length) {
+      antwortHtml =
+        '<div class="stimme-antworten" role="group" aria-label="Antworten">' +
+        antworten
+          .map(function (a) {
+            var an = esc(a.name || "Acrisum");
+            var at = esc(a.text || "");
+            var am = esc([a.ort, a.datum || a.datum_anzeige].filter(Boolean).join(" · "));
+            return (
+              '<div class="stimme-antwort">' +
+              '<p class="stimme-antwort-label">Antwort von <strong>' +
+              an +
+              "</strong>" +
+              (am ? '<span class="stimme-meta"> · ' + am + "</span>" : "") +
+              "</p>" +
+              "<p>" +
+              at +
+              "</p>" +
+              "</div>"
+            );
+          })
+          .join("") +
+        "</div>";
+    }
     return (
-      '<blockquote class="stimme' + (istAntwort ? " stimme-antwort" : "") + '">' +
-      "<p>" + text + "</p>" +
-      "<footer><strong>" + name + "</strong>" +
+      '<article class="stimme">' +
+      "<p>" +
+      text +
+      "</p>" +
+      "<footer><strong>" +
+      name +
+      "</strong>" +
       (meta ? '<span class="stimme-meta"> · ' + meta + "</span>" : "") +
-      (istAntwort ? '<span class="stimme-meta"> · Antwort</span>' : "") +
       "</footer>" +
-      (kids ? '<div class="stimme-antworten">' + kids + "</div>" : "") +
-      "</blockquote>"
+      antwortHtml +
+      "</article>"
     );
   }
 
@@ -42,18 +68,17 @@
     if (!box) return;
     if (!list || !list.length) {
       box.innerHTML =
-        '<p class="stimmen-leer">Noch keine Stimmen — schreiben Sie unten, dann erscheinen sie für alle Besucher ' +
-        "(nach Speichern / Live-Push).</p>";
+        '<p class="stimmen-leer">Noch keine Stimmen — schreiben Sie unten, dann erscheinen sie hier.</p>';
       return;
     }
-    box.innerHTML = list.map(function (s) {
-      return renderEine(s, false);
-    }).join("");
+    box.innerHTML = list.map(renderEine).join("");
   }
 
   function ladenApi() {
     return fetch(apiBase() + "/api/acrisum-stimmen", { cache: "no-store" })
-      .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+      .then(function (r) {
+        return r.ok ? r.json() : Promise.reject();
+      })
       .then(function (d) {
         if (!d || !d.ok) throw new Error("api");
         renderListe(d.stimmen || []);
@@ -63,14 +88,18 @@
 
   function ladenJson() {
     return fetch(JSON_FALLBACK + "?t=" + Date.now(), { cache: "no-store" })
-      .then(function (r) { return r.ok ? r.json() : { stimmen: [] }; })
+      .then(function (r) {
+        return r.ok ? r.json() : { stimmen: [] };
+      })
       .then(function (d) {
         renderListe((d && d.stimmen) || []);
       });
   }
 
   function laden() {
-    ladenApi().catch(function () { return ladenJson(); });
+    ladenApi().catch(function () {
+      return ladenJson();
+    });
   }
 
   function absenden(ev) {
@@ -81,9 +110,9 @@
     var textEl = document.getElementById("stimme-text");
     var ortEl = document.getElementById("stimme-ort");
     var status = document.getElementById("stimme-status");
-    var name = (nameEl && nameEl.value || "").trim();
-    var text = (textEl && textEl.value || "").trim();
-    var ort = (ortEl && ortEl.value || "").trim();
+    var name = ((nameEl && nameEl.value) || "").trim();
+    var text = ((textEl && textEl.value) || "").trim();
+    var ort = ((ortEl && ortEl.value) || "").trim();
     if (name.length < 2) {
       if (status) status.textContent = "Bitte einen Namen angeben.";
       return;
@@ -98,14 +127,17 @@
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name: name, text: text, ort: ort, von: "shop" }),
     })
-      .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+      .then(function (r) {
+        return r.json().then(function (d) {
+          return { ok: r.ok, d: d };
+        });
+      })
       .then(function (res) {
         if (!res.ok || !res.d || !res.d.ok) {
           throw new Error((res.d && res.d.fehler) || "Speichern fehlgeschlagen");
         }
         if (status) {
-          status.textContent =
-            "Gespeichert — sichtbar für Besucher. Chef: unter Homepage verwalten „Live-Push“, damit acrisum.com nachzieht.";
+          status.textContent = "Danke — Ihre Stimme ist gespeichert und sichtbar.";
         }
         if (textEl) textEl.value = "";
         laden();
@@ -114,7 +146,7 @@
         if (status) {
           status.textContent =
             (e && e.message ? e.message + " — " : "") +
-            "Server (:6019) nicht erreichbar. Bitte später erneut oder Chef unter Homepage verwalten eintragen.";
+            "Gerade nicht erreichbar. Bitte später erneut versuchen.";
         }
       });
   }
