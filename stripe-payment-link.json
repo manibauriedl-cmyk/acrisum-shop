@@ -1,9 +1,9 @@
 {
   "ok": true,
-  "cent": 120,
-  "euro": "1,20",
-  "checkout_url": "https://buy.stripe.com/28EaEWdn56584r31qXfIs07",
+  "cent": 150,
+  "euro": "1,50",
+  "checkout_url": "https://buy.stripe.com/28E9ASbeX3X0e1Db1xfIs08",
   "danke_url": "https://acrisum.com/danke.html",
-  "datum": "2026-08-17",
+  "datum": "2026-08-20",
   "hinweis": "Tagespreis — vor GitHub-Deploy sync ausführen"
 }

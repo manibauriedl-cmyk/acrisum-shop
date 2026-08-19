@@ -1,26 +1,25 @@
-﻿Launcher 2 — Hinweise zur Version 1.2.5
+﻿Launcher 2 — Hinweise zur Version 1.2.6
 =======================================
 
-Datum: 17.08.2026
+Datum: 20.08.2026
 
 
 Was sich für Sie ändert
 -----------------------
-• Hinweis beim Überfahren eines Symbols: wieder ein Kasten
-  (keine doppelte letzte Zeile).
-• Anheften-Suche bleibt wie in 1.2.4 (Fenster bleibt beim Tippen offen).
+• Hinweis beim Überfahren: an linker/rechter Leiste vollständig lesbar.
+• Nach Setup: Startmenü „Launcher 2“ und optional Autostart mit Windows.
 • Pins, Zoom und Schrift bleiben unverändert.
 
 
 Technisch (Kurz)
 ----------------
-• Ein Hover-Hinweis für Icon und Name.
-• SemVer 1.2.5
+• Tooltip-Position passt sich dem Bildschirmrand an.
+• SemVer 1.2.6
 
 
 Abwärtskompatibilität
 ---------------------
-Kein manueller Eingriff. Launcher 2 neu starten bzw. Update.
+Kein manueller Eingriff. Update oder Launcher neu starten.
 
 
 Vollständiges Protokoll: CHANGELOG.txt
