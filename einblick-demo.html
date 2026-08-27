@@ -1350,7 +1350,12 @@ body {
     });
   });
   apply(0);
-  setTimeout(play, 500);
+  var qs = new URLSearchParams(location.search);
+  if (qs.get("fenster") === "1") {
+    jumpTo(0);
+  } else {
+    setTimeout(play, 500);
+  }
 })();
 </script>
 </body>

@@ -1,9 +1,9 @@
 {
   "steigerung_aktiv": true,
-  "start_datum": "2026-08-15",
-  "start_cent": 100,
-  "plus_cent_pro_tag": 10,
-  "deckel_cent": 500,
+  "start_datum": "2026-08-28",
+  "start_cent": 130,
+  "plus_cent_pro_tag": 50,
+  "deckel_cent": 1500,
   "waehrung": "eur",
   "produkt_name": "Acrisum Launcher",
   "produkt_beschreibung": "Download — zweite Taskleiste fürs Büro",

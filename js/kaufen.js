@@ -30,7 +30,7 @@
   function tagespreis(cfg) {
     var start = startDate(cfg);
     var tage = daysSince(start);
-    var cent = Number(cfg.start_cent || 100) + tage * Number(cfg.plus_cent_pro_tag || 10);
+    var cent = Number(cfg.start_cent || 130) + tage * Number(cfg.plus_cent_pro_tag || 50);
     if (cfg.deckel_cent != null && cfg.deckel_cent !== "") {
       cent = Math.min(cent, Number(cfg.deckel_cent));
     }
@@ -50,7 +50,7 @@
       steigerBox.textContent =
         (preisCfg.hinweis_sparen || "Wer früher kauft, zahlt weniger.") +
         " Täglich +" +
-        (t ? t.plus : Number(preisCfg.plus_cent_pro_tag || 10)) +
+        (t ? t.plus : Number(preisCfg.plus_cent_pro_tag || 50)) +
         " Cent" +
         (preisCfg.deckel_cent
           ? ", max. " + euro(Number(preisCfg.deckel_cent))
@@ -142,7 +142,7 @@
     var note = document.getElementById("kaufen");
     var preisCfg = root.preis || {};
 
-    var labelPreis = "1,00 €";
+    var labelPreis = "1,30 €";
     var tLokal = null;
     if (preisCfg.steigerung_aktiv) {
       tLokal = tagespreis(preisCfg);
@@ -151,7 +151,7 @@
     } else {
       var chip = document.getElementById("preis-chip");
       if (chip) {
-        chip.innerHTML = "einmalig <strong>1,00 €</strong> · Download";
+        chip.innerHTML = "einmalig <strong>1,30 €</strong> · Download";
       }
     }
 
@@ -166,7 +166,7 @@
           if (!j || !j.ok || j.cent == null) return;
           labelPreis = euro(Number(j.cent));
           preisAnzeigen(root, labelPreis, {
-            plus: Number(j.plus_cent_pro_tag || 10),
+            plus: Number(j.plus_cent_pro_tag || 50),
             tage: j.tage
           });
           if (btn && !btn.getAttribute("aria-disabled")) {

@@ -2,11 +2,11 @@
 window.ACRISUM_ZAHLUNG = {
   anbieter: "stripe",
   checkout_dynamisch: false,
-  checkout_url: "https://buy.stripe.com/28E9ASbeX3X0e1Db1xfIs08",
+  checkout_url: "https://buy.stripe.com/28E00ifvdctw6zb3z5fIs09",
   preis_api: "",
   danke_url: "https://acrisum.com/danke.html",
   danke_path: "danke.html",
-  download_url: "download/Acrisum-Launcher-Setup-1.2.6.exe",
+  download_url: "download/Acrisum-Launcher-Setup-1.2.8.exe",
   button_bereit: "Jetzt kaufen",
   button_warten: "Bald kaufen",
   paypal_pflicht: true,
@@ -15,10 +15,10 @@ window.ACRISUM_ZAHLUNG = {
   test_danke_url: "danke.html",
   preis: {
     steigerung_aktiv: true,
-    start_datum: "2026-08-04",
-    start_cent: 100,
-    plus_cent_pro_tag: 10,
-    deckel_cent: 500,
+    start_datum: "2026-08-28",
+    start_cent: 130,
+    plus_cent_pro_tag: 50,
+    deckel_cent: 1500,
     hinweis_sparen: "Wer früher kauft, zahlt weniger."
   }
 };
