@@ -27,20 +27,42 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
+    "@type": ["SoftwareApplication", "Product"],
     "name": "Acrisum Launcher",
-    "description": "Zweite Taskleiste fürs Büro: Programme und Ordner anheften, Desktop-Platz statt Überlagerung.",
+    "description": "Zweite Taskleiste fürs Büro: Programme und Ordner anheften, Desktop-Platz statt Überlagerung. Download — kein Paketversand.",
     "url": "https://acrisum.com/",
     "image": "https://acrisum.com/bilder/acrisum-launcher.png",
     "applicationCategory": "UtilitiesApplication",
     "operatingSystem": "Windows 8.1, Windows 10, Windows 11",
-    "softwareVersion": "1.2.7",
+    "softwareVersion": "1.2.8",
+    "brand": { "@type": "Brand", "name": "Acrisum" },
+    "sku": "ACRISUM-LAUNCHER",
+    "mpn": "ACRISUM-LAUNCHER",
     "offers": {
       "@type": "Offer",
-      "price": "1.00",
+      "price": "1.30",
       "priceCurrency": "EUR",
       "availability": "https://schema.org/InStock",
-      "url": "https://acrisum.com/"
+      "itemCondition": "https://schema.org/NewCondition",
+      "url": "https://acrisum.com/",
+      "shippingDetails": {
+        "@type": "OfferShippingDetails",
+        "shippingRate": { "@type": "MonetaryAmount", "value": "0", "currency": "EUR" },
+        "deliveryTime": {
+          "@type": "ShippingDeliveryTime",
+          "handlingTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 0, "unitCode": "DAY" },
+          "transitTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 0, "unitCode": "DAY" }
+        },
+        "shippingDestination": { "@type": "DefinedRegion", "addressCountry": "DE" }
+      },
+      "hasMerchantReturnPolicy": {
+        "@type": "MerchantReturnPolicy",
+        "applicableCountry": "DE",
+        "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+        "merchantReturnDays": 14,
+        "returnFees": "https://schema.org/FreeReturn",
+        "merchantReturnLink": "https://acrisum.com/widerruf.html"
+      }
     },
     "author": {
       "@type": "Person",
