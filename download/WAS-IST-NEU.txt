@@ -1,28 +1,26 @@
-﻿Launcher 2 — Hinweise zur Version 1.2.8
+﻿Launcher 2 — Hinweise zur Version 1.2.9
 =======================================
 
-Datum: 26.08.2026
+Datum: 30.08.2026
 
 
 Was sich für Sie ändert
 -----------------------
-• Viele Programme angeheftet: was nicht mehr auf den Bildschirm passt,
-  liegt hinter » (bzw. >>). Ein Klick öffnet die Liste mit Namen.
-• Sie sehen, was hinten liegt, und entscheiden selbst, ob Sie etwas
-  abheften — nichts wird automatisch weggenommen.
-• Anheften bleibt erlaubt. Zoom und Schrift bleiben unverändert.
+• „Alle Namen aus“: die Leiste bleibt oben angedockt (keine Lücke mehr).
+• Quer-Leiste: kein leerer Streifen rechts hinter den Symbolen.
+• Desktop-Symbole behalten ihre Ordnung, wenn Sie die Leiste an eine
+  andere Kante schieben.
+• An Windows-Taskleiste anheften: erkennt „schon angeheftet“ und hat
+  einen Fallback, wenn Windows sperrt.
+• Transparenz ist in der Kunden-Vorlage aus — stabile Leiste.
 
 
 Technisch (Kurz)
 ----------------
-• Die Liste nimmt die wirklich versteckten Symbole (Bildschirmbreite
-  und aktuelle Vergrößerung), nicht nur ein festes Slot-Limit.
-• SemVer 1.2.8
+• SemVer 1.2.9 · signiert mit Certum Code Signing
+• Fenstervorschau (Hover) ist nicht in dieser Shop-Version — das ist 1.3.0 ENTWICKLUNG
 
 
 Abwärtskompatibilität
 ---------------------
-Kein manueller Eingriff. Update oder Launcher neu starten.
-
-
-Vollständiges Protokoll: CHANGELOG.txt
+• Config in %APPDATA%\Launcher2\ bleibt erhalten beim Update.

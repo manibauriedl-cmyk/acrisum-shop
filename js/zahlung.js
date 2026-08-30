@@ -2,11 +2,11 @@
 window.ACRISUM_ZAHLUNG = {
   anbieter: "stripe",
   checkout_dynamisch: false,
-  checkout_url: "",
+  checkout_url: "https://buy.stripe.com/cNi5kC3Mv3X0f5Hb1xfIs0b",
   preis_api: "",
   danke_url: "https://acrisum.com/danke.html",
   danke_path: "danke.html",
-  download_url: "",
+  download_url: "download/Acrisum-Launcher-Setup-1.2.9.exe",
   button_bereit: "Jetzt kaufen",
   button_warten: "Bald kaufen",
   paypal_pflicht: true,
