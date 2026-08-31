@@ -8,7 +8,7 @@ window.ACRISUM_ZAHLUNG = {
   preis_api: "",
   danke_url: "https://acrisum.com/danke.html",
   danke_path: "danke.html",
-  download_url: "download/Acrisum-Launcher-Setup-1.2.9.exe",
+  download_url: "download/Acrisum-Launcher-Setup-1.2.10.exe",
   button_bereit: "Jetzt kaufen",
   button_warten: "Bald kaufen",
   paypal_pflicht: true,

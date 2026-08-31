@@ -14,6 +14,7 @@ Thunderbird (am PC des Nutzers)
 Website acrisum.com (Git)
 -------------------------
 Letzter Stand mit Zusatznutzen: Commit-Message enthält „Zusatznutzen Thunderbird“.
+Internet-ready (31.08.2026): Testcode nur mit ?test=1 — öffentlich ohne Parameter unsichtbar.
 
 Rückgängig per Git (im Repo acrisum-github-pages):
   git revert HEAD
