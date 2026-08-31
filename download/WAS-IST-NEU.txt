@@ -1,26 +1,32 @@
-﻿Launcher 2 — Hinweise zur Version 1.2.9
+﻿Launcher 2 — Hinweise zur Version 1.2.10
 =======================================
 
-Datum: 30.08.2026
+Datum: 31.08.2026
 
 
 Was sich für Sie ändert
 -----------------------
-• „Alle Namen aus“: die Leiste bleibt oben angedockt (keine Lücke mehr).
-• Quer-Leiste: kein leerer Streifen rechts hinter den Symbolen.
-• Desktop-Symbole behalten ihre Ordnung, wenn Sie die Leiste an eine
-  andere Kante schieben.
-• An Windows-Taskleiste anheften: erkennt „schon angeheftet“ und hat
-  einen Fallback, wenn Windows sperrt.
-• Transparenz ist in der Kunden-Vorlage aus — stabile Leiste.
+• Rechtsklick-Menü: schließt nach 10 Sekunden von selbst — auch wenn Sie
+  in Browser oder anderes Programm wechseln.
+• Neuer Menüpunkt „Gratis Tipp: Thunderbird…“ — öffnet die Anleitung auf
+  acrisum.com (Textfarben im Editor ab Thunderbird 128, inkl. Rückgängig).
+• Homepage acrisum.com: Block „Gratis Zusatznutzen“ + Hilfe-Seite (gleicher Tipp).
 
 
 Technisch (Kurz)
 ----------------
-• SemVer 1.2.9 · signiert mit Certum Code Signing
-• Fenstervorschau (Hover) ist nicht in dieser Shop-Version — das ist 1.3.0 ENTWICKLUNG
+• SemVer 1.2.10 · Vorgänger 1.2.9
+• Fenstervorschau (Hover) weiterhin nur 1.3.0 ENTWICKLUNG — nicht im Shop.
 
 
 Abwärtskompatibilität
 ---------------------
 • Config in %APPDATA%\Launcher2\ bleibt erhalten beim Update.
+
+
+Rückgängig / wenn etwas nicht passt
+-----------------------------------
+• Thunderbird: in der Anleitung Abschnitt „Rückgängig machen“ — eine
+  Einstellung zurück, sonst nichts am PC geändert.
+• Launcher-Menü: Esc oder Klick außerhalb schließt sofort.
+• Website/ Menüpunkt: siehe ROLLBACK-ZUSATZNUTZEN.txt im Shop-Repo.

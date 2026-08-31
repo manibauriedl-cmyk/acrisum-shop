@@ -524,6 +524,67 @@ body.has-cookie-hinweis { padding-bottom: 5.5rem; }
   font-size: 0.86rem;
 }
 
+/* Gratis Zusatznutzen — Thunderbird-Tipp (Homepage + Hilfe) */
+.zusatznutzen-karte {
+  padding: 1.15rem 1.2rem;
+  border-radius: 8px;
+  border: 1px solid rgba(196, 163, 90, 0.35);
+  background: var(--accent-dim);
+}
+.zusatznutzen-lead {
+  font-size: 0.95rem;
+  color: var(--muted);
+  margin-bottom: 0.85rem;
+  max-width: 52ch;
+}
+.zusatznutzen-lead strong { color: var(--text); }
+.zusatznutzen-list {
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+  display: grid;
+  gap: 0.45rem;
+}
+.zusatznutzen-list li {
+  position: relative;
+  padding-left: 1.15rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.zusatznutzen-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.zusatznutzen-list strong { color: var(--text); }
+.zusatznutzen-badge {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 0.85rem;
+}
+.zusatznutzen-karte .btn { margin-top: 0.15rem; }
+.hilfe-rueck {
+  margin-top: 1.5rem;
+  padding: 0.95rem 1.05rem;
+  border-radius: 8px;
+  border: 1px solid rgba(107, 207, 142, 0.35);
+  background: rgba(107, 207, 142, 0.08);
+}
+.hilfe-rueck h2 { color: var(--ok); }
+.hilfe-schritte ol {
+  margin: 0.5rem 0 0.75rem 1.25rem;
+  padding: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+.hilfe-schritte li { margin: 0.35rem 0; }
+.hilfe-schritte strong { color: var(--text); }
+
 .kontrast-grid {
   display: grid;
   gap: 1rem;
