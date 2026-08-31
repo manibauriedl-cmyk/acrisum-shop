@@ -42,10 +42,16 @@
     var preisCfg = root.preis || {};
     if (chip) {
       chip.innerHTML =
-        "heute <strong>" + labelPreis + "</strong> · Einführung";
+        "heute <strong>" + labelPreis + "</strong> · Checkout";
     }
     var steigerBox = document.getElementById("preis-steigerung");
-    if (steigerBox && (preisCfg.steigerung_aktiv || (t && t.plus))) {
+    if (!steigerBox) return;
+    if (root.checkout_fest_hinweis && root.checkout_dynamisch === false) {
+      steigerBox.hidden = false;
+      steigerBox.textContent = String(root.checkout_fest_hinweis);
+      return;
+    }
+    if (preisCfg.steigerung_aktiv || (t && t.plus)) {
       steigerBox.hidden = false;
       steigerBox.textContent =
         (preisCfg.hinweis_sparen || "Wer früher kauft, zahlt weniger.") +
@@ -57,6 +63,26 @@
           : "") +
         ".";
     }
+  }
+
+  function testModusAktiv(root) {
+    var param = String((root && root.test_code_param) || "test").trim() || "test";
+    try {
+      var q = new URLSearchParams(window.location.search);
+      if (q.get(param) === "1") return true;
+    } catch (e) {}
+    return false;
+  }
+
+  function testCodeZeile(root) {
+    var row = document.getElementById("test-code-row");
+    if (!row) return;
+    var erwartet = String(root.test_code || "").trim();
+    if (!erwartet || !testModusAktiv(root)) {
+      row.hidden = true;
+      return;
+    }
+    row.hidden = false;
   }
 
   function kaufenStarten(root, btn, note) {
@@ -72,7 +98,7 @@
         }
         window.alert(
           "Stripe-Zahlungslink nicht verfügbar.\n\n" + (grund || "") +
-            "\n\nAlternativ: Testcode auf der Startseite (Download ohne Bezahlung)."
+            "\n\nBitte später erneut oder Mail an manibauriedl@gmail.com."
         );
       } else {
         if (note) {
@@ -138,13 +164,21 @@
 
   ready(function () {
     var root = window.ACRISUM_ZAHLUNG || {};
+    testCodeZeile(root);
     var btn = document.getElementById("cta-kaufen");
     var note = document.getElementById("kaufen");
     var preisCfg = root.preis || {};
 
     var labelPreis = "1,30 €";
     var tLokal = null;
-    if (preisCfg.steigerung_aktiv) {
+    if (
+      root.checkout_dynamisch === false &&
+      root.checkout_fest_cent != null &&
+      root.checkout_fest_cent !== ""
+    ) {
+      labelPreis = euro(Number(root.checkout_fest_cent));
+      preisAnzeigen(root, labelPreis, null);
+    } else if (preisCfg.steigerung_aktiv) {
       tLokal = tagespreis(preisCfg);
       labelPreis = euro(tLokal.cent);
       preisAnzeigen(root, labelPreis, tLokal);
@@ -230,7 +264,7 @@
     var testInput = document.getElementById("test-code");
     var testGo = document.getElementById("test-code-go");
     var erwartet = String(root.test_code || "").trim();
-    if (testInput && erwartet) {
+    if (testInput && erwartet && testModusAktiv(root)) {
       function testSpinner(an) {
         if (!testGo) return;
         var lab = testGo.querySelector(".test-code-go-label");
