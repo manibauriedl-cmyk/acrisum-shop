@@ -2,9 +2,7 @@
 window.ACRISUM_ZAHLUNG = {
   anbieter: "stripe",
   checkout_dynamisch: false,
-  checkout_url: "https://buy.stripe.com/cNi5kC3Mv3X0f5Hb1xfIs0b",
-  checkout_fest_cent: 230,
-  checkout_fest_hinweis: "Checkout-Betrag = Stripe-Link (2,30 €). Tagespreis folgt, sobald dynamisches Checkout live ist.",
+  checkout_url: "https://buy.stripe.com/28E14m2Ir8dgcXzedJfIs0c",
   preis_api: "",
   danke_url: "https://acrisum.com/danke.html",
   danke_path: "danke.html",
@@ -14,10 +12,9 @@ window.ACRISUM_ZAHLUNG = {
   paypal_pflicht: true,
   zahlungsmethoden: ["PayPal", "Google Pay", "Karte", "Klarna", "weitere"],
   test_code: "2233",
-  test_code_param: "test",
   test_danke_url: "danke.html",
   preis: {
-    steigerung_aktiv: false,
+    steigerung_aktiv: true,
     start_datum: "2026-08-28",
     start_cent: 130,
     plus_cent_pro_tag: 50,

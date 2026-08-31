@@ -1,0 +1,9 @@
+AUSLIEFERUNG PAUSIERT — 28.08.2026
+
+Grund: Transparenz-Option zerstört die Leiste bei überlappenden Fenstern
+(UI-Katastrophe — nicht an Kunden ausliefern).
+
+Download 1.2.8 EXE: STOP bis Fix + Test.
+Tester-Mails (Cora/Alex): weiter OK — nur 2 manuelle Entwürfe.
+
+Shop: download_url in js/zahlung.js leer bis Freigabe.
