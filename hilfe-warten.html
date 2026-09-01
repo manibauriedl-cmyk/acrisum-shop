@@ -39,7 +39,7 @@
   }
 
   var jsonUrls = [
-    // Rohdatei oft schneller als Pages-CDN nach dem Ping
+    // Rohdatei zuerst — Pages-CDN (acrisum.com) hängt oft minutenlang auf leerem „wartet“.
     "https://raw.githubusercontent.com/manibauriedl-cmyk/acrisum-shop/main/hilfe-sessions/" + encodeURIComponent(sid) + ".json",
     "https://manibauriedl-cmyk.github.io/acrisum-shop/hilfe-sessions/" + encodeURIComponent(sid) + ".json"
   ];
@@ -47,13 +47,13 @@
   if (/acrisum\.com$/i.test(location.hostname)) {
     jsonUrls.push("https://acrisum.com/hilfe-sessions/" + encodeURIComponent(sid) + ".json");
   }
-  // Gleiche Origin (Shop-Spiegel unter :6019 oder Pages-Pfad)
+  // Gleiche Origin danach (CDN kann leer sein)
   try {
     var basePath = location.pathname.replace(/[^/]+$/, "");
-    jsonUrls.unshift(location.origin + basePath + "hilfe-sessions/" + encodeURIComponent(sid) + ".json");
+    jsonUrls.push(location.origin + basePath + "hilfe-sessions/" + encodeURIComponent(sid) + ".json");
   } catch (e) {}
   if (location.port === "6019") {
-    jsonUrls.push(location.origin + "index.htmlhilfe-sessions/" + encodeURIComponent(sid) + ".json");
+    jsonUrls.push(location.origin + "/dashboard/acrisum-shop/hilfe-sessions/" + encodeURIComponent(sid) + ".json");
     jsonUrls.push(location.origin + "/api/speicher/hilfe/session?s=" + encodeURIComponent(sid));
   }
 
@@ -86,7 +86,7 @@
         })
         .then(function (d) {
           if (!d) throw new Error("leer");
-          if ((d.status === "fertig" || d.status === "veroeffentlicht") && d.anweisung_text) {
+          if ((d.anweisung_text || "").toString().trim()) {
             showFertig(d);
             return;
           }
@@ -94,8 +94,8 @@
             msg.textContent = "Die Anleitung konnte nicht erstellt werden. Bitte am PC nochmal starten.";
             return;
           }
-          msg.textContent = "Bitte warten — Anleitung wird vorbereitet…";
-          setTimeout(tick, 2500);
+          // Leere „wartet“-Datei (CDN-Cache) nicht als fertig werten — nächste Quelle.
+          pollList(idx + 1);
         })
         .catch(function () {
           pollList(idx + 1);
