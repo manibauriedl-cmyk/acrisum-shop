@@ -1,8 +1,8 @@
 {
   "ok": true,
   "id": "pg9kUVJb",
-  "status": "veroeffentlicht",
-  "meldung": "Anweisung fertig — wird auf die Homepage gelegt…",
+  "status": "fertig",
+  "meldung": "Anweisung auf der Homepage — Handy-QR scannen (Shop zeigt den Text).",
   "fingerprint_kurz": "GMKtec NucBox K8 Plus · 32.0 GB verbaut / 27.82 GB Windows · GPU: NVIDIA GeForce RTX 3090, AMD Radeon 780M Graphics",
   "anweisung_text": "Ihr PC: GMKtec NucBox K8 Plus\nGrafikkarten: NVIDIA GeForce RTX 3090, AMD Radeon 780M Graphics\nArbeitsspeicher: 32.0 GB stecken, Windows nutzt 27.82 GB (ca. 4 GB für die eingebaute Grafik reserviert).\n\nFestgestellt (gemessen):\n• Keine kritischen Hardware-Punkte gemessen.\n\nNicht anfassen: BIOS flashen, CPU-Spannung, Secure Boot löschen.\n\nHandbuch (nur zur Menü-Suche): https://manuals.plus/gmktec/k8-plus-nucbox-gaming-mini-pc-manual.pdf\n\nStand 01.09.2026 04:43:13",
   "manuals": [
