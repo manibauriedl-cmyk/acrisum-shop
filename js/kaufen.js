@@ -65,24 +65,11 @@
     }
   }
 
-  function testModusAktiv(root) {
-    var param = String((root && root.test_code_param) || "test").trim() || "test";
-    try {
-      var q = new URLSearchParams(window.location.search);
-      if (q.get(param) === "1") return true;
-    } catch (e) {}
-    return false;
-  }
-
   function testCodeZeile(root) {
     var row = document.getElementById("test-code-row");
     if (!row) return;
     var erwartet = String(root.test_code || "").trim();
-    if (!erwartet || !testModusAktiv(root)) {
-      row.hidden = true;
-      return;
-    }
-    row.hidden = false;
+    row.hidden = !erwartet;
   }
 
   function kaufenStarten(root, btn, note) {
@@ -264,7 +251,7 @@
     var testInput = document.getElementById("test-code");
     var testGo = document.getElementById("test-code-go");
     var erwartet = String(root.test_code || "").trim();
-    if (testInput && erwartet && testModusAktiv(root)) {
+    if (testInput && erwartet) {
       function testSpinner(an) {
         if (!testGo) return;
         var lab = testGo.querySelector(".test-code-go-label");

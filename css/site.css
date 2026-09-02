@@ -195,6 +195,9 @@ a:hover { text-decoration: underline; }
   max-width: 36rem;
   opacity: 0.88;
 }
+.test-code-row[hidden] {
+  display: none;
+}
 .test-code-hint {
   font-size: 0.8rem;
   color: var(--muted);
