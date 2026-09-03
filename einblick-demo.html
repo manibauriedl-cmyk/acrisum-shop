@@ -74,16 +74,27 @@ body {
 .demo-stage.bar-right .desk-cols-left { left: 6px; top: 8px; }
 .demo-stage.bar-right .desk-cols-mid { left: 200px; top: 8px; opacity: 1; }
 .demo-stage.bar-right .desk-cols-right { right: calc(var(--pad-r) + 6px); top: 8px; opacity: 1; }
-.desk-col { display: flex; flex-direction: column; gap: 2px; width: 64px; flex-shrink: 0; }
+.desk-col { display: flex; flex-direction: column; gap: 6px; width: 68px; flex-shrink: 0; }
+/* Demo-only: erhabene Neumorphism-Kacheln (Referenz Soft-UI) */
 .dicon {
-  width: 64px; min-height: 48px;
-  display: flex; flex-direction: column; align-items: center;
+  width: 68px; min-height: 62px;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
   color: #fff; font: 400 9px/1.1 "Segoe UI", sans-serif;
   text-shadow: 1px 1px 1px #000;
 }
-.dicon .pic { font-size: 20px; line-height: 1.15; filter: drop-shadow(0 1px 1px #0005); }
+.dicon .pic {
+  width: 46px; height: 46px;
+  border-radius: 14px;
+  background: #e4e9ef;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; line-height: 1;
+  box-shadow:
+    5px 5px 10px rgba(120, 140, 170, 0.45),
+    -4px -4px 9px rgba(255, 255, 255, 0.95);
+  filter: none;
+}
 .dicon .lbl {
-  max-width: 62px; text-align: center; word-break: break-word;
+  max-width: 66px; text-align: center; word-break: break-word;
 }
 
 /* —— Leiste: nie mittig abschneiden —— */
@@ -718,7 +729,7 @@ body {
       <div class="ub-title">Browser — Fenster unter der Leiste</div>
       <div class="ub-body">Nur die Leisten-Farbe wird transparent — Fenster darunter scheint durch. Icons und Namen bleiben fest und klickbar.</div>
     </div>
-    <div class="ghost-tag" id="ghostTag">Hintergrund transparent — nur Leisten-Farbe weg</div>
+    <div class="ghost-tag" id="ghostTag">Transparenz 1 — Hintergrund (nur Leisten-Farbe weg)</div>
 
     <!-- Fingierte Windows-Leiste: 5× Word, 6× Excel, 4 andere -->
     <div class="win-taskbar" id="winTaskbar" aria-hidden="true">
@@ -800,6 +811,8 @@ body {
     <div class="mega" id="mega" aria-hidden="true">
       <div class="row bold"><span class="chk"></span>Verbindungen anheften…</div>
       <div class="row"><span class="chk"></span>Erkunden</div>
+      <div class="row" id="megaGhostBg"><span class="chk"></span>Transparenz 1 — Hintergrund</div>
+      <div class="row" id="megaGhostOverlap"><span class="chk"></span>Transparenz 2 — bei Überlappung</div>
       <div class="sep"></div>
       <div class="row"><span class="chk"></span>Alle Namen aus (flache Leiste)</div>
       <div class="row"><span class="chk">*</span>Desktop-Platz reservieren</div>
@@ -811,9 +824,6 @@ body {
       <div class="row"><span class="chk">*</span>Wie Windows-Leiste</div>
       <div class="row"><span class="chk"></span>Blau</div>
       <div class="row"><span class="chk"></span>Hellgrau</div>
-      <div class="sep"></div>
-      <div class="row" id="megaGhostBg"><span class="chk"></span>Hintergrund transparent</div>
-      <div class="row" id="megaGhostOverlap"><span class="chk"></span>Transparent bei Überlappung</div>
       <div class="sep"></div>
       <div class="row" id="mega0"><span class="chk"></span>0 — nur Programme</div>
       <div class="row" id="mega3"><span class="chk"></span>3 Symbole</div>
@@ -865,7 +875,7 @@ body {
     <span id="phaseLabel">Bereit</span>
   </div>
   <div class="timeline" id="timeline"></div>
-  <p class="timeline-hint">Alle Schritte sichtbar — tippen zum Springen (1 Chaos · 2 Win11 · 18 Transp. …).</p>
+  <p class="timeline-hint">Alle Schritte sichtbar — tippen zum Springen (1 Chaos · 6+7 Transparenz vor Ups · …).</p>
 </div>
 <script>
 (function () {
@@ -1030,81 +1040,97 @@ body {
       overflow: OV1, shand: [520, 28], click: true, dwell: 5200
     },
     {
-      tip: "6 Ups", name: "Ups", cls: "fun",
+      tip: "6 T1", name: "Transparenz 1", cls: "ok",
+      text: "<strong>Zwei Transparenz-Arten.</strong> Art 1 — <strong>Hintergrund</strong>: nur die graue Farbe weg, Desktop scheint durch. Icons bleiben fest und klickbar.",
+      bar: "pos-top", src: H, pad: [BAR_H, 0, 0], zoom: Z[5],
+      panel: false, ctx: false, prop: false, mega: false, chaos: true,
+      megaPick: "transparent_always", shandFrom: [280, 140], shand: [8, 8],
+      dwell: 7500
+    },
+    {
+      tip: "7 T2", name: "Transparenz 2", cls: "ok",
+      text: "Art 2 — <strong>bei Überlappung</strong>: Leiste bleibt normal grau. Erst wenn ein Fenster <strong>unter</strong> der Leiste liegt, wird die Farbe transparent.",
+      bar: "pos-top", src: H, pad: [BAR_H, 0, 0], zoom: Z[5],
+      panel: false, ctx: false, prop: false, mega: false, chaos: true,
+      megaPick: "transparent_auto", shandFrom: [280, 140], shand: [8, 8],
+      dwell: 7000
+    },
+    {
+      tip: "8 Ups", name: "Ups", cls: "fun",
       text: "<strong>Ups</strong> — das war zu schnell. Ich mach’s mal langsamer 🙂",
       bar: "pos-top", src: H, pad: [BAR_H, 0, 0], zoom: Z[5],
       panel: false, ctx: false, prop: false, mega: false, chaos: true, dwell: 4200
     },
     {
-      tip: "7 Name", name: "Name (langsam)", cls: "ok",
+      tip: "9 Name", name: "Name (langsam)", cls: "ok",
       text: "Nochmal langsam: <span style=\"color:#9fdf9f\">Angezeigter Name</span> kürzen — Original bleibt für den Maus-Hinweis.",
       bar: "pos-top", src: H, pad: [BAR_H, 0, 0], zoom: Z[5],
       panel: false, ctx: false, prop: true, mega: false, propShort: true, propCheck: true,
       chaos: true, shand: [300, 100], click: true, dwell: 4200
     },
     {
-      tip: "8 Menü!", name: "Alles drin", cls: "fun",
+      tip: "10 Menü!", name: "Alles drin", cls: "fun",
       text: "Maus zum <strong>Griff (⋮⋮ sechs Punkte)</strong> — Rechtsklick öffnet das lange Menü.",
       bar: "pos-top", src: H, pad: [BAR_H, 0, 0], zoom: Z[5],
       panel: false, ctx: false, prop: false, mega: true,
       chaos: true, shandFrom: [260, 160], shand: [4, 6], click: true, dwell: 3800
     },
     {
-      tip: "9 ×5", name: "5 Symbole", cls: "ok",
+      tip: "11 ×5", name: "5 Symbole", cls: "ok",
       text: "Klick auf <strong>5 Symbole</strong> — nur fünf Programme sichtbar, Rest hinter <strong>»</strong>.",
       bar: "pos-top", src: H, pad: [BAR_H, 0, 0], zoom: Z[5],
       panel: false, ctx: false, prop: false, mega: true, megaStay: true,
       chaos: true, megaPick: "5", click: true, dwell: 3000
     },
     {
-      tip: "10 Kürzer", name: "Leiste kürzer", cls: "ok",
+      tip: "12 Kürzer", name: "Leiste kürzer", cls: "ok",
       text: "Leiste wird <strong>kürzer</strong> — Symbole nicht mittig abgeschnitten: Rest hinter <strong>&gt;&gt; 20</strong>.",
       bar: "pos-top", src: H5, pad: [BAR_H, 0, 0], zoom: Z[5],
       panel: false, ctx: false, prop: false, mega: true, megaStay: true,
       chaos: true, megaPick: "5", cutHint: true, dwell: 4000
     },
     {
-      tip: "11 Liste", name: "Leiste verlängern", cls: "ok",
+      tip: "13 Liste", name: "Leiste verlängern", cls: "ok",
       text: "Auf <strong>&gt;&gt;</strong> tippen: Namensliste mit allen versteckten Programmen — und <strong>Leiste verlängern</strong>, wenn Sie mehr Symbole sehen wollen.",
       bar: "pos-top", src: H5, pad: [BAR_H, 0, 0], zoom: Z[5],
       panel: false, ctx: false, prop: false, mega: false, chaos: true,
       overflow: OV2, cutHint: true, shand: [400, 28], click: true, dwell: 5600
     },
     {
-      tip: "12 +Zoom", name: "Vergrößern", cls: "ok",
+      tip: "14 +Zoom", name: "Vergrößern", cls: "ok",
       text: "Maus auf <strong>Vergrößern</strong> — die ganze Leiste wird größer (nicht nur Icons).",
       bar: "pos-top", src: H5, pad: [BAR_H, 0, 0], zoom: Z[5], zoomTo: Z[8],
       panel: false, ctx: true, prop: false, mega: false, chaos: true, cutHint: true,
       zoomPick: "up", dwell: 4800
     },
     {
-      tip: "13 −Zoom", name: "Verkleinern", cls: "ok",
+      tip: "15 −Zoom", name: "Verkleinern", cls: "ok",
       text: "Maus auf <strong>Verkleinern</strong> — wieder kleiner. Beide Einträge bleiben im Menü.",
       bar: "pos-top", src: H5, pad: [BAR_H, 0, 0], zoom: Z[8], zoomTo: Z[5],
       panel: false, ctx: true, prop: false, mega: false, chaos: true, cutHint: true,
       zoomPick: "down", dwell: 4500
     },
     {
-      tip: "14 →Links", name: "Platz nach links", cls: "ok",
+      tip: "16 →Links", name: "Platz nach links", cls: "ok",
       text: "Leiste <strong>links</strong>: Symbole starten neben der Leiste — Fenster liegen in der freien Fläche. Der Desktop-Hintergrund bleibt stehen.",
       bar: "pos-left", src: V, pad: [0, BAR_W, 0], zoom: ZV,
       panel: false, ctx: false, prop: false, mega: false, chaos: true, dwell: 4000
     },
     {
-      tip: "15 →Oben", name: "Platz wieder oben", cls: "ok",
+      tip: "17 →Oben", name: "Platz wieder oben", cls: "ok",
       text: "Leiste <strong>oben</strong>: Symbole als Reihe darunter — Fenster rücken separat nach unten. Nicht der ganze Hintergrund verrutscht.",
       bar: "pos-top", src: H5, pad: [BAR_H, 0, 0], zoom: Z[5],
       panel: false, ctx: false, prop: false, mega: false, chaos: true, cutHint: true, dwell: 3400
     },
     {
-      tip: "16 Hinweis", name: "Fenster-Hinweis", cls: "info",
+      tip: "18 Hinweis", name: "Fenster-Hinweis", cls: "info",
       text: "Wichtig: Ein Fenster kann die Leiste <strong>nicht verdecken</strong>. Beim Hochziehen bleibt es am Rand stehen.",
       bar: "pos-top", src: H5, pad: [BAR_H, 0, 0], zoom: Z[5],
       panel: false, ctx: false, prop: false, mega: false, chaos: true,
       win: true, winY: 118, dwell: 3200
     },
     {
-      tip: "17 Stopp", name: "Fenster stoppt", cls: "ok",
+      tip: "19 Stopp", name: "Fenster stoppt", cls: "ok",
       text: "Maus zieht das Fenster hoch — am Launcher-<strong>Rand bleibt es stehen</strong> (gelber Blitz).",
       bar: "pos-top", src: H5, pad: [BAR_H, 0, 0], zoom: Z[5],
       panel: false, ctx: false, prop: false, mega: false, chaos: true,
@@ -1112,56 +1138,56 @@ body {
       shandFrom: [340, 200], shand: [250, 58], click: true, dwell: 3800
     },
     {
-      tip: "18 Transp.", name: "Hintergrund transparent", cls: "ok",
-      text: "<strong>Hintergrund transparent</strong> heißt nicht: ganze Leiste durchsichtig. Nur die <strong>graue Farbe</strong> wird unsichtbar (Chroma) — Desktop/Tapete in den Lücken. Icons und Schrift bleiben <strong>deckend und klickbar</strong>.",
+      tip: "20 T1*", name: "Transparenz 1 (nochmal)", cls: "ok",
+      text: "Nochmal Art 1 — <strong>Transparenz 1 — Hintergrund</strong>: nur die Farbe weg, Icons deckend.",
       bar: "pos-top", src: H5, pad: [BAR_H, 0, 0], zoom: Z[5],
       panel: false, ctx: false, prop: false, mega: false, chaos: true,
       megaPick: "transparent_always", shandFrom: [280, 140], shand: [8, 8],
-      dwell: 9000
+      dwell: 7000
     },
     {
-      tip: "19 Überl.", name: "Transparent bei Überlappung", cls: "ok",
-      text: "<strong>Transparent bei Überlappung:</strong> Leiste bleibt normal grau. Erst wenn ein Fenster <strong>unter</strong> der Leiste liegt, wird nur die Farbe transparent — Icons bleiben fest.",
+      tip: "21 T2*", name: "Transparenz 2 (nochmal)", cls: "ok",
+      text: "Nochmal Art 2 — <strong>Transparenz 2 — bei Überlappung</strong>.",
       bar: "pos-top", src: H5, pad: [BAR_H, 0, 0], zoom: Z[5],
       panel: false, ctx: false, prop: false, mega: false, chaos: true,
       megaPick: "transparent_auto", shandFrom: [280, 140], shand: [8, 8],
-      dwell: 8000
+      dwell: 6500
     },
     {
-      tip: "20 Links", name: "Links", cls: "ok",
+      tip: "22 Links", name: "Links", cls: "ok",
       text: "Links schmal (Zoom ~4/13) — Leiste <strong>nicht klobig</strong>, Icons lesbar. Fenster bleiben normal.",
       bar: "pos-left", src: V, pad: [0, BAR_W, 0], zoom: ZV,
       panel: false, ctx: false, prop: false, mega: false, chaos: true, dwell: 3200
     },
     {
-      tip: "21 Anheften L", name: "Anheften links", cls: "ok",
+      tip: "23 Anheften L", name: "Anheften links", cls: "ok",
       text: "Grüner Knopf öffnet <strong>Anheften</strong> — Programme &amp; Ordner wählen.",
       bar: "pos-left", src: V, pad: [0, BAR_W, 0], zoom: ZV,
       panel: true, ctx: false, prop: false, mega: false, panelSide: "left",
       chaos: true, shand: [BAR_W + 40, 70], click: true, dwell: 3200
     },
     {
-      tip: "22 →Oben", name: "Platz nach oben", cls: "ok",
+      tip: "24 →Oben", name: "Platz nach oben", cls: "ok",
       text: "Von links nach <strong>oben</strong>: Symbole legen sich unter die Leiste — Fenster machen separat Platz. Hintergrund bleibt.",
       bar: "pos-top", src: H5, pad: [BAR_H, 0, 0], zoom: Z[5],
       panel: false, ctx: false, prop: false, mega: false, chaos: true, cutHint: true, dwell: 4200
     },
     {
-      tip: "23 →Rechts", name: "Platz nach rechts", cls: "ok",
+      tip: "25 →Rechts", name: "Platz nach rechts", cls: "ok",
       text: "Leiste <strong>rechts</strong>: linke Symbole bleiben, Mitte füllt Leerraum, rechte Packung vor der Leiste — Fenster rücken getrennt.",
       bar: "pos-right", src: V, pad: [0, 0, BAR_W], zoom: ZV,
       panel: false, ctx: false, prop: false, mega: false, chaos: true, dwell: 4500
     },
     {
-      tip: "24 Anheften R", name: "Anheften rechts", cls: "ok",
+      tip: "26 Anheften R", name: "Anheften rechts", cls: "ok",
       text: "<strong>Anheften auch rechts</strong> — Fenster öffnet sich neben der Leiste.",
       bar: "pos-right", src: V, pad: [0, 0, BAR_W], zoom: ZV,
       panel: true, ctx: false, prop: false, mega: false, panelSide: "right",
       chaos: true, shand: [420, 90], click: true, dwell: 3400
     },
     {
-      tip: "25 Fertig", name: "Fertig", cls: "ok",
-      text: "Fazit: Statt voller Windows-Leiste (Word/Excel-Stapel) greifen Sie Programme auf der kurzen Acrisum-Leiste — ohne alles zu minimieren. &gt;&gt;-Liste, Platz, Zoom, Transparenz.",
+      tip: "27 Fertig", name: "Fertig", cls: "ok",
+      text: "Fazit: Statt voller Windows-Leiste (Word/Excel-Stapel) greifen Sie Programme auf der kurzen Acrisum-Leiste — ohne alles zu minimieren. &gt;&gt;-Liste, Platz, Zoom, <strong>zwei Transparenz-Arten</strong>.",
       bar: "pos-top", src: H5, pad: [BAR_H, 0, 0], zoom: Z[5],
       panel: false, ctx: false, prop: false, mega: false, chaos: true, cutHint: true, dwell: 4000
     },
@@ -1405,7 +1431,7 @@ body {
       stage.classList.remove("ghost-on", "under-on", "bg-clear-on", "peek-on");
       lbar.className = "lbar " + ph.bar;
       img.setAttribute("src", H5);
-      if (ghostTag) ghostTag.textContent = "Hintergrund transparent";
+      if (ghostTag) ghostTag.textContent = "Transparenz 1 — Hintergrund";
       void shand.offsetWidth;
       later(() => {
         shand.style.transition = "opacity .25s ease, left .85s ease, top .85s ease, transform .15s ease";
@@ -1455,7 +1481,7 @@ body {
       stage.classList.add("shand-on", "grip-on");
       stage.classList.remove("ghost-on", "under-on");
       lbar.className = "lbar " + ph.bar;
-      if (ghostTag) ghostTag.textContent = "Transparent bei Überlappung";
+      if (ghostTag) ghostTag.textContent = "Transparenz 2 — bei Überlappung";
       void shand.offsetWidth;
       later(() => {
         shand.style.transition = "opacity .25s ease, left .85s ease, top .85s ease, transform .15s ease";

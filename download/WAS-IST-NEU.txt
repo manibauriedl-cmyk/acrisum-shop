@@ -1,21 +1,21 @@
-﻿Launcher 2 — Hinweise zur Version 1.2.10
+﻿Launcher 2 — Hinweise zur Version 1.2.11
 =======================================
 
-Datum: 31.08.2026
+Datum: 02.09.2026
 
 
 Was sich für Sie ändert
 -----------------------
-• Rechtsklick-Menü: schließt nach 10 Sekunden von selbst — auch wenn Sie
-  in Browser oder anderes Programm wechseln.
-• Neuer Menüpunkt „Gratis Tipp: Thunderbird…“ — öffnet die Anleitung auf
-  acrisum.com (Textfarben im Editor ab Thunderbird 128, inkl. Rückgängig).
-• Homepage acrisum.com: Block „Gratis Zusatznutzen“ + Hilfe-Seite (gleicher Tipp).
+• Neue Versionen kommen von selbst. Nach dem Start prüft der Launcher
+  kurz auf acrisum.com. Ist etwas Neues da: ein Klick auf Aktualisieren.
+• Python (die unsichtbare Laufzeit) kommt im selben Schritt mit.
+  Sie müssen keine Ordner kopieren.
+• Ihre angehefteten Programme und die Lage der Leiste bleiben.
 
 
 Technisch (Kurz)
 ----------------
-• SemVer 1.2.10 · Vorgänger 1.2.9
+• SemVer 1.2.11 · Vorgänger 1.2.10
 • Fenstervorschau (Hover) weiterhin nur 1.3.0 ENTWICKLUNG — nicht im Shop.
 
 
@@ -26,7 +26,6 @@ Abwärtskompatibilität
 
 Rückgängig / wenn etwas nicht passt
 -----------------------------------
-• Thunderbird: in der Anleitung Abschnitt „Rückgängig machen“ — eine
-  Einstellung zurück, sonst nichts am PC geändert.
-• Launcher-Menü: Esc oder Klick außerhalb schließt sofort.
-• Website/ Menüpunkt: siehe ROLLBACK-ZUSATZNUTZEN.txt im Shop-Repo.
+• Beim Hinweis „Neue Version“ auf Nein: erst die nächste Nummer fragt wieder.
+• Rechtsklick → Neue Version… prüft jederzeit.
+• Thunderbird-Tipp: in der Anleitung Abschnitt „Rückgängig machen“.

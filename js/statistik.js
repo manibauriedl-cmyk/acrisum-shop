@@ -1,6 +1,17 @@
 /* Acrisum — anonymer Seitenaufruf (1× pro Sitzung/Seite), kein Tracking-Cookie */
 (function () {
-  var API = "/api/acrisum-downloads";
+  function apiWurzel() {
+    var z = window.ACRISUM_ZAHLUNG || {};
+    if (z.api_base) return String(z.api_base).replace(/\/$/, "");
+    if (location.port === "6019" || /127\.0\.0\.1|localhost/i.test(location.hostname)) {
+      return location.origin;
+    }
+    return "http://127.0.0.1:6019";
+  }
+
+  function istLokal() {
+    return location.port === "6019" || /127\.0\.0\.1|localhost/i.test(location.hostname);
+  }
 
   function seitenName() {
     var el = document.body && document.body.getAttribute("data-seite");
@@ -23,9 +34,9 @@
       sessionStorage.setItem(key, "1");
     } catch (e) {}
 
-    fetch(API, {
+    fetch(apiWurzel() + "/api/acrisum-downloads", {
       method: "POST",
-      credentials: "same-origin",
+      credentials: istLokal() ? "same-origin" : "omit",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ typ: "seite", seite: seite }),
     }).catch(function () {});

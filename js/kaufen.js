@@ -265,6 +265,9 @@
         var eingabe = String(testInput.value || "").trim();
         if (eingabe === erwartet) {
           var ziel = String(root.test_danke_url || "danke.html").trim() || "danke.html";
+          if (!/[?&]test=1(?:&|$)/.test(ziel)) {
+            ziel += (ziel.indexOf("?") >= 0 ? "&" : "?") + "test=1";
+          }
           testSpinner(true);
           window.setTimeout(function () {
             window.location.assign(ziel);

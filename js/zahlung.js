@@ -2,8 +2,9 @@
 window.ACRISUM_ZAHLUNG = {
   anbieter: "stripe",
   checkout_dynamisch: false,
-  checkout_url: "https://buy.stripe.com/28E14m2Ir8dgcXzedJfIs0c",
+  checkout_url: "https://buy.stripe.com/3cIeVc5UDbpsg9LfhNfIs0d",
   preis_api: "",
+  api_base: "http://127.0.0.1:6019",
   danke_url: "https://acrisum.com/danke.html",
   danke_path: "danke.html",
   download_url: "download/Acrisum-Launcher-Setup-1.2.10.exe",
@@ -12,7 +13,7 @@ window.ACRISUM_ZAHLUNG = {
   paypal_pflicht: true,
   zahlungsmethoden: ["PayPal", "Google Pay", "Karte", "Klarna", "weitere"],
   test_code: "2233",
-  test_danke_url: "danke.html",
+  test_danke_url: "danke.html?test=1",
   preis: {
     steigerung_aktiv: true,
     start_datum: "2026-08-28",
