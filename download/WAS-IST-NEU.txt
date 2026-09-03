@@ -11,6 +11,8 @@ Was sich für Sie ändert
 • Python (die unsichtbare Laufzeit) kommt im selben Schritt mit.
   Sie müssen keine Ordner kopieren.
 • Ihre angehefteten Programme und die Lage der Leiste bleiben.
+• Windows 8.1: Start vom Desktop und Startmenü. An die Taskleiste
+  anheften geht über das Startmenü (Rechtsklick) — nicht über die .bat.
 
 
 Technisch (Kurz)

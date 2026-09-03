@@ -1,6 +1,6 @@
 {
-  "version": "1.2.10",
-  "setup_url": "https://acrisum.com/download/Acrisum-Launcher-Setup-1.2.10.exe",
-  "sha256": "",
-  "hinweis": ""
+  "version": "1.2.11",
+  "setup_url": "https://acrisum.com/download/Acrisum-Launcher-Setup-1.2.11.exe",
+  "sha256": "8c5c210c85236064f7510ce7f81a0513e942030be661a3af9ec84b6c57031a5a",
+  "hinweis": "Windows 8.1: Start über Desktop oder Startmenü. Taskleiste: Startmenü rechtsklicken → An Taskleiste anheften."
 }
