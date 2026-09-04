@@ -1,7 +1,7 @@
 Acrisum Launcher — Ausblick (Kunden- & Interntext)
 ==================================================
 
-Stand: 2026-08-06 · überall gleich halten (Homepage, Danke, Hilfe, WAS-IST-NEU, Intern)
+Stand: 04.09.2026 · überall gleich halten (Homepage, Danke, Hilfe, WAS-IST-NEU, Intern)
 
 
 Positiv (Marketing)
@@ -9,10 +9,14 @@ Positiv (Marketing)
 Schon nach den ersten Tests haben uns Tester den Nutzwert bestätigt.
 
 
-Geplante Erweiterungen
+Diese Version
+-------------
+Eine Leiste auf dem Hauptbildschirm. Ziehen auf einen anderen Schirm holt sie zurück — die Desktop-Symbole bleiben auf jedem Bildschirm an ihrem Platz.
+
+
+Geplant (eigene Stufe)
 ---------------------
-• Benutzung auf mehreren Bildschirmen
-• Mehrere Launcher
+• eine eigene Leiste je Bildschirm (eigene Symbole, Lage, Zoom)
 • und vieles mehr
 
 

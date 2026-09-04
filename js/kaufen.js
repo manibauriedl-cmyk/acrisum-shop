@@ -30,11 +30,11 @@
   function tagespreis(cfg) {
     var start = startDate(cfg);
     var tage = daysSince(start);
-    var cent = Number(cfg.start_cent || 130) + tage * Number(cfg.plus_cent_pro_tag || 50);
+    var cent = Number(cfg.start_cent || 150) + tage * Number(cfg.plus_cent_pro_tag || 25);
     if (cfg.deckel_cent != null && cfg.deckel_cent !== "") {
       cent = Math.min(cent, Number(cfg.deckel_cent));
     }
-    return { cent: cent, tage: tage, plus: Number(cfg.plus_cent_pro_tag || 10) };
+    return { cent: cent, tage: tage, plus: Number(cfg.plus_cent_pro_tag || 25) };
   }
 
   function preisAnzeigen(root, labelPreis, t) {
@@ -56,7 +56,7 @@
       steigerBox.textContent =
         (preisCfg.hinweis_sparen || "Wer früher kauft, zahlt weniger.") +
         " Täglich +" +
-        (t ? t.plus : Number(preisCfg.plus_cent_pro_tag || 50)) +
+        (t ? t.plus : Number(preisCfg.plus_cent_pro_tag || 25)) +
         " Cent" +
         (preisCfg.deckel_cent
           ? ", max. " + euro(Number(preisCfg.deckel_cent))
@@ -156,7 +156,7 @@
     var note = document.getElementById("kaufen");
     var preisCfg = root.preis || {};
 
-    var labelPreis = "1,30 €";
+    var labelPreis = "1,50 €";
     var tLokal = null;
     if (
       root.checkout_dynamisch === false &&
@@ -172,7 +172,7 @@
     } else {
       var chip = document.getElementById("preis-chip");
       if (chip) {
-        chip.innerHTML = "einmalig <strong>1,30 €</strong> · Download";
+        chip.innerHTML = "einmalig <strong>1,50 €</strong> · Download";
       }
     }
 
@@ -187,7 +187,7 @@
           if (!j || !j.ok || j.cent == null) return;
           labelPreis = euro(Number(j.cent));
           preisAnzeigen(root, labelPreis, {
-            plus: Number(j.plus_cent_pro_tag || 50),
+            plus: Number(j.plus_cent_pro_tag || 25),
             tage: j.tage
           });
           if (btn && !btn.getAttribute("aria-disabled")) {

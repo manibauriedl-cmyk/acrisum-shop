@@ -2,7 +2,7 @@
 window.ACRISUM_ZAHLUNG = {
   anbieter: "stripe",
   checkout_dynamisch: false,
-  checkout_url: "https://buy.stripe.com/3cIeVc5UDbpsg9LfhNfIs0d",
+  checkout_url: "https://buy.stripe.com/28E9ASbeX3X0e1Db1xfIs08",
   preis_api: "",
   api_base: "http://127.0.0.1:6019",
   danke_url: "https://acrisum.com/danke.html",
@@ -16,9 +16,9 @@ window.ACRISUM_ZAHLUNG = {
   test_danke_url: "danke.html?test=1",
   preis: {
     steigerung_aktiv: true,
-    start_datum: "2026-08-28",
-    start_cent: 130,
-    plus_cent_pro_tag: 50,
+    start_datum: "2026-09-04",
+    start_cent: 150,
+    plus_cent_pro_tag: 25,
     deckel_cent: 1500,
     hinweis_sparen: "Wer früher kauft, zahlt weniger."
   }
