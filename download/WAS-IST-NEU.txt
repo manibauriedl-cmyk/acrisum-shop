@@ -1,23 +1,24 @@
-﻿Launcher 2 — Hinweise zur Version 1.2.11
+﻿Launcher 2 — Hinweise zur Version 1.2.12
 =======================================
 
-Datum: 02.09.2026
+Datum: 04.09.2026
 
 
 Was sich für Sie ändert
 -----------------------
+• Diese Version sitzt nur auf dem Hauptbildschirm. Bei mehreren
+  Bildschirmen erscheint einmal ein Hinweis. Ziehen auf andere Schirme
+  holt die Leiste zurück — Desktop-Symbole dort bleiben.
 • Neue Versionen kommen von selbst. Nach dem Start prüft der Launcher
   kurz auf acrisum.com. Ist etwas Neues da: ein Klick auf Aktualisieren.
 • Python (die unsichtbare Laufzeit) kommt im selben Schritt mit.
   Sie müssen keine Ordner kopieren.
 • Ihre angehefteten Programme und die Lage der Leiste bleiben.
-• Windows 8.1: Start vom Desktop und Startmenü. An die Taskleiste
-  anheften geht über das Startmenü (Rechtsklick) — nicht über die .bat.
 
 
 Technisch (Kurz)
 ----------------
-• SemVer 1.2.11 · Vorgänger 1.2.10
+• SemVer 1.2.12 · Vorgänger 1.2.11
 • Fenstervorschau (Hover) weiterhin nur 1.3.0 ENTWICKLUNG — nicht im Shop.
 
 
