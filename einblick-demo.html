@@ -365,7 +365,8 @@ body {
   border-radius: 6px; padding: 0.4rem 0.75rem; cursor: pointer; font: inherit; font-size: 0.88rem;
 }
 .demo-controls button.primary { background: var(--accent); color: #1a1408; border-color: var(--accent); }
-.demo-controls #phaseLabel { font-size: 0.85rem; color: var(--muted); }
+.demo-controls button:disabled { opacity: 0.35; cursor: not-allowed; }
+.demo-controls #phaseLabel { font-size: 0.85rem; color: var(--muted); flex: 1 1 100%; }
 .timeline {
   display: flex; gap: 0.28rem; margin-top: 0.55rem; flex-wrap: wrap;
   max-height: none; overflow: visible; padding-bottom: 12px;
@@ -460,8 +461,25 @@ body {
   border: 1px solid #555;
 }
 .demo-stage.overflow-on .overflow-shot { opacity: 1; }
-.demo-stage.overflow-on .chaos { opacity: 0.12; }
-.demo-stage.overflow-on .cut-hint { opacity: 0; }
+.demo-stage.overflow-on .chaos { opacity: 0; visibility: hidden; }
+.demo-stage.overflow-on .desk,
+.demo-stage.overflow-on .lbar,
+.demo-stage.overflow-on .win-taskbar,
+.demo-stage.overflow-on .win-hover,
+.demo-stage.overflow-on .winbar-tag,
+.demo-stage.overflow-on .stage-hand,
+.demo-stage.overflow-on .grip-hint,
+.demo-stage.overflow-on .cut-hint,
+.demo-stage.overflow-on .desk-peek { opacity: 0; visibility: hidden; }
+.demo-stage.overflow-on::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #1e2d42;
+  z-index: 15;
+}
+.demo-stage.overflow-on .overflow-shot { z-index: 17; }
+.demo-stage.overflow-on .badge { z-index: 18; }
 .overflow-shot img {
   display: block;
   width: 100%;
@@ -871,11 +889,13 @@ body {
   <div class="demo-controls">
     <button type="button" class="primary" id="btnPlay">▶ Animation starten</button>
     <button type="button" id="btnPause">⏸ Pause</button>
+    <button type="button" id="btnPrev">◀ Zurück</button>
+    <button type="button" id="btnNext">Weiter ▶</button>
     <button type="button" id="btnReset">⟲ Von vorn</button>
     <span id="phaseLabel">Bereit</span>
   </div>
   <div class="timeline" id="timeline"></div>
-  <p class="timeline-hint">Alle Schritte sichtbar — tippen zum Springen (1 Chaos · 6+7 Transparenz vor Ups · …).</p>
+  <p class="timeline-hint">◀ ▶ Schritt für Schritt · Pause hält den Schritt · nummerierte Knöpfe springen dorthin und stoppen.</p>
 </div>
 <script>
 (function () {
@@ -1589,15 +1609,30 @@ body {
       scheduleNext();
     }, phases[i].dwell);
   }
-  function jumpTo(idx) {
+  function jumpTo(idx, continueAuto) {
     if (idx < 0 || idx >= phases.length) return;
     if (timer) { clearTimeout(timer); timer = null; }
     clearAnimTimers();
     i = idx;
     apply(i);
-    playing = true;
-    document.getElementById("btnPlay").textContent = "▶ Läuft …";
-    scheduleNext();
+    if (continueAuto) {
+      playing = true;
+      document.getElementById("btnPlay").textContent = "▶ Läuft …";
+      scheduleNext();
+    } else {
+      playing = false;
+      document.getElementById("btnPlay").textContent = "▶ Weiter";
+    }
+    updateNavButtons();
+  }
+  function stepRel(delta) {
+    jumpTo(Math.max(0, Math.min(phases.length - 1, i + delta)), false);
+  }
+  function updateNavButtons() {
+    const prev = document.getElementById("btnPrev");
+    const next = document.getElementById("btnNext");
+    if (prev) prev.disabled = i <= 0;
+    if (next) next.disabled = i >= phases.length - 1;
   }
   function play() {
     if (playing) return;
@@ -1615,24 +1650,28 @@ body {
   function reset() {
     pause(); i = 0; apply(0);
     document.getElementById("btnPlay").textContent = "▶ Animation starten";
+    updateNavButtons();
   }
   document.getElementById("btnPlay").onclick = () => { if (!playing) play(); };
   document.getElementById("btnPause").onclick = pause;
+  document.getElementById("btnPrev").onclick = () => stepRel(-1);
+  document.getElementById("btnNext").onclick = () => stepRel(1);
   document.getElementById("btnReset").onclick = reset;
   timeline.querySelectorAll("span").forEach((el) => {
-    el.addEventListener("click", () => jumpTo(Number(el.getAttribute("data-i"))));
+    el.addEventListener("click", () => jumpTo(Number(el.getAttribute("data-i")), false));
     el.addEventListener("keydown", (ev) => {
       if (ev.key === "Enter" || ev.key === " ") {
         ev.preventDefault();
-        jumpTo(Number(el.getAttribute("data-i")));
+        jumpTo(Number(el.getAttribute("data-i")), false);
       }
     });
   });
   apply(0);
+  updateNavButtons();
   var qs = new URLSearchParams(location.search);
   if (qs.get("fenster") === "1") {
-    jumpTo(0);
-  } else {
+    jumpTo(0, false);
+  } else if (qs.get("autoplay") === "1") {
     setTimeout(play, 500);
   }
 })();
