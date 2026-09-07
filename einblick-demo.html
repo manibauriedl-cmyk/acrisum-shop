@@ -391,6 +391,11 @@ body {
   transition: opacity .4s ease, top .55s ease, left .55s ease, right .55s ease;
 }
 .demo-stage.chaos-on .chaos { opacity: 1; }
+.demo-stage:not(.desk-on) .desk { opacity: 0; visibility: hidden; }
+.demo-stage.chaos-only .lbar { opacity: 0 !important; visibility: hidden; }
+.demo-stage.chaos-only .win-taskbar,
+.demo-stage.chaos-only .win-hover,
+.demo-stage.chaos-only .winbar-tag { opacity: 0 !important; visibility: hidden; }
 .chaos .cw {
   position: absolute;
   background: #ece9d8; border: 1px solid #303030;
@@ -1028,35 +1033,47 @@ body {
   const phases = [
     {
       tip: "1 Chaos", name: "Fenstergemetzel", cls: "info",
-      text: "<strong>Chaos:</strong> Viele Fenster übereinander — Desktop kaum erreichbar. Typische Reaktion: alles minimieren. Braucht es mit Acrisum nicht.",
-      bar: "pos-top", src: H, pad: [BAR_H, 0, 0], zoom: Z[5],
-      panel: false, ctx: false, prop: false, mega: false, chaos: true, dwell: 4200
+      text: "<strong>Fenster-Chaos:</strong> Viele Programme übereinander — Desktop kaum erreichbar. Das ist das Problem. <em>Die Leiste kommt gleich als Lösung — hier erst nur das Fenster-Salat.</em>",
+      bar: "pos-hidden", barHide: true, desk: false, chaosOnly: true,
+      pad: [0, 0, 0], zoom: 1,
+      panel: false, ctx: false, prop: false, mega: false, chaos: true, dwell: 5000
     },
     {
       tip: "2 Win11", name: "Win11-Leiste voll", cls: "info",
-      text: "<strong>Fingierte Win11-Leiste:</strong> 5× Word, 6× Excel, 4 andere. Ab <strong>mehr als 3 Fenstern</strong> wird der Hover zum <strong>Betrachtungschaos</strong> — viele kleine Vorschaubilder, schräg gestapelt, Pfeil +2. Deshalb kurze Acrisum-Leiste statt voller Taskleiste.",
-      bar: "pos-top", src: H, pad: [BAR_H, 0, 0], zoom: Z[5],
+      text: "<strong>Windows-Taskleiste voll:</strong> 5× Word, 6× Excel — ab 3 Fenstern wird der Hover zum <strong>Betrachtungschaos</strong>. Auch hier: kein Acrisum — nur das Windows-Problem.",
+      bar: "pos-hidden", barHide: true, desk: false,
+      pad: [42, 0, 0], zoom: 1,
       panel: false, ctx: false, prop: false, mega: false, chaos: true,
-      winBar: true, winHover: true, winHoverAt: 1600, dwell: 7200
+      winBar: true, winHover: true, winHoverAt: 1600, chaos: false, dwell: 7200
     },
     {
-      tip: "3 Name!", name: "Name (schnell)", cls: "ok",
+      tip: "3 Leiste", name: "Acrisum-Leiste", cls: "ok",
+      text: "<strong>So sieht Acrisum aus:</strong> Programme in einer Reihe — wie auf Ihrem Desktop, ohne Überschneidungen. Rest bei Bedarf hinter <strong>&gt;&gt;</strong>.",
+      bar: "pos-top", src: H, pad: [BAR_H, 0, 0], zoom: Z[5],
+      desk: false, chaos: false,
+      panel: false, ctx: false, prop: false, mega: false, dwell: 4500
+    },
+    {
+      tip: "4 Name!", name: "Name (schnell)", cls: "ok",
       text: "<strong>Eigenschaften</strong> — Schnelldurchlauf: <span style=\"color:#9fdf9f\">Angezeigter Name</span> + Beschriftung.",
       bar: "pos-top", src: H, pad: [BAR_H, 0, 0], zoom: Z[5],
+      desk: false, chaos: false,
       panel: false, ctx: false, prop: true, mega: false, propShort: true, propCheck: true,
-      chaos: true, shand: [300, 100], click: true, dwell: 2000
+      shand: [300, 100], click: true, dwell: 2000
     },
     {
-      tip: "4 Turbo", name: "Turbo", cls: "fun",
+      tip: "5 Seite", name: "An die Seite", cls: "fun",
       text: "Und so geht’s auch an die Seite …",
       bar: "pos-left", src: V, pad: [0, BAR_W, 0], zoom: ZV,
-      panel: false, ctx: false, prop: false, mega: false, chaos: true, dwell: 500
+      desk: false, chaos: false,
+      panel: false, ctx: false, prop: false, mega: false, dwell: 500
     },
     {
-      tip: "5 >>", name: "Rest hinter >>", cls: "ok",
+      tip: "6 >>", name: "Rest hinter >>", cls: "ok",
       text: "Klick auf <strong>&gt;&gt;</strong> — die Programme hinter dem Überlauf erscheinen als Liste. Unten: <strong>Leiste verlängern</strong>.",
-      bar: "pos-top", src: H, pad: [BAR_H, 0, 0], zoom: Z[5],
-      panel: false, ctx: false, prop: false, mega: false, chaos: true,
+      bar: "pos-top", barHide: true, desk: false, chaos: false,
+      pad: [BAR_H, 0, 0], zoom: Z[5],
+      panel: false, ctx: false, prop: false, mega: false,
       overflow: OV1, shand: [520, 28], click: true, dwell: 5200
     },
     {
@@ -1295,6 +1312,8 @@ body {
     stage.classList.toggle("prop-on", !!ph.prop);
     stage.classList.toggle("win-on", !!ph.win);
     stage.classList.toggle("chaos-on", !!ph.chaos);
+    stage.classList.toggle("desk-on", ph.desk !== false);
+    stage.classList.toggle("chaos-only", !!ph.chaosOnly);
     stage.classList.toggle("ghost-on", !!ph.barGhost);
     stage.classList.toggle("under-on", !!ph.underBar);
     stage.classList.toggle("cut-on", !!ph.cutHint);
@@ -1304,9 +1323,11 @@ body {
     stage.classList.remove("chaos-side-left", "chaos-side-right");
     stage.classList.remove("grip-on", "edge-on", "bg-clear-on", "peek-on");
     stage.classList.remove("bar-top", "bar-left", "bar-right");
-    if (ph.bar === "pos-top") stage.classList.add("bar-top");
-    else if (ph.bar === "pos-left") stage.classList.add("bar-left");
-    else if (ph.bar === "pos-right") stage.classList.add("bar-right");
+    if (!ph.barHide) {
+      if (ph.bar === "pos-top") stage.classList.add("bar-top");
+      else if (ph.bar === "pos-left") stage.classList.add("bar-left");
+      else if (ph.bar === "pos-right") stage.classList.add("bar-right");
+    }
     if (overflowImg && ph.overflow) {
       if (overflowImg.getAttribute("src") !== ph.overflow) {
         overflowImg.setAttribute("src", ph.overflow);
@@ -1338,8 +1359,12 @@ body {
     stage.classList.toggle("shand-on", !!(ph.shand || ph.click || ph.shandFrom || ph.megaPick));
     stage.parentElement.classList.toggle("has-mega", megaOn && !megaDelayed);
     /* className setzt Position — bar-ghost mit anhängen (sonst fehlt Transparenz) */
-    lbar.className = "lbar " + ph.bar + (ph.barGhost ? " bar-ghost" : "");
-    if (img.getAttribute("src") !== ph.src) img.setAttribute("src", ph.src);
+    if (ph.barHide) {
+      lbar.className = "lbar pos-hidden" + (ph.barGhost ? " bar-ghost" : "");
+    } else {
+      lbar.className = "lbar " + ph.bar + (ph.barGhost ? " bar-ghost" : "");
+      if (ph.src && img.getAttribute("src") !== ph.src) img.setAttribute("src", ph.src);
+    }
     const pad = ph.pad.slice();
     if (ph.bar === "pos-top" && pad[0] > 0) pad[0] = Math.ceil(BAR_H * z);
     if (ph.bar === "pos-left" && pad[1] > 0) pad[1] = Math.ceil(BAR_W * z);
