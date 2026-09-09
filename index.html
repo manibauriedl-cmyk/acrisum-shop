@@ -82,6 +82,7 @@
       <a href="#platz">Desktop-Platz</a>
       <a href="#funktionen">Funktionen</a>
       <a href="#system">System</a>
+      <a href="#smartscreen">Installation</a>
       <a href="#probleme">Typische Probleme</a>
       <a href="#einblick">Einblick</a>
       <a href="#stimmen">Stimmen</a>
@@ -335,6 +336,37 @@
       </ul>
     </section>
 
+    <section class="section" id="smartscreen">
+      <h2>Installation — blaue Windows-Meldung?</h2>
+      <p class="einblick-lead">Keine Panik: Windows ist bei neuen Programmen vorsichtig — das ist normal und kein Virus-Hinweis.</p>
+      <figure class="einblick-shot">
+        <img
+          src="bilder/schema-smartscreen.svg"
+          width="880"
+          height="260"
+          alt="Schema: SmartScreen — Weitere Informationen, dann Trotzdem ausführen, danach Setup-Assistent"
+          decoding="async">
+        <figcaption>Zwei Klicks — dann läuft der Assistent wie gewohnt weiter.</figcaption>
+      </figure>
+      <div class="smartscreen-karte">
+        <p class="smartscreen-lead">
+          <strong>Gute Nachricht:</strong> Das Setup ist mit <strong>Certum Code Signing</strong> signiert
+          (Herausgeber: Manfred Adalbert Bauriedl). Windows kennt uns als Herausgeber noch nicht so lange —
+          deshalb die blaue Vorsichtsmeldung. <strong>Das Setup selbst ist in Ordnung.</strong>
+        </p>
+        <ol class="smartscreen-schritte">
+          <li>Setup-Datei speichern und doppelklicken.</li>
+          <li>Erscheint das blaue Fenster: <strong>Weitere Informationen</strong> anklicken.</li>
+          <li>Dann: <strong>Trotzdem ausführen</strong> — danach im Assistenten einfach <strong>Weiter</strong> bis <strong>Fertigstellen</strong>.</li>
+        </ol>
+        <p class="smartscreen-hinweis">
+          <strong>Kein Administrator nötig</strong> — und kein Internet während der Installation.
+          Wenn Norton oder Telekom-Sicherheit zusätzlich blockiert: Ausnahme setzen und erneut starten
+          (Details auf der Dankeseite nach dem Kauf).
+        </p>
+      </div>
+    </section>
+
     <section class="section" id="probleme">
       <h2>Typische Probleme</h2>
       <p class="einblick-lead">Wenn Sie schon einmal eine schwebende Leiste am Rand ausprobiert haben, kennen Sie das vielleicht.</p>
@@ -489,7 +521,8 @@
         <details>
           <summary>Kann Windows eine zweite Taskleiste — oder PowerToys?</summary>
           <p>Windows hat nur <strong>eine</strong> Taskleiste. Verschieben oder auf dem Zweitmonitor wiederholen ändert das nicht.
-            Das kostenlose PowerToys-Dock von Microsoft ist eine <strong>Befehlsleiste</strong>, kein zweites Anheften von Programmen und Ordnern.
+            Das kostenlose PowerToys-Dock von Microsoft ist eine <strong>Befehlsleiste</strong> — reserviert auch Desktop-Platz (AppBar),
+            aber kein direktes Anheften und Starten von Programmen und Ordnern wie an einer Programmleiste.
             Ausführlich: <a href="windows-keine-zweite-taskleiste.html">Windows hat keine zweite Taskleiste</a>.</p>
         </details>
         <details>
@@ -521,6 +554,12 @@
         <details>
           <summary>Für welches Windows?</summary>
           <p>Windows <strong>8.1</strong>, <strong>10</strong> und <strong>11</strong> (64 Bit). Details: <a href="#system">Systemanforderungen</a>. Installation per Setup; Einstellungen pro Benutzer unter <code>%APPDATA%\Launcher2\</code>.</p>
+        </details>
+        <details>
+          <summary>Blaue Windows-Warnung beim Setup — ist das gefährlich?</summary>
+          <p>Nein — Windows warnt bei neuen, noch wenig verbreiteten Programmen vorsichtig.
+            Unser Setup ist signiert (Certum). Einfach <strong>Weitere Informationen</strong> → <strong>Trotzdem ausführen</strong>.
+            Schritt-für-Schritt mit Schema: <a href="#smartscreen">Installation — blaue Meldung</a>.</p>
         </details>
         <details>
           <summary>Welche Zahlungsmethoden gibt es?</summary>
