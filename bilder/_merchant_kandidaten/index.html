@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>Merchant-Bild — alle Kandidaten</title>
+  <style>
+    body { font-family: "Segoe UI", sans-serif; background: #111; color: #eee; margin: 1rem 2rem; }
+    h1 { color: #c4a35a; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 1.2rem; }
+    figure { background: #1a1f28; border: 1px solid #333; border-radius: 8px; padding: 0.8rem; margin: 0; }
+    figure.best { border-color: #c4a35a; box-shadow: 0 0 0 2px rgba(196,163,90,.25); }
+    img { width: 100%; height: auto; background: #fff; border-radius: 4px; }
+    figcaption { margin-top: 0.6rem; font-size: 0.92rem; line-height: 1.45; }
+    .tag { display: inline-block; background: #2a3444; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; margin-right: 4px; }
+    .tag.gold { background: #5a4a20; color: #f0d890; }
+    section { margin: 2rem 0; }
+    a { color: #9ec5eb; }
+    ul { line-height: 1.6; }
+  </style>
+</head>
+<body>
+  <h1>Merchant-Bild — Inventar &amp; Kandidaten</h1>
+  <p>Stand: aus <code>winsu-vermarktung</code> durchsucht. ★ = für Google Merchant empfohlen (Story + Auflösung).</p>
+
+  <section>
+    <h2>Einblick-Demo (HTML — sauber, mit Story)</h2>
+    <p>Quelle: <a href="../einblick-demo.html">shop/einblick-demo.html</a> · Skript: <code>_screenshot_einblick_merchant.py</code></p>
+    <div class="grid">
+      <figure class="best">
+        <img src="19-fenster-stoppt-am-rand.png" alt="">
+        <figcaption><span class="tag gold">★ LIVE v8</span> <strong>Fenster stoppt am Rand</strong> — Platz reserviert, Fenster-Salat, Leiste oben. Tip unten im Merchant abgeschnitten.</figcaption>
+      </figure>
+      <figure class="best">
+        <img src="23-anheften-links.png" alt="">
+        <figcaption><span class="tag gold">★</span> <strong>Anheften</strong> — Dialog „Programme wählen“, Leiste links, Fenster daneben.</figcaption>
+      </figure>
+      <figure>
+        <img src="03-acrisum-leiste.png" alt="">
+        <figcaption><strong>So sieht Acrisum aus</strong> — Leiste + Überlauf ».</figcaption>
+      </figure>
+      <figure>
+        <img src="11-mega-menue.png" alt="">
+        <figcaption><strong>Mega-Menü</strong> — Desktop-Platz reservieren, Zoom, Position (wie dein Screenshot).</figcaption>
+      </figure>
+      <figure>
+        <img src="02-win11-leiste-voll.png" alt="">
+        <figcaption><strong>Problem</strong> — volle Win11-Leiste, Word/Excel-Stapel (Kontrast).</figcaption>
+      </figure>
+      <figure>
+        <img src="28-fazit-leiste.png" alt="">
+        <figcaption><strong>Fazit</strong> — Leiste + viele Fenster.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section>
+    <h2>Weitere vorhandene Assets (Ordner)</h2>
+    <ul>
+      <li><code>../anheften-fenster-voll.png</code> (launcher2-hilfe) — echtes Anheften-Fenster, 931×946 ★ — aber Dev-Leiste oben</li>
+      <li><code>../vergleich-acrisum-rocketdock-nexus.png</code> — VORTEIL Grafik 1400×900 ★ für Story „Platz reserviert“</li>
+      <li><code>../../marketing/MAIL-TESTER-leiste-6-bildschirm.png</code> — saubere Büro-Leiste (Explorer, Notepad …) ★ ohne Dev — aber nur 456×82</li>
+      <li><code>../../marketing/MAIL-TESTER-leiste-echt-voll.png</code> — Vollbild 1920×1200 — Dev-Desktop, nicht für Kunden</li>
+      <li><code>../overflow-2.png</code> — Überlauf-Liste „Leiste verlängern“</li>
+      <li><code>../acrisum-launcher.png</code> — Shop-Hero 647×99 (zu klein für Merchant allein)</li>
+      <li><code>../../launcher2-hilfe/bilder/menue-komplett.png</code> — Kontextmenü (Farben, Platz reservieren)</li>
+      <li><code>../../marketing/mitbewerber-bilder/</code> — ObjectDock Productivity etc. (Vorbild, nicht Acrisum)</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Aktuelles Merchant-Bild</h2>
+    <figure class="best">
+      <img src="../acrisum-launcher-google.png" alt="">
+      <figcaption><code>acrisum-launcher-google.png</code> — 1500×1500, aus Einblick Frame „Fenster stoppt“.</figcaption>
+    </figure>
+  </section>
+</body>
+</html>
