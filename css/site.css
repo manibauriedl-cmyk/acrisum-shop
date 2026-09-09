@@ -649,9 +649,11 @@ body.has-cookie-hinweis { padding-bottom: 5.5rem; }
   color: var(--muted);
 }
 .problem-liste li strong {
-  display: block;
   color: var(--text);
   font-size: 0.95rem;
+}
+.problem-liste li > strong:first-child {
+  display: block;
   margin-bottom: 0.15rem;
 }
 .problem-liste li:last-child { border-bottom: 0; }
