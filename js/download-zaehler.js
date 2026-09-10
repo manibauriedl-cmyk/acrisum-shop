@@ -27,8 +27,11 @@
   function laden() {
     var a = api();
     if (!a) return;
-    fetch(a.wurzel() + "/api/acrisum-downloads", {
-      credentials: a.istLokal() ? "same-origin" : "omit",
+    var start = a.apiBaseLaden ? a.apiBaseLaden() : Promise.resolve(a.wurzel());
+    start.then(function (base) {
+      return fetch(base + "/api/acrisum-downloads", {
+        credentials: a.istLokal() ? "same-origin" : "omit",
+      });
     })
       .then(function (r) {
         return r.json();

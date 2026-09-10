@@ -1,12 +1,37 @@
-/* Acrisum — gemeinsame API-Hilfe für Zähler (:6019 oder api_base in zahlung.js) */
+/* Acrisum — Zähler-API (zaehler-api.json → HTTPS-Tunnel, sonst :6019) */
 (function () {
-  function wurzel() {
+  var _wurzel = null;
+  var _ready = null;
+
+  function fallbackWurzel() {
     var z = window.ACRISUM_ZAHLUNG || {};
     if (z.api_base) return String(z.api_base).replace(/\/$/, "");
     if (location.port === "6019" || /127\.0\.0\.1|localhost/i.test(location.hostname)) {
       return location.origin;
     }
     return "http://127.0.0.1:6019";
+  }
+
+  function wurzelSync() {
+    return _wurzel || fallbackWurzel();
+  }
+
+  function apiBaseLaden() {
+    if (_ready) return _ready;
+    _ready = fetch("zaehler-api.json", { cache: "no-store" })
+      .then(function (r) {
+        return r.ok ? r.json() : null;
+      })
+      .then(function (d) {
+        var ausJson = d && d.api_base ? String(d.api_base).replace(/\/$/, "") : "";
+        _wurzel = ausJson || fallbackWurzel();
+        return _wurzel;
+      })
+      .catch(function () {
+        _wurzel = fallbackWurzel();
+        return _wurzel;
+      });
+    return _ready;
   }
 
   function istLokal() {
@@ -27,22 +52,25 @@
   }
 
   function zaehlen(payload) {
-    return fetch(wurzel() + "/api/acrisum-downloads", {
-      method: "POST",
-      credentials: istLokal() ? "same-origin" : "omit",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload || {}),
-    })
-      .then(function (r) {
-        return r.json();
+    return apiBaseLaden().then(function (base) {
+      return fetch(base + "/api/acrisum-downloads", {
+        method: "POST",
+        credentials: istLokal() ? "same-origin" : "omit",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload || {}),
       })
-      .catch(function () {
-        return null;
-      });
+        .then(function (r) {
+          return r.json();
+        })
+        .catch(function () {
+          return null;
+        });
+    });
   }
 
   window.ACRISUM_API = {
-    wurzel: wurzel,
+    wurzel: wurzelSync,
+    apiBaseLaden: apiBaseLaden,
     istLokal: istLokal,
     istTestcode: istTestcode,
     testcodeMerken: testcodeMerken,
@@ -70,4 +98,6 @@
       });
     },
   };
+
+  apiBaseLaden();
 })();

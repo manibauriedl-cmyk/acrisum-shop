@@ -23,6 +23,9 @@
       sessionStorage.setItem(key, "1");
     } catch (e) {}
 
-    api.zaehlen({ typ: "seite", seite: seite });
+    var start = api.apiBaseLaden ? api.apiBaseLaden() : Promise.resolve();
+    start.then(function () {
+      api.zaehlen({ typ: "seite", seite: seite });
+    });
   });
 })();
