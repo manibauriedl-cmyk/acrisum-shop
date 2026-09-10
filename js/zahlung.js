@@ -4,7 +4,7 @@ window.ACRISUM_ZAHLUNG = {
   checkout_dynamisch: false,
   checkout_url: "https://buy.stripe.com/9B6bJ0er9dxA3mZc5BfIs0g",
   preis_api: "",
-  api_base: "http://127.0.0.1:6019",
+  api_base: "https://notifications-bras-pit-conventional.trycloudflare.com",
   danke_url: "https://acrisum.com/danke.html",
   danke_path: "danke.html",
   download_url: "download/Acrisum-Launcher-Setup-1.2.13.exe",
