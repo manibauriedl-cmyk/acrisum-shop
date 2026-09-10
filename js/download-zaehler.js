@@ -1,28 +1,11 @@
 (function () {
-  function apiWurzel() {
-    var z = window.ACRISUM_ZAHLUNG || {};
-    if (z.api_base) return String(z.api_base).replace(/\/$/, "");
-    if (location.port === "6019" || /127\.0\.0\.1|localhost/i.test(location.hostname)) {
-      return location.origin;
-    }
-    return "http://127.0.0.1:6019";
-  }
-
-  function apiDownloads() {
-    return apiWurzel() + "/api/acrisum-downloads";
-  }
-
-  function istLokal() {
-    return location.port === "6019" || /127\.0\.0\.1|localhost/i.test(location.hostname);
-  }
-
-  function istTestcode() {
-    return /(?:^|[?&])test=1(?:&|$)/.test(String(location.search || ""));
-  }
-
   function ready(fn) {
     if (document.readyState !== "loading") fn();
     else document.addEventListener("DOMContentLoaded", fn);
+  }
+
+  function api() {
+    return window.ACRISUM_API || null;
   }
 
   function setText(setupN, testN) {
@@ -42,8 +25,10 @@
   }
 
   function laden() {
-    fetch(apiDownloads(), {
-      credentials: istLokal() ? "same-origin" : "omit",
+    var a = api();
+    if (!a) return;
+    fetch(a.wurzel() + "/api/acrisum-downloads", {
+      credentials: a.istLokal() ? "same-origin" : "omit",
     })
       .then(function (r) {
         return r.json();
@@ -54,36 +39,16 @@
       .catch(function () {});
   }
 
-  function zaehlen(quelle) {
-    var test = istTestcode();
-    return fetch(apiDownloads(), {
-      method: "POST",
-      credentials: istLokal() ? "same-origin" : "omit",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        typ: test ? "testcode" : "setup",
-        quelle: test ? "testcode" : quelle || "setup-btn",
-        testcode: test,
-      }),
-    })
-      .then(function (r) {
-        return r.json();
-      })
-      .then(function (d) {
-        if (d && d.ok) setText(d.setup_clicks, d.testcode_clicks);
-        return d;
-      })
-      .catch(function () {
-        return null;
-      });
-  }
-
   ready(function () {
     laden();
-    var a = document.getElementById("btn-download");
-    if (!a) return;
-    a.addEventListener("click", function () {
-      zaehlen("setup-btn");
+    var btn = document.getElementById("btn-download");
+    if (!btn) return;
+    btn.addEventListener("click", function () {
+      var apiObj = api();
+      if (!apiObj) return;
+      apiObj.zaehleSetup("setup-btn").then(function (d) {
+        if (d && d.ok) setText(d.setup_clicks, d.testcode_clicks);
+      });
     });
   });
 })();

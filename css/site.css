@@ -97,6 +97,12 @@ a:hover { text-decoration: underline; }
 }
 .hero .lead {
   font-size: 1.1rem;
+  color: var(--text);
+  max-width: 42ch;
+  margin-bottom: 0.45rem;
+}
+.hero .lead-sub {
+  font-size: 0.95rem;
   color: var(--muted);
   max-width: 42ch;
   margin-bottom: 0.85rem;

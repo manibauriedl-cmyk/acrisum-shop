@@ -268,6 +268,9 @@
           if (!/[?&]test=1(?:&|$)/.test(ziel)) {
             ziel += (ziel.indexOf("?") >= 0 ? "&" : "?") + "test=1";
           }
+          if (window.ACRISUM_API && window.ACRISUM_API.zaehleTestcode) {
+            window.ACRISUM_API.zaehleTestcode("test-code-feld");
+          }
           testSpinner(true);
           window.setTimeout(function () {
             window.location.assign(ziel);
