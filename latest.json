@@ -1,8 +1,8 @@
 ﻿{
-    "version":  "1.2.13",
-    "setup_url":  "https://acrisum.com/download/Acrisum-Launcher-Setup-1.2.13.exe",
-    "sha256":  "0a5687e61ad39d949147581852283456b1fa3eb37ea0dc884c5f329a21de7a17",
-    "python":  "3.11.9",
-    "win_min":  "6.3",
-    "hinweis":  "Windows 8.1 Mehrmonitor: Desktop-Symbole bleiben auf ihrem Schirm â€” Platz reservieren wieder aktiv."
+  "version": "1.2.13",
+  "setup_url": "https://acrisum.com/download/Acrisum-Launcher-Setup-1.2.13.exe",
+  "sha256": "0a5687e61ad39d949147581852283456b1fa3eb37ea0dc884c5f329a21de7a17",
+  "python": "3.11.9",
+  "win_min": "6.3",
+  "hinweis": "Windows 8.1 Mehrmonitor: Desktop-Symbole bleiben auf ihrem Schirm — Platz reservieren wieder aktiv."
 }
