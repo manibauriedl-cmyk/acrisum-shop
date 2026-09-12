@@ -533,6 +533,42 @@ body.has-cookie-hinweis { padding-bottom: 5.5rem; }
   font-size: 0.86rem;
 }
 
+.heute-geplant-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-top: 0.75rem;
+}
+.heute-geplant-karte {
+  padding: 1rem 1.1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border, rgba(255, 255, 255, 0.12));
+  background: rgba(255, 255, 255, 0.03);
+  font-size: 0.92rem;
+}
+.heute-geplant-karte h3 {
+  margin: 0 0 0.65rem;
+  font-size: 1.05rem;
+}
+.heute-geplant-karte ul {
+  margin: 0;
+  padding-left: 1.15rem;
+}
+.heute-geplant-karte li {
+  margin: 0.35rem 0;
+}
+.heute-geplant-karte.heute {
+  border-color: rgba(90, 196, 120, 0.35);
+}
+.heute-geplant-karte.geplant {
+  border-color: rgba(196, 163, 90, 0.35);
+}
+.heute-geplant-hinweis {
+  margin: 0.85rem 0 0;
+  font-size: 0.84rem;
+  color: var(--muted);
+}
+
 /* Gratis Zusatznutzen — Thunderbird-Tipp (Homepage + Hilfe) */
 .zusatznutzen-karte {
   padding: 1.15rem 1.2rem;
