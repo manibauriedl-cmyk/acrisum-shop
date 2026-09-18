@@ -11,6 +11,19 @@
     });
   }
 
+  /* Relative /api/...-Pfade gegen aktuelle Tunnel-Basis auflösen
+     (zaehler-api.json wird vom Wächter bei jeder neuen Tunnel-URL gepusht). */
+  function apiUrl(path) {
+    if (/^https?:\/\//i.test(path)) return Promise.resolve(path);
+    var api = window.ACRISUM_API;
+    if (api && api.apiBaseLaden) {
+      return api.apiBaseLaden().then(function (base) {
+        return base + path;
+      });
+    }
+    return Promise.resolve(path);
+  }
+
   function startDate(cfg) {
     if (cfg.start_datum) {
       var p = String(cfg.start_datum).split("-");
@@ -78,6 +91,15 @@
     var dynamisch = root.checkout_dynamisch !== false;
 
     function zuFallback(grund) {
+      /* Dynamischer Weg fehlgeschlagen → fester Payment-Link statt Sackgasse */
+      if (dynamisch && fallback && /^https:\/\//i.test(fallback)) {
+        if (note) {
+          note.textContent =
+            "Tagespreis-Server kurz nicht erreichbar — weiter zum Zahlungslink …";
+        }
+        window.location.assign(fallback);
+        return;
+      }
       if (!dynamisch) {
         if (note) {
           note.textContent =
@@ -124,29 +146,31 @@
       danke_path: String(root.danke_path || "/dashboard/acrisum-shop/danke.html")
     };
 
-    fetch(api, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Accept: "application/json" },
-      body: JSON.stringify(payload),
-      credentials: "same-origin"
-    })
-      .then(function (r) {
-        return r.json().then(function (j) {
-          return { okHttp: r.ok, j: j };
+    apiUrl(api).then(function (apiFull) {
+      fetch(apiFull, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(payload),
+        credentials: "same-origin"
+      })
+        .then(function (r) {
+          return r.json().then(function (j) {
+            return { okHttp: r.ok, j: j };
+          });
+        })
+        .then(function (pack) {
+          var j = pack.j || {};
+          if (j.ok && j.url) {
+            window.location.assign(j.url);
+            return;
+          }
+          var hilfe = j.hilfe || j.error || "unbekannt";
+          zuFallback(hilfe);
+        })
+        .catch(function (err) {
+          zuFallback(String((err && err.message) || err || "Netzwerk"));
         });
-      })
-      .then(function (pack) {
-        var j = pack.j || {};
-        if (j.ok && j.url) {
-          window.location.assign(j.url);
-          return;
-        }
-        var hilfe = j.hilfe || j.error || "unbekannt";
-        zuFallback(hilfe);
-      })
-      .catch(function (err) {
-        zuFallback(String((err && err.message) || err || "Netzwerk"));
-      });
+    });
   }
 
   ready(function () {
@@ -179,24 +203,26 @@
     /* Server-Preis nachziehen (gleiche Formel / Quelle preis.json) */
     var preisApi = String(root.preis_api || "/api/acrisum-preis").trim();
     if (preisApi) {
-      fetch(preisApi, { credentials: "same-origin", headers: { Accept: "application/json" } })
-        .then(function (r) {
-          return r.json();
-        })
-        .then(function (j) {
-          if (!j || !j.ok || j.cent == null) return;
-          labelPreis = euro(Number(j.cent));
-          preisAnzeigen(root, labelPreis, {
-            plus: Number(j.plus_cent_pro_tag || 25),
-            tage: j.tage
+      apiUrl(preisApi).then(function (preisFull) {
+        fetch(preisFull, { credentials: "same-origin", headers: { Accept: "application/json" } })
+          .then(function (r) {
+            return r.json();
+          })
+          .then(function (j) {
+            if (!j || !j.ok || j.cent == null) return;
+            labelPreis = euro(Number(j.cent));
+            preisAnzeigen(root, labelPreis, {
+              plus: Number(j.plus_cent_pro_tag || 25),
+              tage: j.tage
+            });
+            if (btn && !btn.getAttribute("aria-disabled")) {
+              btn.textContent = (root.button_bereit || "Jetzt kaufen") + " — " + labelPreis;
+            }
+          })
+          .catch(function () {
+            /* lokal berechneter Preis bleibt */
           });
-          if (btn && !btn.getAttribute("aria-disabled")) {
-            btn.textContent = (root.button_bereit || "Jetzt kaufen") + " — " + labelPreis;
-          }
-        })
-        .catch(function () {
-          /* lokal berechneter Preis bleibt */
-        });
+      });
     }
 
     if (!btn) return;

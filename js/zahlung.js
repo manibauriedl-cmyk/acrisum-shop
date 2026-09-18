@@ -1,10 +1,10 @@
-/* Acrisum — GitHub Pages (statisch, kein :6019) */
+/* Acrisum — GitHub Pages (dynamisch via Tunnel :6030, Link = Fallback) */
 window.ACRISUM_ZAHLUNG = {
   anbieter: "stripe",
-  checkout_dynamisch: false,
+  checkout_dynamisch: true,
   checkout_url: "https://buy.stripe.com/4gM3cudn59hkcXz4D9fIs0j",
   preis_api: "",
-  api_base: "https://luck-delivered-frequencies-hip.trycloudflare.com",
+  api_base: "https://lucas-emacs-cet-van.trycloudflare.com",
   danke_url: "https://acrisum.com/danke.html",
   danke_path: "danke.html",
   download_url: "download/Acrisum-Launcher-Setup-1.2.13.exe",
