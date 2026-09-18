@@ -1,7 +1,7 @@
 {
   "steigerung_aktiv": true,
-  "start_datum": "2026-09-04",
-  "start_cent": 150,
+  "start_datum": "2026-09-18",
+  "start_cent": 135,
   "plus_cent_pro_tag": 25,
   "deckel_cent": 1500,
   "waehrung": "eur",

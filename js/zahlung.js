@@ -2,7 +2,7 @@
 window.ACRISUM_ZAHLUNG = {
   anbieter: "stripe",
   checkout_dynamisch: false,
-  checkout_url: "https://buy.stripe.com/9B614mdn5ctw6zbglRfIs0i",
+  checkout_url: "https://buy.stripe.com/4gM3cudn59hkcXz4D9fIs0j",
   preis_api: "",
   api_base: "https://luck-delivered-frequencies-hip.trycloudflare.com",
   danke_url: "https://acrisum.com/danke.html",
@@ -16,8 +16,8 @@ window.ACRISUM_ZAHLUNG = {
   test_danke_url: "danke.html?test=1",
   preis: {
     steigerung_aktiv: true,
-    start_datum: "2026-09-04",
-    start_cent: 150,
+    start_datum: "2026-09-18",
+    start_cent: 135,
     plus_cent_pro_tag: 25,
     deckel_cent: 1500,
     hinweis_sparen: "Wer früher kauft, zahlt weniger."
