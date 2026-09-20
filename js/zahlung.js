@@ -2,7 +2,7 @@
 window.ACRISUM_ZAHLUNG = {
   anbieter: "stripe",
   checkout_dynamisch: true,
-  checkout_url: "https://buy.stripe.com/4gMbJ03Mv5142iV0mTfIs0k",
+  checkout_url: "https://buy.stripe.com/00wbJ0aaT1OS8Hj9XtfIs0l",
   preis_api: "",
   api_base: "https://discounts-majority-common-donation.trycloudflare.com",
   danke_url: "https://acrisum.com/danke.html",
