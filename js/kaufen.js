@@ -85,6 +85,45 @@
     row.hidden = !erwartet;
   }
 
+  function stripeLinkPfad(root) {
+    return String(root.stripe_link_json || "stripe-payment-link.json").trim();
+  }
+
+  function stripeLinkLaden(root) {
+    var urls = [];
+    var pfad = stripeLinkPfad(root);
+    if (pfad) urls.push(pfad);
+    var live = String(root.stripe_link_live || "https://acrisum.com/stripe-payment-link.json").trim();
+    if (live) urls.push(live);
+    var gh = String(
+      root.stripe_link_github ||
+        "https://raw.githubusercontent.com/manibauriedl-cmyk/acrisum-shop/main/stripe-payment-link.json"
+    ).trim();
+    if (gh) urls.push(gh);
+
+    function versuch(i) {
+      if (i >= urls.length) return Promise.resolve(null);
+      return fetch(urls[i], { cache: "no-store" })
+        .then(function (r) {
+          if (!r.ok) return versuch(i + 1);
+          return r.json().then(function (j) {
+            if (j && j.ok && j.checkout_url) return j;
+            return versuch(i + 1);
+          });
+        })
+        .catch(function () {
+          return versuch(i + 1);
+        });
+    }
+    return versuch(0);
+  }
+
+  function buttonPreisAktualisieren(btn, root, labelPreis) {
+    if (btn && !btn.getAttribute("aria-disabled")) {
+      btn.textContent = (root.button_bereit || "Jetzt kaufen") + " — " + labelPreis;
+    }
+  }
+
   function kaufenStarten(root, btn, note) {
     var api = String(root.checkout_api || "/api/acrisum-checkout").trim();
     var fallback = (root.checkout_url || "").trim();
@@ -127,11 +166,28 @@
     }
 
     if (!dynamisch) {
-      if (fallback && /^https:\/\//i.test(fallback)) {
-        window.location.assign(fallback);
-      } else {
-        zuFallback("kein Link und dynamisch aus");
+      var lokal = tagespreis(root.preis || {});
+      btn.setAttribute("aria-busy", "true");
+      btn.classList.add("is-loading");
+      if (note) {
+        note.textContent = "Checkout wird vorbereitet …";
       }
+      stripeLinkLaden(root).then(function (j) {
+        var url = ((j && j.checkout_url) || fallback || "").trim();
+        if (j && j.ok && j.cent != null && Number(j.cent) !== lokal.cent) {
+          zuFallback(
+            "Zahlungslink noch nicht auf heutigen Preis (" +
+              euro(lokal.cent) +
+              ") aktualisiert — bitte später erneut oder Mail an manibauriedl@gmail.com."
+          );
+          return;
+        }
+        if (url && /^https:\/\//i.test(url)) {
+          window.location.assign(url);
+          return;
+        }
+        zuFallback("kein Stripe-Link");
+      });
       return;
     }
 
@@ -182,14 +238,7 @@
 
     var labelPreis = "1,50 €";
     var tLokal = null;
-    if (
-      root.checkout_dynamisch === false &&
-      root.checkout_fest_cent != null &&
-      root.checkout_fest_cent !== ""
-    ) {
-      labelPreis = euro(Number(root.checkout_fest_cent));
-      preisAnzeigen(root, labelPreis, null);
-    } else if (preisCfg.steigerung_aktiv) {
+    if (preisCfg.steigerung_aktiv) {
       tLokal = tagespreis(preisCfg);
       labelPreis = euro(tLokal.cent);
       preisAnzeigen(root, labelPreis, tLokal);

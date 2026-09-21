@@ -1,6 +1,6 @@
 {
-  "api_base": "https://discounts-majority-common-donation.trycloudflare.com",
-  "stand": "2026-09-20 05:17:03",
-  "stand_de": "Stand 20.09.2026, 05:17",
-  "hinweis": "Verbindung acrisum.com zum Büro-Zähler — startet mit PC-Neustart automatisch."
+  "api_base": "",
+  "stand": "2026-09-21 03:45:00",
+  "stand_de": "Stand 21.09.2026, 03:45",
+  "hinweis": "Öffentlich kein Büro-Tunnel — Kauf über Stripe Payment Link; Zähler nur lokal :6019."
 }

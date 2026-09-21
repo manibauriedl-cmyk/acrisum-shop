@@ -1,14 +1,20 @@
-/* Acrisum — Zähler-API (zaehler-api.json → HTTPS-Tunnel, sonst :6019) */
+/* Acrisum — Zähler nur lokal (:6019). Öffentlich (acrisum.com) kein Büro-PC. */
 (function () {
   var _wurzel = null;
   var _ready = null;
 
+  function istOeffentlich() {
+    var h = String(location.hostname || "").toLowerCase();
+    return h === "acrisum.com" || h.endsWith(".acrisum.com") || h.indexOf("github.io") >= 0;
+  }
+
+  function istLokal() {
+    return location.port === "6019" || /127\.0\.0\.1|localhost/i.test(location.hostname);
+  }
+
   function fallbackWurzel() {
-    var z = window.ACRISUM_ZAHLUNG || {};
-    if (z.api_base) return String(z.api_base).replace(/\/$/, "");
-    if (location.port === "6019" || /127\.0\.0\.1|localhost/i.test(location.hostname)) {
-      return location.origin;
-    }
+    if (istOeffentlich()) return "";
+    if (istLokal()) return location.origin;
     return "http://127.0.0.1:6019";
   }
 
@@ -18,6 +24,11 @@
 
   function apiBaseLaden() {
     if (_ready) return _ready;
+    if (istOeffentlich()) {
+      _wurzel = "";
+      _ready = Promise.resolve("");
+      return _ready;
+    }
     _ready = fetch("zaehler-api.json", { cache: "no-store" })
       .then(function (r) {
         return r.ok ? r.json() : null;
@@ -34,10 +45,6 @@
     return _ready;
   }
 
-  function istLokal() {
-    return location.port === "6019" || /127\.0\.0\.1|localhost/i.test(location.hostname);
-  }
-
   function istTestcode() {
     try {
       if (sessionStorage.getItem("acrisum_testcode") === "1") return true;
@@ -52,7 +59,11 @@
   }
 
   function zaehlen(payload) {
+    if (istOeffentlich()) {
+      return Promise.resolve(null);
+    }
     return apiBaseLaden().then(function (base) {
+      if (!base) return null;
       return fetch(base + "/api/acrisum-downloads", {
         method: "POST",
         credentials: istLokal() ? "same-origin" : "omit",
@@ -72,6 +83,7 @@
     wurzel: wurzelSync,
     apiBaseLaden: apiBaseLaden,
     istLokal: istLokal,
+    istOeffentlich: istOeffentlich,
     istTestcode: istTestcode,
     testcodeMerken: testcodeMerken,
     zaehlen: zaehlen,
