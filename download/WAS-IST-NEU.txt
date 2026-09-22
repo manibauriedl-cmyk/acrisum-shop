@@ -1,15 +1,24 @@
-﻿Launcher 2 — Hinweise zur Version 1.2.15
+﻿Launcher 2 — Hinweise zur Version 1.2.16
 =======================================
 
-Datum: 21.09.2026
+Datum: 22.09.2026
 
 
 Was sich für Sie ändert
 -----------------------
+• »-Menü (weitere Programme): stabiler — kein Absturz mehr beim schnellen
+  Schließen.
+• Symbol von der Leiste entfernen: Desktop-Verknüpfung behält das richtige
+  Programm-Icon (nicht mehr weiß/leer).
+• Rechtsklick auf ein Symbol: „Nach hinten (»-Menü)“ und „Nach vorne (auf
+  Leiste)“ — ohne Ziehen auf das »-Zeichen.
+
+
+Stand 1.2.15 (21.09.2026)
+-------------------------
 • Website in der Leiste: Der Launcher liest die Adressleiste im Browser
   (Chrome/Edge). Steht dort eine andere Seite als beim Pin, wird kein
-  falscher Tab angesprungen — z. B. öffnet „Website“ nicht mehr den
-  internen Shop, wenn Sie schon auf acrisum.com sind.
+  falscher Tab angesprungen.
 • Fehlerbericht: Bei einem Problem können Sie uns per E-Mail schreiben —
   Sie sehen den Text vorher, persönliche Pfade werden maskiert.
 
