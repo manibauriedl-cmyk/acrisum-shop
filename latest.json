@@ -1,8 +1,8 @@
 ﻿{
-  "version": "1.2.15",
-  "setup_url": "https://acrisum.com/download/Acrisum-Launcher-Setup-1.2.15.exe",
-  "sha256": "857b6c90660c5d8652a2a7de67d437e6467db1abeff80ccd5813ca05c90f63d0",
+  "version": "1.2.16",
+  "setup_url": "https://acrisum.com/download/Acrisum-Launcher-Setup-1.2.16.exe",
+  "sha256": "e83bee419392e584009675c45a0f53af3d14edd8aef4b6c5d75b4e1109d10d99",
   "python": "3.11.9",
   "win_min": "6.3",
-  "hinweis": "Adressleisten-Abgleich: Website-Pin springt nicht mehr auf falschen Tab (z. B. interner Shop). Fehlerbericht per E-Mail."
+  "hinweis": "Stabileres »-Menü, Desktop-Icon bleibt nach Entfernen korrekt, Rechtsklick Nach hinten/vorne."
 }
