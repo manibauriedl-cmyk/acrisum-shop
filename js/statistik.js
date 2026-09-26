@@ -1,4 +1,4 @@
-/* Acrisum — anonymer Seitenaufruf (1× pro Sitzung/Seite), kein Tracking-Cookie */
+/* Acrisum — Seitenaufruf pro Laden (sendBeacon), kein Tracking-Cookie */
 (function () {
   function seitenName() {
     var el = document.body && document.body.getAttribute("data-seite");
@@ -17,14 +17,17 @@
     var api = window.ACRISUM_API;
     if (!api) return;
     var seite = seitenName();
-    var key = "acrisum_aufruf_" + seite;
-    try {
-      if (sessionStorage.getItem(key) === "1") return;
-      sessionStorage.setItem(key, "1");
-    } catch (e) {}
-
     var start = api.apiBaseLaden ? api.apiBaseLaden() : Promise.resolve();
-    start.then(function () {
+    start.then(function (base) {
+      if (!base) return;
+      var body = JSON.stringify({ typ: "seite", seite: seite });
+      var url = String(base).replace(/\/$/, "") + "/api/acrisum-downloads";
+      if (navigator.sendBeacon) {
+        try {
+          navigator.sendBeacon(url, new Blob([body], { type: "application/json" }));
+          return;
+        } catch (e) {}
+      }
       api.zaehlen({ typ: "seite", seite: seite });
     });
   });
