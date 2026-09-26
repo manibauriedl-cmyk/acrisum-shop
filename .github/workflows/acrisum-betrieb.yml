@@ -1,0 +1,34 @@
+name: Acrisum Cloud-Betrieb
+
+on:
+  schedule:
+    # 00:10 UTC ≈ 02:10 MESZ — neuer Tagespreis
+    - cron: "10 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  stripe-tagespreis:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Stripe Payment Link sync
+        env:
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+        run: python .github/acrisum-cloud/stripe_sync.py
+
+      - name: Commit und push (nur bei Änderung)
+        run: |
+          git config user.name "acrisum-cloud"
+          git config user.email "acrisum-cloud@users.noreply.github.com"
+          git add stripe-payment-link.json js/zahlung.js
+          git diff --staged --quiet && echo "Keine Änderung" && exit 0
+          git commit -m "Stripe Tagespreis sync (Cloud) — $(date -u +%Y-%m-%d)"
+          git push
