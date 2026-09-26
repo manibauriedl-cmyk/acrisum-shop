@@ -1,4 +1,4 @@
-/* Acrisum — Zähler nur lokal (:6019). Öffentlich (acrisum.com) kein Büro-PC. */
+/* Acrisum — Zähler über zaehler-api.json (Tunnel wenn PC an). Kauf bleibt Stripe ohne PC. */
 (function () {
   var _wurzel = null;
   var _ready = null;
@@ -24,11 +24,6 @@
 
   function apiBaseLaden() {
     if (_ready) return _ready;
-    if (istOeffentlich()) {
-      _wurzel = "";
-      _ready = Promise.resolve("");
-      return _ready;
-    }
     _ready = fetch("zaehler-api.json", { cache: "no-store" })
       .then(function (r) {
         return r.ok ? r.json() : null;
@@ -59,9 +54,6 @@
   }
 
   function zaehlen(payload) {
-    if (istOeffentlich()) {
-      return Promise.resolve(null);
-    }
     return apiBaseLaden().then(function (base) {
       if (!base) return null;
       return fetch(base + "/api/acrisum-downloads", {
