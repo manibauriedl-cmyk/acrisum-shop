@@ -2,8 +2,8 @@ name: Acrisum Cloud-Betrieb
 
 on:
   schedule:
-    # 00:10 UTC ≈ 02:10 MESZ — neuer Tagespreis
     - cron: "10 0 * * *"
+    - cron: "15 */6 * * *"
   workflow_dispatch:
 
 permissions:
@@ -24,11 +24,82 @@ jobs:
           STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
         run: python .github/acrisum-cloud/stripe_sync.py
 
-      - name: Commit und push (nur bei Änderung)
+      - name: Commit Stripe
         run: |
           git config user.name "acrisum-cloud"
           git config user.email "acrisum-cloud@users.noreply.github.com"
           git add stripe-payment-link.json js/zahlung.js
-          git diff --staged --quiet && echo "Keine Änderung" && exit 0
+          git diff --staged --quiet && exit 0
           git commit -m "Stripe Tagespreis sync (Cloud) — $(date -u +%Y-%m-%d)"
+          git push
+
+  github-traffic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: GitHub Pages Traffic (offiziell, ohne Büro-PC)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api "repos/${{ github.repository }}/traffic/views" > github-traffic-views.json
+          gh api "repos/${{ github.repository }}/traffic/popular/paths" > github-traffic-paths.json
+
+      - name: Commit Traffic
+        run: |
+          git config user.name "acrisum-cloud"
+          git config user.email "acrisum-cloud@users.noreply.github.com"
+          git add github-traffic-views.json github-traffic-paths.json
+          git diff --staged --quiet && exit 0
+          git commit -m "GitHub Traffic sync — $(date -u +%Y-%m-%dT%H:%M)Z"
+          git push
+
+  zaehler-worker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Cloudflare Worker (Setup/Download-Zähler)
+        working-directory: cloudflare-worker
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "Cloudflare-Secrets fehlen — nur GitHub Traffic aktiv (Aufrufe)."
+            exit 0
+          fi
+          npm install wrangler@3 --no-save
+          npx wrangler kv namespace create ACRISUM_STATS 2>/dev/null || true
+          npx wrangler deploy 2>&1 | tee deploy.log
+          URL=$(grep -oE 'https://[a-zA-Z0-9.-]+\.workers\.dev' deploy.log | head -1)
+          echo "WORKER_URL=${URL:-https://acrisum-zaehler.workers.dev}" >> "$GITHUB_ENV"
+
+      - name: zaehler-api.json
+        if: env.WORKER_URL != ''
+        run: |
+          python3 -c "
+          import json, os
+          from datetime import datetime
+          from pathlib import Path
+          base = os.environ.get('WORKER_URL','').rstrip('/')
+          Path('zaehler-api.json').write_text(json.dumps({
+            'api_base': base,
+            'stand': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+            'hinweis': 'Cloud-Zähler (Worker)',
+          }, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
+          "
+
+      - name: Commit Worker URL
+        if: env.WORKER_URL != ''
+        run: |
+          git config user.name "acrisum-cloud"
+          git config user.email "acrisum-cloud@users.noreply.github.com"
+          git add zaehler-api.json
+          git diff --staged --quiet && exit 0
+          git commit -m "zaehler-api.json — Worker"
           git push
