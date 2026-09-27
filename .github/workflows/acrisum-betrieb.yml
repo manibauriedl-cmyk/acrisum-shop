@@ -62,54 +62,25 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Cloudflare Worker (Setup/Download-Zähler)
+      - name: Cloudflare Worker (Zähler ohne Büro-PC)
         id: worker
-        working-directory: cloudflare-worker
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
-            echo "Cloudflare-Secrets fehlen — Aufrufe nur über GitHub Traffic."
+            echo "::warning::CLOUDFLARE_* fehlt noch — Zähler ohne PC: ACRISUM-CLOUDFLARE-EINMAL.bat (einmal)."
             exit 0
           fi
-          npm install wrangler@3 --no-save
-          npx wrangler kv namespace create ACRISUM_STATS 2>/dev/null || true
-          npx wrangler deploy 2>&1 | tee deploy.log
-          URL=$(grep -oE 'https://[a-zA-Z0-9.-]+\.workers\.dev' deploy.log | head -1)
-          echo "worker_url=${URL:-https://acrisum-zaehler.workers.dev}" >> "$GITHUB_OUTPUT"
-
-      - name: zaehler-api.json (Worker)
-        if: steps.worker.outputs.worker_url != ''
-        env:
-          WORKER_URL: ${{ steps.worker.outputs.worker_url }}
-        run: |
-          python3 <<'PY'
-          import json, os
-          from datetime import datetime
-          from pathlib import Path
-          base = os.environ.get("WORKER_URL", "").rstrip("/")
-          if base:
-              Path("zaehler-api.json").write_text(
-                  json.dumps(
-                      {
-                          "api_base": base,
-                          "stand": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                          "hinweis": "Cloud-Zähler (Worker, ohne Büro-PC).",
-                      },
-                      indent=2,
-                      ensure_ascii=False,
-                  )
-                  + "\n",
-                  encoding="utf-8",
-              )
-          PY
+          python3 .github/acrisum-cloud/worker_deploy.py | tee worker-deploy.json
+          URL=$(python3 -c "import json; print(json.load(open('worker-deploy.json')).get('worker_url',''))")
+          echo "worker_url=${URL}" >> "$GITHUB_ENV"
 
       - name: Commit Cloud-Sync
         run: |
           git config user.name "acrisum-cloud"
           git config user.email "acrisum-cloud@users.noreply.github.com"
-          git add stripe-payment-link.json js/zahlung.js github-traffic-views.json github-traffic-paths.json zaehler-api.json 2>/dev/null || true
+          git add stripe-payment-link.json js/zahlung.js github-traffic-views.json github-traffic-paths.json zaehler-api.json cloudflare-worker/wrangler.toml cloudflare-worker/acrisum-kv-id.json 2>/dev/null || true
           git diff --staged --quiet && echo "Nichts zu committen." && exit 0
           git commit -m "Acrisum Cloud-Sync — $(date -u +%Y-%m-%dT%H:%M)Z"
           git pull --rebase origin main
