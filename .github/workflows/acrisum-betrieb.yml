@@ -3,6 +3,12 @@ name: Acrisum Cloud-Betrieb
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - "github-traffic-views.json"
+      - "github-traffic-paths.json"
+      - "stripe-payment-link.json"
+      - "js/zahlung.js"
+      - "zaehler-api.json"
   schedule:
     - cron: "10 0 * * *"
     - cron: "15 */6 * * *"
@@ -11,8 +17,12 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: acrisum-cloud-betrieb
+  cancel-in-progress: false
+
 jobs:
-  stripe-tagespreis:
+  cloud-betrieb:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -24,84 +34,76 @@ jobs:
       - name: Stripe Payment Link sync
         env:
           STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
-        run: python .github/acrisum-cloud/stripe_sync.py
-
-      - name: Commit Stripe
         run: |
-          git config user.name "acrisum-cloud"
-          git config user.email "acrisum-cloud@users.noreply.github.com"
-          git add stripe-payment-link.json js/zahlung.js
-          git diff --staged --quiet && exit 0
-          git commit -m "Stripe Tagespreis sync (Cloud) — $(date -u +%Y-%m-%d)"
-          git push
-
-  github-traffic:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
+          if [ -n "$STRIPE_SECRET_KEY" ]; then
+            python .github/acrisum-cloud/stripe_sync.py
+          else
+            echo "STRIPE_SECRET_KEY fehlt — Stripe-Schritt übersprungen."
+          fi
 
       - name: GitHub Pages Traffic (offiziell, ohne Büro-PC)
-        env:
-          GH_TOKEN: ${{ github.token }}
         run: |
-          gh api "repos/${{ github.repository }}/traffic/views" > github-traffic-views.json
-          gh api "repos/${{ github.repository }}/traffic/popular/paths" > github-traffic-paths.json
-
-      - name: Commit Traffic
-        run: |
-          git config user.name "acrisum-cloud"
-          git config user.email "acrisum-cloud@users.noreply.github.com"
-          git add github-traffic-views.json github-traffic-paths.json
-          git diff --staged --quiet && exit 0
-          git commit -m "GitHub Traffic sync — $(date -u +%Y-%m-%dT%H:%M)Z"
-          git push
-
-  zaehler-worker:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
+          AUTH="Authorization: Bearer ${{ github.token }}"
+          curl -fsSL -H "$AUTH" -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/traffic/views" \
+            -o github-traffic-views.json
+          curl -fsSL -H "$AUTH" -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/traffic/popular/paths" \
+            -o github-traffic-paths.json
 
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
 
       - name: Cloudflare Worker (Setup/Download-Zähler)
+        id: worker
         working-directory: cloudflare-worker
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
-            echo "Cloudflare-Secrets fehlen — nur GitHub Traffic aktiv (Aufrufe)."
+            echo "Cloudflare-Secrets fehlen — Aufrufe nur über GitHub Traffic."
             exit 0
           fi
           npm install wrangler@3 --no-save
           npx wrangler kv namespace create ACRISUM_STATS 2>/dev/null || true
           npx wrangler deploy 2>&1 | tee deploy.log
           URL=$(grep -oE 'https://[a-zA-Z0-9.-]+\.workers\.dev' deploy.log | head -1)
-          echo "WORKER_URL=${URL:-https://acrisum-zaehler.workers.dev}" >> "$GITHUB_ENV"
+          echo "worker_url=${URL:-https://acrisum-zaehler.workers.dev}" >> "$GITHUB_OUTPUT"
 
-      - name: zaehler-api.json
-        if: env.WORKER_URL != ''
+      - name: zaehler-api.json (Worker)
+        if: steps.worker.outputs.worker_url != ''
+        env:
+          WORKER_URL: ${{ steps.worker.outputs.worker_url }}
         run: |
-          python3 -c "
+          python3 <<'PY'
           import json, os
           from datetime import datetime
           from pathlib import Path
-          base = os.environ.get('WORKER_URL','').rstrip('/')
-          Path('zaehler-api.json').write_text(json.dumps({
-            'api_base': base,
-            'stand': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-            'hinweis': 'Cloud-Zähler (Worker)',
-          }, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
-          "
+          base = os.environ.get("WORKER_URL", "").rstrip("/")
+          if base:
+              Path("zaehler-api.json").write_text(
+                  json.dumps(
+                      {
+                          "api_base": base,
+                          "stand": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                          "hinweis": "Cloud-Zähler (Worker, ohne Büro-PC).",
+                      },
+                      indent=2,
+                      ensure_ascii=False,
+                  )
+                  + "\n",
+                  encoding="utf-8",
+              )
+          PY
 
-      - name: Commit Worker URL
-        if: env.WORKER_URL != ''
+      - name: Commit Cloud-Sync
         run: |
           git config user.name "acrisum-cloud"
           git config user.email "acrisum-cloud@users.noreply.github.com"
-          git add zaehler-api.json
-          git diff --staged --quiet && exit 0
-          git commit -m "zaehler-api.json — Worker"
+          git add stripe-payment-link.json js/zahlung.js github-traffic-views.json github-traffic-paths.json zaehler-api.json 2>/dev/null || true
+          git diff --staged --quiet && echo "Nichts zu committen." && exit 0
+          git commit -m "Acrisum Cloud-Sync — $(date -u +%Y-%m-%dT%H:%M)Z"
+          git pull --rebase origin main
           git push
