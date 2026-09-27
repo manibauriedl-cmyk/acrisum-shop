@@ -1,4 +1,5 @@
-/* Acrisum — Seitenaufruf pro Laden (sendBeacon), kein Tracking-Cookie */
+/* Acrisum — Seitenaufruf nur an Cloud-Worker (Setup/Download bleiben dort).
+   Öffentliche Aufrufe zählt GitHub Pages Traffic (Server, ohne Büro-PC). */
 (function () {
   function seitenName() {
     var el = document.body && document.body.getAttribute("data-seite");
@@ -19,7 +20,7 @@
     var seite = seitenName();
     var start = api.apiBaseLaden ? api.apiBaseLaden() : Promise.resolve();
     start.then(function (base) {
-      if (!base) return;
+      if (!base || !/\.workers\.dev$/i.test(String(base))) return;
       var body = JSON.stringify({ typ: "seite", seite: seite });
       var url = String(base).replace(/\/$/, "") + "/api/acrisum-downloads";
       if (navigator.sendBeacon) {

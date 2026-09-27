@@ -30,6 +30,8 @@
       })
       .then(function (d) {
         var ausJson = d && d.api_base ? String(d.api_base).replace(/\/$/, "") : "";
+        if (istOeffentlich() && /trycloudflare\.com/i.test(ausJson)) ausJson = "";
+        if (istOeffentlich() && ausJson && !/\.workers\.dev$/i.test(ausJson)) ausJson = "";
         _wurzel = ausJson || fallbackWurzel();
         return _wurzel;
       })
