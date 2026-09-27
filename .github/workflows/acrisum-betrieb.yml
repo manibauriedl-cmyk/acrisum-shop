@@ -42,8 +42,15 @@ jobs:
           fi
 
       - name: GitHub Pages Traffic (offiziell, ohne Büro-PC)
+        env:
+          TRAFFIC_PAT: ${{ secrets.ACRISUM_GITHUB_TRAFFIC_PAT }}
         run: |
-          AUTH="Authorization: Bearer ${{ github.token }}"
+          if [ -z "$TRAFFIC_PAT" ]; then
+            echo "ACRISUM_GITHUB_TRAFFIC_PAT fehlt — Traffic-JSON bleibt unverändert."
+            echo "Einmalig: scripts/ACRISUM-GITHUB-SECRET-EINMAL.bat (gleicher Token wie Stripe)."
+            exit 0
+          fi
+          AUTH="Authorization: Bearer ${TRAFFIC_PAT}"
           curl -fsSL -H "$AUTH" -H "Accept: application/vnd.github+json" \
             "https://api.github.com/repos/${{ github.repository }}/traffic/views" \
             -o github-traffic-views.json
