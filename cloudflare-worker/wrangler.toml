@@ -4,4 +4,4 @@ compatibility_date = "2024-08-01"
 
 [[kv_namespaces]]
 binding = "ACRISUM_STATS"
-id = "00000000000000000000000000000000"
+id = "42db7cb6d51f4b34988c3c064af60a23"
