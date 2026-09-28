@@ -162,6 +162,36 @@
     }
   }
 
+  /** GitHub Pages: Stripe-URL vorab ins href — Klick = gleiches Fenster, kein Pop-up. */
+  function checkoutLinkVorbereiten(root, btn, note, preisCfg) {
+    if (!btn || root.checkout_dynamisch !== false) return;
+    var fallback = String(root.checkout_url || "").trim();
+    var lokal = tagespreis(preisCfg || root.preis || {});
+
+    function linkOk(url) {
+      return url && /^https:\/\//i.test(url);
+    }
+
+    stripeLinkLaden(root).then(function (j) {
+      var url = ((j && j.checkout_url) || fallback || "").trim();
+      if (j && j.ok && j.cent != null && Number(j.cent) !== lokal.cent) {
+        btn.href = "#kaufen";
+        if (note) {
+          note.textContent =
+            "Stripe noch nicht auf " +
+            euro(lokal.cent) +
+            " — bitte kurz warten und erneut klicken (gleiches Fenster).";
+        }
+        return;
+      }
+      if (!linkOk(url)) return;
+      btn.href = url;
+      btn.target = "_self";
+      btn.rel = "noopener noreferrer";
+      root._checkout_href = url;
+    });
+  }
+
   function buttonPreisAktualisieren(btn, root, labelPreis) {
     if (!btn) return;
     var label = (root.button_bereit || "Jetzt kaufen") + " — <strong>" + labelPreis + "</strong>";
@@ -356,9 +386,14 @@
       btn.removeAttribute("aria-disabled");
       btn.removeAttribute("title");
       buttonPreisAktualisieren(btn, root, labelPreis);
-      btn.removeAttribute("target");
+      btn.target = "_self";
       btn.rel = "noopener noreferrer";
+      checkoutLinkVorbereiten(root, btn, note, preisCfg);
       btn.addEventListener("click", function (e) {
+        var href = String(btn.getAttribute("href") || "");
+        if (/^https:\/\//i.test(href)) {
+          return;
+        }
         e.preventDefault();
         if (btn.getAttribute("aria-busy") === "true") return;
         kaufenStarten(root, btn, note);
