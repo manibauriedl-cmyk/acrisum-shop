@@ -308,11 +308,23 @@
     });
   }
 
+  function kaufButtonSofortAktiv(root, btn) {
+    if (!btn) return;
+    var url = String((root && root.checkout_url) || "").trim();
+    if (!/^https:\/\//i.test(url)) return;
+    btn.href = url;
+    btn.target = "_self";
+    btn.rel = "noopener noreferrer";
+    btn.removeAttribute("aria-disabled");
+    btn.removeAttribute("title");
+  }
+
   ready(function () {
     var root = window.ACRISUM_ZAHLUNG || {};
     testCodeZeile(root);
     var btn = document.getElementById("cta-kaufen");
     var note = document.getElementById("kaufen");
+    kaufButtonSofortAktiv(root, btn);
 
     preisCfgLaden(root).then(function (preisCfg) {
       root.preis = preisCfg;
