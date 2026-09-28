@@ -150,6 +150,18 @@
     return versuch(0);
   }
 
+  /** Kauf/Stripe: gleiches Fenster (kein Pop-up). Testcode: neues Fenster → Shop bleibt offen. */
+  function checkoutGleichesFenster(url) {
+    window.location.assign(url);
+  }
+
+  function testcodeNeuesFenster(url) {
+    var neu = window.open(url, "_blank", "noopener,noreferrer");
+    if (!neu) {
+      checkoutGleichesFenster(url);
+    }
+  }
+
   function buttonPreisAktualisieren(btn, root, labelPreis) {
     if (!btn) return;
     var label = (root.button_bereit || "Jetzt kaufen") + " — <strong>" + labelPreis + "</strong>";
@@ -173,7 +185,7 @@
           note.textContent =
             "Tagespreis-Server kurz nicht erreichbar — weiter zum Zahlungslink …";
         }
-        window.location.assign(fallback);
+        checkoutGleichesFenster(fallback);
         return;
       }
       if (!dynamisch) {
@@ -220,7 +232,7 @@
           return;
         }
         if (url && /^https:\/\//i.test(url)) {
-          window.location.assign(url);
+          checkoutGleichesFenster(url);
           return;
         }
         zuFallback("kein Stripe-Link");
@@ -254,7 +266,7 @@
         .then(function (pack) {
           var j = pack.j || {};
           if (j.ok && j.url) {
-            window.location.assign(j.url);
+            checkoutGleichesFenster(j.url);
             return;
           }
           var hilfe = j.hilfe || j.error || "unbekannt";
@@ -389,7 +401,8 @@
           }
           testSpinner(true);
           window.setTimeout(function () {
-            window.location.assign(ziel);
+            testSpinner(false);
+            testcodeNeuesFenster(ziel);
           }, 280);
           return;
         }
