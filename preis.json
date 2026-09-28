@@ -1,8 +1,8 @@
 {
   "steigerung_aktiv": true,
-  "start_datum": "2026-09-18",
-  "start_cent": 135,
-  "plus_cent_pro_tag": 25,
+  "start_datum": "2026-09-28",
+  "start_cent": 100,
+  "plus_cent_pro_tag": 5,
   "deckel_cent": 1500,
   "waehrung": "eur",
   "produkt_name": "Acrisum Launcher",

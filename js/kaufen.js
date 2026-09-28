@@ -43,11 +43,28 @@
   function tagespreis(cfg) {
     var start = startDate(cfg);
     var tage = daysSince(start);
-    var cent = Number(cfg.start_cent || 150) + tage * Number(cfg.plus_cent_pro_tag || 25);
+    var cent =
+      Number(cfg.start_cent || 100) + tage * Number(cfg.plus_cent_pro_tag || 5);
     if (cfg.deckel_cent != null && cfg.deckel_cent !== "") {
       cent = Math.min(cent, Number(cfg.deckel_cent));
     }
-    return { cent: cent, tage: tage, plus: Number(cfg.plus_cent_pro_tag || 25) };
+    return { cent: cent, tage: tage, plus: Number(cfg.plus_cent_pro_tag || 5) };
+  }
+
+  /** Eine Quelle: shop/preis.json (Spiegel im Deploy). Kein zweites Preis-Objekt in zahlung.js. */
+  function preisCfgLaden(root) {
+    var path = String((root && root.preis_json) || "preis.json").trim();
+    if (!path) {
+      return Promise.resolve((root && root.preis) || {});
+    }
+    return fetch(path, { cache: "no-store" })
+      .then(function (r) {
+        if (!r.ok) throw new Error("preis.json");
+        return r.json();
+      })
+      .catch(function () {
+        return (root && root.preis) || {};
+      });
   }
 
   function preisAnzeigen(root, labelPreis, t) {
@@ -69,12 +86,27 @@
       steigerBox.textContent =
         (preisCfg.hinweis_sparen || "Wer früher kauft, zahlt weniger.") +
         " Täglich +" +
-        (t ? t.plus : Number(preisCfg.plus_cent_pro_tag || 25)) +
+        (t ? t.plus : Number(preisCfg.plus_cent_pro_tag || 5)) +
         " Cent" +
         (preisCfg.deckel_cent
           ? ", max. " + euro(Number(preisCfg.deckel_cent))
           : "") +
         ".";
+    }
+    var faq = document.getElementById("faq-preis");
+    if (faq && (preisCfg.steigerung_aktiv || (t && t.plus))) {
+      var plus = t ? t.plus : Number(preisCfg.plus_cent_pro_tag || 5);
+      var deckel = preisCfg.deckel_cent
+        ? euro(Number(preisCfg.deckel_cent))
+        : "";
+      faq.innerHTML =
+        "Heute <strong>" +
+        labelPreis +
+        "</strong>. Wer früher kauft, zahlt weniger: täglich +" +
+        plus +
+        " Cent" +
+        (deckel ? ", maximal <strong>" + deckel + "</strong>" : "") +
+        ". Der angezeigte Tagespreis gilt beim Checkout.";
     }
   }
 
@@ -119,8 +151,13 @@
   }
 
   function buttonPreisAktualisieren(btn, root, labelPreis) {
-    if (btn && !btn.getAttribute("aria-disabled")) {
-      btn.textContent = (root.button_bereit || "Jetzt kaufen") + " — " + labelPreis;
+    if (!btn) return;
+    var label = (root.button_bereit || "Jetzt kaufen") + " — <strong>" + labelPreis + "</strong>";
+    if (!btn.getAttribute("aria-disabled")) {
+      btn.innerHTML = label;
+    } else {
+      btn.innerHTML =
+        (root.button_warten || "Bald kaufen") + " — <strong>" + labelPreis + "</strong>";
     }
   }
 
@@ -234,9 +271,15 @@
     testCodeZeile(root);
     var btn = document.getElementById("cta-kaufen");
     var note = document.getElementById("kaufen");
-    var preisCfg = root.preis || {};
 
-    var labelPreis = "1,50 €";
+    preisCfgLaden(root).then(function (preisCfg) {
+      root.preis = preisCfg;
+      startKaufenMitPreis(root, btn, note, preisCfg);
+    });
+  });
+
+  function startKaufenMitPreis(root, btn, note, preisCfg) {
+    var labelPreis = "…";
     var tLokal = null;
     if (preisCfg.steigerung_aktiv) {
       tLokal = tagespreis(preisCfg);
@@ -245,11 +288,11 @@
     } else {
       var chip = document.getElementById("preis-chip");
       if (chip) {
-        chip.innerHTML = "einmalig <strong>1,50 €</strong> · Download";
+        chip.innerHTML = "einmalig <strong>" + labelPreis + "</strong> · Download";
       }
     }
 
-    /* Server-Preis nachziehen (gleiche Formel / Quelle preis.json) */
+    /* :6019 — Server-Preis (gleiche Formel, gleiche preis.json-Quelle) */
     var preisApi = String(root.preis_api || "/api/acrisum-preis").trim();
     if (preisApi) {
       apiUrl(preisApi).then(function (preisFull) {
@@ -261,12 +304,10 @@
             if (!j || !j.ok || j.cent == null) return;
             labelPreis = euro(Number(j.cent));
             preisAnzeigen(root, labelPreis, {
-              plus: Number(j.plus_cent_pro_tag || 25),
+              plus: Number(j.plus_cent_pro_tag || preisCfg.plus_cent_pro_tag || 5),
               tage: j.tage
             });
-            if (btn && !btn.getAttribute("aria-disabled")) {
-              btn.textContent = (root.button_bereit || "Jetzt kaufen") + " — " + labelPreis;
-            }
+            buttonPreisAktualisieren(btn, root, labelPreis);
           })
           .catch(function () {
             /* lokal berechneter Preis bleibt */
@@ -302,7 +343,7 @@
       btn.href = "#kaufen";
       btn.removeAttribute("aria-disabled");
       btn.removeAttribute("title");
-      btn.textContent = (root.button_bereit || "Jetzt kaufen") + " — " + labelPreis;
+      buttonPreisAktualisieren(btn, root, labelPreis);
       btn.removeAttribute("target");
       btn.rel = "noopener noreferrer";
       btn.addEventListener("click", function (e) {
@@ -319,7 +360,7 @@
       btn.href = "#kaufen";
       btn.setAttribute("aria-disabled", "true");
       btn.title = "Checkout noch nicht eingerichtet";
-      btn.textContent = (root.button_warten || "Bald kaufen") + " — " + labelPreis;
+      buttonPreisAktualisieren(btn, root, labelPreis);
     }
 
     /* Testcode: Zahlung umgehen → Dankeseite/Download (später entfernen). */
@@ -378,5 +419,5 @@
         });
       }
     }
-  });
+  }
 })();
