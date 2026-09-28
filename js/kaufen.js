@@ -150,19 +150,22 @@
     return versuch(0);
   }
 
-  /** Kauf/Stripe: gleiches Fenster (kein Pop-up). Testcode: neues Fenster → Shop bleibt offen. */
-  function checkoutGleichesFenster(url) {
-    window.location.assign(url);
+  /** Kauf/Stripe: neues Fenster (Shop bleibt offen). Testcode: neues Fenster → Shop bleibt offen. */
+  function checkoutNeuesFenster(url) {
+    var neu = window.open(url, "_blank", "noopener,noreferrer");
+    if (!neu) {
+      window.location.assign(url);
+    }
   }
 
   function testcodeNeuesFenster(url) {
     var neu = window.open(url, "_blank", "noopener,noreferrer");
     if (!neu) {
-      checkoutGleichesFenster(url);
+      window.location.assign(url);
     }
   }
 
-  /** GitHub Pages: Stripe-URL vorab ins href — Klick = gleiches Fenster, kein Pop-up. */
+  /** GitHub Pages: Stripe-URL vorab ins href — Klick = neues Fenster, Shop bleibt offen. */
   function checkoutLinkVorbereiten(root, btn, note, preisCfg) {
     if (!btn || root.checkout_dynamisch !== false) return;
     var fallback = String(root.checkout_url || "").trim();
@@ -180,13 +183,13 @@
           note.textContent =
             "Stripe noch nicht auf " +
             euro(lokal.cent) +
-            " — bitte kurz warten und erneut klicken (gleiches Fenster).";
+            " — bitte kurz warten und erneut klicken (neues Fenster, Shop bleibt offen).";
         }
         return;
       }
       if (!linkOk(url)) return;
       btn.href = url;
-      btn.target = "_self";
+      btn.target = "_blank";
       btn.rel = "noopener noreferrer";
       root._checkout_href = url;
     });
@@ -215,7 +218,7 @@
           note.textContent =
             "Tagespreis-Server kurz nicht erreichbar — weiter zum Zahlungslink …";
         }
-        checkoutGleichesFenster(fallback);
+        checkoutNeuesFenster(fallback);
         return;
       }
       if (!dynamisch) {
@@ -262,7 +265,7 @@
           return;
         }
         if (url && /^https:\/\//i.test(url)) {
-          checkoutGleichesFenster(url);
+          checkoutNeuesFenster(url);
           return;
         }
         zuFallback("kein Stripe-Link");
@@ -296,7 +299,7 @@
         .then(function (pack) {
           var j = pack.j || {};
           if (j.ok && j.url) {
-            checkoutGleichesFenster(j.url);
+            checkoutNeuesFenster(j.url);
             return;
           }
           var hilfe = j.hilfe || j.error || "unbekannt";
@@ -313,7 +316,7 @@
     var url = String((root && root.checkout_url) || "").trim();
     if (!/^https:\/\//i.test(url)) return;
     btn.href = url;
-    btn.target = "_self";
+    btn.target = "_blank";
     btn.rel = "noopener noreferrer";
     btn.removeAttribute("aria-disabled");
     btn.removeAttribute("title");
@@ -398,7 +401,7 @@
       btn.removeAttribute("aria-disabled");
       btn.removeAttribute("title");
       buttonPreisAktualisieren(btn, root, labelPreis);
-      btn.target = "_self";
+      btn.target = "_blank";
       btn.rel = "noopener noreferrer";
       checkoutLinkVorbereiten(root, btn, note, preisCfg);
       btn.addEventListener("click", function (e) {
@@ -413,7 +416,7 @@
       if (note) {
         note.innerHTML = dynamisch
           ? 'Zahlung über Stripe (PayPal, Karte u. a.) — Betrag = heutiger Tagespreis. Es gelten <a href="agb.html">AGB</a> und <a href="widerruf.html">Widerrufsbelehrung</a>. Nach dem Bezahlen kommst du zur Download-Seite.'
-          : 'Zahlung über Stripe (PayPal, Karte u. a.) im gleichen Fenster. Es gelten <a href="agb.html">AGB</a> und <a href="widerruf.html">Widerrufsbelehrung</a>. Nach dem Bezahlen kommst du automatisch zur Download-Seite.';
+          : 'Zahlung über Stripe (PayPal, Karte u. a.) in neuem Fenster — Shop bleibt offen. Es gelten <a href="agb.html">AGB</a> und <a href="widerruf.html">Widerrufsbelehrung</a>. Nach dem Bezahlen kommst du automatisch zur Download-Seite.';
       }
     } else {
       btn.href = "#kaufen";

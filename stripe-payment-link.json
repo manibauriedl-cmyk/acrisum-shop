@@ -5,5 +5,5 @@
   "checkout_url": "https://buy.stripe.com/14A7sK6YHfFIcXz3z5fIs0q",
   "danke_url": "https://acrisum.com/danke.html",
   "datum": "2026-09-28",
-  "hinweis": "Tagespreis — Cloud sync (GitHub Actions)"
+  "hinweis": "Tagespreis — vor GitHub-Deploy sync ausführen"
 }
