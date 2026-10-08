@@ -2,6 +2,10 @@ name = "acrisum-zaehler"
 main = "src/worker.js"
 compatibility_date = "2024-08-01"
 
+[vars]
+# Leseschlüssel für GET /api/xx1lounger-berichte?key=... (Berichte + abschalten/an)
+BERICHT_LESEKEY = "xl-bericht-9f3d7c2a8b1e"
+
 [[kv_namespaces]]
 binding = "ACRISUM_STATS"
 id = "42db7cb6d51f4b34988c3c064af60a23"

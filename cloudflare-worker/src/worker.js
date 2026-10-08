@@ -144,6 +144,67 @@ const cors = {
   "Access-Control-Allow-Headers": "Content-Type",
 };
 
+// ---------- xx1lounger Fehlerbericht (opt-in: Kunde sieht Text, drückt selbst Senden) ----------
+const BERICHT_MAX_BYTES = 64 * 1024;
+const BERICHT_MAX_IP_TAG = 10; // Blockade, wenn einer 100x drückt
+const BERICHT_MAX_TAG = 500; // globale Flut-Bremse pro Tag
+const BERICHT_MAX_LISTE = 300; // Ringpuffer im KV
+
+async function berichtPost(request, env) {
+  if (await env.ACRISUM_STATS.get("bericht_aus")) {
+    return Response.json(
+      { ok: false, hinweis: "Fehlerbericht-Eingang ist derzeit abgeschaltet." },
+      { status: 503, headers: cors }
+    );
+  }
+  const ip = request.headers.get("CF-Connecting-IP") || "?";
+  const tag = jetztIso().slice(0, 10);
+  const tagKey = "bericht_tag:" + tag;
+  const ipKey = "bericht_ip:" + tag + ":" + ip;
+  const tagN = Number((await env.ACRISUM_STATS.get(tagKey)) || 0);
+  const ipN = Number((await env.ACRISUM_STATS.get(ipKey)) || 0);
+  if (tagN >= BERICHT_MAX_TAG || ipN >= BERICHT_MAX_IP_TAG) {
+    return Response.json({ ok: false, hinweis: "Limit erreicht." }, { status: 429, headers: cors });
+  }
+  let text = await request.text();
+  if (text.length > BERICHT_MAX_BYTES) text = text.slice(0, BERICHT_MAX_BYTES);
+  let berichte = [];
+  try {
+    berichte = JSON.parse((await env.ACRISUM_STATS.get("berichte")) || "[]");
+  } catch (e) {}
+  berichte.unshift({ zeit: jetztIso(), zeit_anzeige: jetztAnzeige(), ip, text });
+  if (berichte.length > BERICHT_MAX_LISTE) berichte.length = BERICHT_MAX_LISTE;
+  await env.ACRISUM_STATS.put("berichte", JSON.stringify(berichte));
+  await env.ACRISUM_STATS.put(tagKey, String(tagN + 1), { expirationTtl: 172800 });
+  await env.ACRISUM_STATS.put(ipKey, String(ipN + 1), { expirationTtl: 172800 });
+  await appendLog(env, jetztIso() + "\tbericht\t-\t" + ip + "\n");
+  return Response.json({ ok: true }, { headers: cors });
+}
+
+async function berichtGet(url, env) {
+  const key = url.searchParams.get("key") || "";
+  if (!env.BERICHT_LESEKEY || key !== env.BERICHT_LESEKEY) {
+    return new Response("forbidden", { status: 403, headers: cors });
+  }
+  if (url.searchParams.get("aus") === "1") {
+    await env.ACRISUM_STATS.put("bericht_aus", "1");
+    return new Response("bericht-eingang AUS", { headers: cors });
+  }
+  if (url.searchParams.get("an") === "1") {
+    await env.ACRISUM_STATS.delete("bericht_aus");
+    return new Response("bericht-eingang AN", { headers: cors });
+  }
+  if (url.searchParams.get("loeschen") === "1") {
+    await env.ACRISUM_STATS.put("berichte", "[]");
+    return new Response("berichte geleert", { headers: cors });
+  }
+  const aus = !!(await env.ACRISUM_STATS.get("bericht_aus"));
+  const raw = (await env.ACRISUM_STATS.get("berichte")) || "[]";
+  return new Response('{"eingang_aus":' + aus + ',"berichte":' + raw + "}", {
+    headers: { ...cors, "Content-Type": "application/json; charset=utf-8" },
+  });
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -153,6 +214,12 @@ export default {
     if (url.pathname === "/api/acrisum-access-log" && request.method === "GET") {
       const log = (await env.ACRISUM_STATS.get("access_log")) || "";
       return new Response(log, { headers: { ...cors, "Content-Type": "text/plain; charset=utf-8" } });
+    }
+    if (url.pathname === "/api/xx1lounger-bericht" && request.method === "POST") {
+      return berichtPost(request, env);
+    }
+    if (url.pathname === "/api/xx1lounger-berichte" && request.method === "GET") {
+      return berichtGet(url, env);
     }
     if (url.pathname !== "/api/acrisum-downloads") {
       return new Response("not found", { status: 404, headers: cors });
