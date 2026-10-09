@@ -1,0 +1,8 @@
+{
+  "version": "2.0.0",
+  "setup_url": "https://acrisum.com/download/xx1lounger-setup-2.0.0.exe",
+  "sha256": "980bc4db5f1f71d8e6e4487760526cc0028706e74d1a1cf302fe46301fc78566",
+  "python": "3.11.9",
+  "win_min": "6.3",
+  "hinweis": "Neue Leiste xx1lounger: andocken/frei platzierbar, grüner Lauf-Punkt, Fenster-erkennen, Fehlerbericht mit Auswahl (Datei, eigene Mail oder direkt)."
+}

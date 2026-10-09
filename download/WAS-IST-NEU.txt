@@ -1,7 +1,37 @@
-﻿Launcher 2 — Hinweise zur Version 1.2.16
-=======================================
+﻿Hinweise zur Version 2.0.0
+==========================
 
-Datum: 22.09.2026
+Datum: 08.10.2026
+
+
+Was sich für Sie ändert
+-----------------------
+• Die Leiste wurde komplett neu aufgebaut — jetzt als eigenes, portables
+  Programm „xx1lounger". Wer mag, kann es auch ohne Installation aus einem
+  Ordner starten (ZIP-Variante).
+• Andocken oben, unten, links, rechts — oder frei platzieren. Der Platz am
+  Bildschirmrand wird reserviert, Fenster verdecken die Leiste nicht.
+• Ein grüner Punkt zeigt, welche Programme gerade ein Fenster offen
+  haben — auch wenn deren Fenster minimiert sind.
+• Doppel-Schutz: Ist das Ziel schon offen, fragt die Leiste nach statt
+  einfach noch ein Fenster zu öffnen. Webseiten erkennt sie an der
+  Adressleiste im Browser.
+• Anzeige wählbar: Symbole + Text, nur Symbole oder nur Text — direkt im
+  Menü der Leiste oder in den Eigenschaften.
+• Beim ersten Start fragt die Leiste einmal, ob sie mit Windows starten
+  soll — jederzeit im Menü unter „Autostart" änderbar.
+• Anheften: Der Katalog fragt, ob ein Eintrag an den Anfang oder das Ende
+  der Leiste soll, und merkt sich die Position.
+• Echte Programm-Symbole auch für Windows-Apps (z. B. Paint).
+• Fehlerbericht: Bei einem Problem sehen Sie den Bericht vorher und
+  wählen selbst — als Datei speichern, mit dem eigenen E-Mail-Programm
+  senden oder direkt an Acrisum schicken.
+• Updates laufen weiterhin automatisch und werden vor der Installation
+  geprüft.
+
+
+Stand 1.2.16 (22.09.2026)
+-------------------------
 
 
 Was sich für Sie ändert
