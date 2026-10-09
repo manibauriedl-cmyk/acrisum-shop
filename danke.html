@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Danke — Acrisum Launcher</title>
+  <title>Danke — xx1lounger</title>
   <meta name="robots" content="noindex">
   <link rel="icon" href="bilder/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="bilder/favicon-32.png" type="image/png" sizes="32x32">
@@ -18,6 +18,12 @@
       var z = window.ACRISUM_ZAHLUNG || {};
       var a = document.getElementById("btn-download");
       if (a && z.download_url) a.href = z.download_url;
+      if (/(?:^|[?&])test=1(?:&|$)/.test(location.search)) {
+        var h = document.getElementById("danke-titel");
+        var p = document.getElementById("danke-text");
+        if (h) h.textContent = "Testversion freigeschaltet";
+        if (p) p.innerHTML = "Ihr Testcode wurde akzeptiert. Hier können Sie den <strong>xx1lounger</strong> herunterladen.";
+      }
     });
   </script>
 </head>
@@ -34,22 +40,26 @@
   </header>
 
   <main class="legal">
-    <h1>Danke für Ihren Kauf</h1>
-    <p>Die Zahlung ist eingegangen. Hier können Sie den <strong>Acrisum Launcher</strong> herunterladen.</p>
+    <p><a class="btn btn-ghost" href="index.html#oben">&larr; Zurück zum Shop</a></p>
+    <h1 id="danke-titel">Danke für Ihren Kauf</h1>
+    <p id="danke-text">Die Zahlung ist eingegangen. Hier können Sie den <strong>xx1lounger</strong> herunterladen.</p>
 
     <p style="margin: 1.75rem 0;">
       <a class="btn btn-primary" id="btn-download" href="download/xx1lounger-setup-2.0.0.exe">
         Setup herunterladen
       </a>
+      <a class="btn btn-ghost" href="download/xx1lounger-2.0.0-portabel.zip" style="margin-left:0.5rem;">
+        Portabel (ZIP)
+      </a>
     </p>
     <p id="dl-zaehler" hidden style="font-size:0.95rem;opacity:0.85;margin:-0.75rem 0 1rem;"></p>
     <p style="font-size:0.95rem;opacity:0.85;">Version <strong>2.0.0</strong> —
-      <a href="download/xx1lounger-2.0.0-portabel.zip">Portabel (ZIP)</a> ·
-      <a href="download/WAS-IST-NEU.txt">Was ist neu?</a>
+      <a href="download/WAS-IST-NEU.txt">Was ist neu?</a> ·
+      <a href="index.html#oben">Zurück zur Startseite</a>
     </p>
 
     <p style="font-size:0.95rem;max-width:36rem;">
-      <strong>Neue Versionen:</strong> Ab Version 1.2.11 prüft der Launcher selbst auf acrisum.com
+      <strong>Neue Versionen:</strong> Der xx1lounger prüft selbst auf acrisum.com
       (höchstens einmal am Tag) — ein Klick auf <strong>Aktualisieren</strong> im Programm.
       Zusätzlich können wir an die E-Mail aus dem Kauf einen Hinweis schicken. Nicht gewünscht?
       <a href="mailto:manibauriedl@gmail.com?subject=Acrisum%20—%20keine%20Update-Mails">Per Mail abbestellen</a>
