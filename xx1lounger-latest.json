@@ -1,8 +1,8 @@
 {
-  "version": "2.0.0",
-  "setup_url": "https://acrisum.com/download/xx1lounger-setup-2.0.0.exe",
-  "sha256": "77a311db07cb63f947acd42fd9cdf3d924d08be0ce1bd51cb20999c3a83f2de0",
+  "version": "2.0.1",
+  "setup_url": "https://acrisum.com/download/xx1lounger-setup-2.0.1.exe",
+  "sha256": "f67a4830f775156f620abd3560fd817aa718aa983f5e9adcf01284f3ec2293ae",
   "python": "3.11.9",
   "win_min": "6.3",
-  "hinweis": "Neue Leiste xx1lounger: andocken/frei platzierbar, grüner Lauf-Punkt, Fenster-erkennen, Fehlerbericht mit Auswahl (Datei, eigene Mail oder direkt)."
+  "hinweis": "Version 2.0.1: Desktop-Symbole bleiben auf ihrem Bildschirm (Mehrmonitor-Fix), Eigenschaften-Dialog passt auf kleine Bildschirme (scrollt), Fehlerbericht mit mehr Log-Zeilen, Deinstallation sauberer."
 }
