@@ -1,8 +1,9 @@
-﻿{
-  "version": "1.2.16",
-  "setup_url": "https://acrisum.com/download/Acrisum-Launcher-Setup-1.2.16.exe",
-  "sha256": "e83bee419392e584009675c45a0f53af3d14edd8aef4b6c5d75b4e1109d10d99",
-  "python": "3.11.9",
-  "win_min": "6.3",
-  "hinweis": "Stabileres »-Menü, Desktop-Icon bleibt nach Entfernen korrekt, Rechtsklick Nach hinten/vorne."
+{
+    "version":  "1.2.16",
+    "setup_url":  "https://acrisum.com/download/Acrisum-Launcher-Setup-1.2.16.exe",
+    "sha256":  "e83bee419392e584009675c45a0f53af3d14edd8aef4b6c5d75b4e1109d10d99",
+    "python":  "3.11.9",
+    "win_min":  "6.3",
+    "hinweis":  "Acrisum Launcher 1.2.16 (letzter Stand der alten Leiste). Neues Produkt: xx1lounger 2.0.2 — siehe https://acrisum.com/ und xx1lounger-latest.json",
+    "nachfolger":  "https://acrisum.com/xx1lounger-latest.json"
 }
