@@ -1,4 +1,23 @@
-﻿Hinweise zur Version 2.0.0
+﻿Hinweise zur Version 2.0.1
+==========================
+
+Datum: 12.10.2026
+
+
+Was sich für Sie ändert
+-----------------------
+• Desktop-Symbole bleiben auf ihrem Bildschirm — auch bei mehreren
+  Monitoren (auch unter Windows 8.1). Nebenschirme werden nicht
+  angefasst.
+• Eigenschaften-Dialog: passt auf kleine Bildschirme (Inhalt scrollt),
+  Buttons unten bleiben erreichbar; Position mittig im freien Bereich.
+• Fehlerbericht enthält mehr Log-Zeilen — ältere Vorfälle bleiben
+  sichtbar.
+• Deinstallation beendet die Leiste sauber vorher und entfernt den
+  Taskleisten-Pin.
+
+
+Hinweise zur Version 2.0.0
 ==========================
 
 Datum: 08.10.2026
@@ -89,4 +108,3 @@ Stand 1.2.12 (09.09.2026)
 • Windows 8.1: Start vom Desktop und Startmenü. An die Taskleiste
   anheften geht dort nicht — das ist eine Windows-Grenze, kein Fehler
   des Launchers.
-
