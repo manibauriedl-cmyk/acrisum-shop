@@ -1,4 +1,16 @@
-﻿Hinweise zur Version 2.0.1
+﻿Hinweise zur Version 2.0.2
+==========================
+
+Datum: 13.10.2026
+
+
+Was sich für Sie ändert
+-----------------------
+• Dialoge „Eintrag hinzufügen“ und „Einstellungen“ erscheinen wieder
+  richtig auf dem Bildschirm — nicht mehr oben links unter der Leiste.
+
+
+Hinweise zur Version 2.0.1
 ==========================
 
 Datum: 12.10.2026

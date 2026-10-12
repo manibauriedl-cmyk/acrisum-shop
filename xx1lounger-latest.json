@@ -1,8 +1,8 @@
 {
-  "version": "2.0.1",
-  "setup_url": "https://acrisum.com/download/xx1lounger-setup-2.0.1.exe",
-  "sha256": "f67a4830f775156f620abd3560fd817aa718aa983f5e9adcf01284f3ec2293ae",
+  "version": "2.0.2",
+  "setup_url": "https://acrisum.com/download/xx1lounger-setup-2.0.2.exe",
+  "sha256": "da4e7ec0131198785a825a067fcbd7a0338bbf253c8d88e6c50162a63bfac8e7",
   "python": "3.11.9",
   "win_min": "6.3",
-  "hinweis": "Version 2.0.1: Desktop-Symbole bleiben auf ihrem Bildschirm (Mehrmonitor-Fix), Eigenschaften-Dialog passt auf kleine Bildschirme (scrollt), Fehlerbericht mit mehr Log-Zeilen, Deinstallation sauberer."
+  "hinweis": "Version 2.0.2: Dialoge Eintrag hinzufuegen und Einstellungen erscheinen korrekt (nicht mehr bei 0,0 unter der Leiste)."
 }
