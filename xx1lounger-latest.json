@@ -1,8 +1,8 @@
 {
   "version": "2.0.2",
   "setup_url": "https://acrisum.com/download/xx1lounger-setup-2.0.2.exe",
-  "sha256": "da4e7ec0131198785a825a067fcbd7a0338bbf253c8d88e6c50162a63bfac8e7",
+  "sha256": "07ebe6b60e997a73c9245f1063ac3b82f7a64fd55ec10ebb4a845f7f7c346284",
   "python": "3.11.9",
   "win_min": "6.3",
-  "hinweis": "Version 2.0.2: Dialoge Eintrag hinzufuegen und Einstellungen erscheinen korrekt (nicht mehr bei 0,0 unter der Leiste)."
+  "hinweis": "Version 2.0.2: Ueberlauf-» immer sichtbar und klickbar, echte UWP-App-Icons, Desktop-Export uebernimmt alle Verknuepfungs-Felder (Fensterstil, Tastenkuerzel, Kommentar, Admin-Flag)."
 }
