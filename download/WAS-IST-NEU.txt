@@ -1,4 +1,23 @@
-﻿Hinweise zur Version 2.0.2
+﻿Hinweise zur Version 2.0.3 (Auslieferung T8)
+============================================
+
+Datum: 27.10.2026
+
+
+Was sich für Sie ändert
+-----------------------
+• Leiste bleibt auf dem Windows-Hauptmonitor — kein Verschwinden auf
+  Nebenmonitoren nach Installation.
+• Ziehen entlang der Kante: ruhiger, ohne Ruckeln; Symbole bleiben beim
+  Verschieben sichtbar.
+• Anheften — Suchen: Tippen reagiert sofort; die Liste hängt nicht mehr.
+• »-Knopf (weitere Programme): bleibt am Rand sichtbar.
+• Verknüpfungen (.lnk): Administrator-Start und Tastenkürzel von
+  Internet-Verknüpfungen (.url) werden zuverlässiger übernommen.
+• Produktname in Windows: „Launcher 2“ (nicht mehr xx1lounger).
+
+
+Hinweise zur Version 2.0.2
 ==========================
 
 Datum: 13.10.2026
@@ -38,7 +57,7 @@ Datum: 08.10.2026
 Was sich für Sie ändert
 -----------------------
 • Die Leiste wurde komplett neu aufgebaut — jetzt als eigenes, portables
-  Programm „xx1lounger". Wer mag, kann es auch ohne Installation aus einem
+  Programm „Launcher 2". Wer mag, kann es auch ohne Installation aus einem
   Ordner starten (ZIP-Variante).
 • Andocken oben, unten, links, rechts — oder frei platzieren. Der Platz am
   Bildschirmrand wird reserviert, Fenster verdecken die Leiste nicht.
