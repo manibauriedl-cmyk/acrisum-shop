@@ -1,10 +1,10 @@
 {
-  "version": "2.0.11",
-  "setup_url": "https://acrisum.com/download/launcher2-setup-2.0.11.exe",
-  "sha256": "ff152d36b0029e64907c689d3e75578bb0de1e502038f06b30b389ec605f30c9",
-  "portable_url": "https://acrisum.com/download/launcher2-2.0.11-portabel.zip",
-  "portable_sha256": "c5f50e664cc7a6aea9f089613d543a0754789fb5b94150ad841c3b610eac2c37",
-  "python": "3.12.8",
+  "version": "2.0.12",
+  "setup_url": "https://acrisum.com/download/launcher2-setup-2.0.12.exe",
+  "sha256": "a8e48943d325f9cdd2139677576e4947021bcb4f7e82418dee24aa31f0095fb7",
+  "portable_url": "https://acrisum.com/download/launcher2-2.0.12-portabel.zip",
+  "portable_sha256": "e473dfe64691c36eaa8acf78700db4bd5373615f779689fb42a9371ae0eb3cbb",
+  "python": "3.11.9",
   "win_min": "6.3",
-  "hinweis": "Version 2.0.11 (T8): Installationsordner merken, für alle/nur ich, Restordner Deinstall oder übernehmen. Enthält 2.0.10 (kein Wächter nach Setup) und 2.0.9 (Setup ein Durchlauf)."
+  "hinweis": "Version 2.0.12 (T8): Leiste nach Installation nicht mehr leer (Editor, Explorer, Rechner) — bisher nur grauer Griff. Startsymbol ohne falsche Meldung „konnte nicht starten“. Enthält 2.0.11 (Installationsordner merken, für alle/nur ich)."
 }

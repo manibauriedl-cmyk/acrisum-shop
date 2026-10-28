@@ -1,4 +1,23 @@
-﻿Hinweise zur Version 2.0.11 (Auslieferung T8)
+﻿Hinweise zur Version 2.0.12 (Auslieferung T8)
+============================================
+
+Datum: 29.10.2026
+
+
+Was sich für Sie ändert
+-----------------------
+• Nach einer Neuinstallation war die Leiste bisher LEER — nur ein kleiner
+  grauer Griff am oberen Rand, kein einziges Programm. Viele Kunden sahen
+  deshalb „gar keinen Launcher“. Jetzt startet die Leiste mit drei Einträgen
+  (Editor, Explorer, Rechner); eigene Programme heften Sie wie gewohnt an.
+  Betrifft alle Versionen 2.0.0 bis 2.0.11 — nach dem Update erscheinen die
+  Einträge auch dort, wo die Leiste bisher leer war.
+• Startmenü-/Desktop-Symbol: Die Meldung „Launcher 2 konnte nicht starten“
+  kam fälschlich sofort beim Klick, obwohl die Leiste Sekunden später
+  erschien. Der Start wartet jetzt, bis die Leiste wirklich da ist.
+
+
+Hinweise zur Version 2.0.11 (Auslieferung T8)
 ============================================
 
 Datum: 28.10.2026
