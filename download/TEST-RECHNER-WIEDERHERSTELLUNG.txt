@@ -1,0 +1,49 @@
+Launcher 2 — Test-PC wieder fit (ohne 20 Rechner)
+=================================================
+Stand: 28.10.2026
+
+Wenn die Leiste „nicht aufgeht“, oben ein schmaler schwarzer Streifen
+bleibt oder Windows sagt „läuft bereits“ — ist der PC nicht kaputt,
+sondern oft Reste alter Versionen. **Ein** Rechner reicht zum Testen,
+wenn Sie diese Reihenfolge einhalten.
+
+
+Variante A — Setup 2.0.5 (empfohlen auf „verdorbenen“ PCs)
+----------------------------------------------------------
+1. Task-Manager: alle **python.exe** / **pythonw.exe** beenden, die
+   „Launcher 2“, xx1lounger oder Acrisum heißen (oder aus dem
+   Launcher-Installordner stammen).
+2. Einstellungen → Apps → alles mit **Launcher 2**, **xx1lounger**,
+   **Acrisum Launcher** deinstallieren (Reihenfolge egal).
+3. Neustart (einmal — löst hängende AppBar am zuverlässigsten).
+4. **launcher2-setup-2.0.5.exe** von acrisum.com installieren.
+   Das Setup räumt alte ARP-Einträge und typische Reste selbst auf.
+5. Nach Install: Leiste sollte sichtbar sein (Häkchen „jetzt starten“).
+
+
+Variante B — Portabel (ohne Installation, gut zum schnellen Test)
+-----------------------------------------------------------------
+1. Schritte 1–3 wie oben.
+2. **launcher2-2.0.5-portabel.zip** entpacken (z. B. D:\Test\launcher2).
+3. **LAUNCHER2-START-PAKET.bat** starten — keine Registry, kein Apps-Eintrag.
+4. Zum Aufräumen: Ordner löschen, fertig.
+
+
+Variante C — Nur Desktop-Streifen (AppBar-Geist)
+------------------------------------------------
+Nach Neustart noch Rand oben/unten:
+• Explorer neu starten: Task-Manager → Windows-Explorer → Neu starten.
+• Oder einmal PC neu starten.
+Ab 2.0.5 macht Deinstall/Update das automatisch mit.
+
+
+Was Sie **nicht** brauchen
+--------------------------
+• Keinen zweiten Physik-PC — Windows-Snapshot / VM optional.
+• Config unter %APPDATA%\launcher2\ nicht löschen (Einstellungen bleiben);
+  xx1lounger wird beim Start nach launcher2 zusammengeführt.
+
+
+Support-Log (optional)
+----------------------
+%APPDATA%\launcher2\xlounger-waechter.log — letzte Zeilen bei Rückfrage mitschicken.

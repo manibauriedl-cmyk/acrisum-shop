@@ -1,4 +1,27 @@
-﻿Hinweise zur Version 2.0.4 (Auslieferung T8)
+﻿Hinweise zur Version 2.0.5 (Auslieferung T8)
+============================================
+
+Datum: 28.10.2026
+
+
+Was sich für Sie ändert
+-----------------------
+• Setup wieder wie geplant: am Anfang wählen Sie „Nur für mich“ oder
+  „Für alle Benutzer“ (Administrator, z. B. unter Program Files).
+• Der zuletzt gewählte Installationsordner wird gemerkt — auch auf
+  anderem Laufwerk (z. B. D:\Programme\launcher2). Beim nächsten Update
+  oder Neuinstallation schlägt das Setup diesen Ordner wieder vor.
+• Vor dem Kopieren prüft das Setup, ob in den Zielordner geschrieben
+  werden kann — mit klarer Meldung statt „ bricht ab“.
+• Update von älteren Versionen (xx1lounger / doppelte Einträge in
+  „Apps“): Setup erkennt frühere Installationen und räumt Programmreste
+  auf — Sie müssen nicht manuell „altes Programm deinstallieren“.
+• Deinstallation und Update lösen reservierten Desktop-Streifen (AppBar)
+  zuverlässig — kein schmaler schwarzer Rand oben/unten mehr.
+• Test-Rechner mit kaputter Leiste: siehe download\TEST-RECHNER-WIEDERHERSTELLUNG.txt
+
+
+Hinweise zur Version 2.0.4 (Auslieferung T8)
 ============================================
 
 Datum: 28.10.2026

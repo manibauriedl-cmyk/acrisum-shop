@@ -1,10 +1,10 @@
 {
-  "version": "2.0.4",
-  "setup_url": "https://acrisum.com/download/launcher2-setup-2.0.4.exe",
-  "sha256": "e10015c389bf0bc3e827b5177ecb3584f9100364ad96932cf8a75dd3f30648c8",
-  "portable_url": "https://acrisum.com/download/launcher2-2.0.4-portabel.zip",
-  "portable_sha256": "7a82efe96675c4103d7d8cf3c526b2eb794dd29b2c45e3165058afae9571e4fa",
+  "version": "2.0.5",
+  "setup_url": "https://acrisum.com/download/launcher2-setup-2.0.5.exe",
+  "sha256": "2348457c423d55e96f7571d98032119565b837271669a166b4413b94d2653e39",
+  "portable_url": "https://acrisum.com/download/launcher2-2.0.5-portabel.zip",
+  "portable_sha256": "ba64e74b252564f43287bbb8e1c365a322a5f1a1c32cdee0e8367210237f1eb3",
   "python": "3.12.8",
   "win_min": "6.3",
-  "hinweis": "Version 2.0.4 (Auslieferung T8): Setup und Deinstallation beenden eine laufende Leiste zuverlässig — behebt „öffnet nicht nach der Installation“ (Geist-Prozess hielt den Start fest). Enthält alle 2.0.3-Neuerungen: Leiste am Hauptmonitor, stabileres Ziehen, flüssige Anheften-Suche, sichtbarer »-Knopf."
+  "hinweis": "Version 2.0.5 (T8): Feste Produkt-ID, sauberes Update von xx1lounger/älteren Einträgen, AppBar/Geist-Leiste behoben, Installationsordner merken. Enthält 2.0.4 (Stop/Deinstall) und 2.0.3-Neuerungen."
 }
