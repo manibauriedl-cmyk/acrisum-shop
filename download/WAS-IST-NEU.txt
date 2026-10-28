@@ -1,4 +1,17 @@
-﻿Hinweise zur Version 2.0.6 (Auslieferung T8)
+﻿Hinweise zur Version 2.0.7 (Auslieferung T8)
+============================================
+
+Datum: 28.10.2026
+
+
+Was sich für Sie ändert
+-----------------------
+• Setup von acrisum.com beendet den Hintergrund-„Wächter“ und hängende
+  pythonw-Prozesse selbst — kein Task-Manager, keine „alte Instanz blockiert“-
+  Meldung mehr beim normalen Install.
+
+
+Hinweise zur Version 2.0.6 (Auslieferung T8)
 ============================================
 
 Datum: 28.10.2026

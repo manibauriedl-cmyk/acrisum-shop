@@ -1,10 +1,20 @@
 {
-  "version": "2.0.6",
-  "setup_url": "https://acrisum.com/download/launcher2-setup-2.0.6.exe",
-  "sha256": "debf0933812d5f6913669d86d4e94beffadb55b7ac3f413422f88447fdf8953f",
-  "portable_url": "https://acrisum.com/download/launcher2-2.0.6-portabel.zip",
-  "portable_sha256": "680060a7124e2dea8ca294e313c8920cdb7c5af77e41f5c805b8ab9fca406db7",
+
+  "version": "2.0.7",
+
+  "setup_url": "https://acrisum.com/download/launcher2-setup-2.0.7.exe",
+
+  "sha256": "bd841351927a26a767d612b9fbbc79c39dc01dff6a3fca074f58f2a841b5f85b6",
+
+  "portable_url": "https://acrisum.com/download/launcher2-2.0.7-portabel.zip",
+
+  "portable_sha256": "71dca03d751863769b3cc9f61ff038a01386e5b0ae139d3e90219836a81c2d90",
+
   "python": "3.12.8",
+
   "win_min": "6.3",
-  "hinweis": "Version 2.0.6 (T8): Leiste erscheint nach Installation von acrisum.com zuverlässig (Start-Race in 2.0.5 behoben). Enthält 2.0.5 Upgrade/AppBar und 2.0.4 Stop/Deinstall."
+
+  "hinweis": "Version 2.0.7 (T8): Setup beendet Wächter und hängende pythonw-Prozesse automatisch — kein Task-Manager. Enthält 2.0.6 Start-Fix und 2.0.5 Upgrade/AppBar."
+
 }
+
