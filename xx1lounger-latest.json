@@ -1,7 +1,7 @@
 {
   "version": "2.0.5",
   "setup_url": "https://acrisum.com/download/launcher2-setup-2.0.5.exe",
-  "sha256": "2348457c423d55e96f7571d98032119565b837271669a166b4413b94d2653e39",
+  "sha256": "ddc7a66d33236f778f5e593ca12b82052a6d1e4353b219ef47e542a37b5d4764",
   "portable_url": "https://acrisum.com/download/launcher2-2.0.5-portabel.zip",
   "portable_sha256": "ba64e74b252564f43287bbb8e1c365a322a5f1a1c32cdee0e8367210237f1eb3",
   "python": "3.12.8",
