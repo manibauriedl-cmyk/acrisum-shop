@@ -1,4 +1,19 @@
-﻿Hinweise zur Version 2.0.5 (Auslieferung T8)
+﻿Hinweise zur Version 2.0.6 (Auslieferung T8)
+============================================
+
+Datum: 28.10.2026
+
+
+Was sich für Sie ändert
+-----------------------
+• Nach Download von acrisum.com und Installation erscheint die Leiste
+  wieder zuverlässig — ohne Extra-Klicks. (2.0.5 konnte den Start beim
+  Setup fälschlich abbrechen, wenn das Fenster noch aufgebaut wurde.)
+• Setup wartet beim Häkchen „Launcher 2 jetzt starten“ kurz, bis die
+  Leiste wirklich da ist — dann erst „Fertig“.
+
+
+Hinweise zur Version 2.0.5 (Auslieferung T8)
 ============================================
 
 Datum: 28.10.2026

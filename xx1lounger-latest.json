@@ -1,10 +1,10 @@
 {
-  "version": "2.0.5",
-  "setup_url": "https://acrisum.com/download/launcher2-setup-2.0.5.exe",
-  "sha256": "ddc7a66d33236f778f5e593ca12b82052a6d1e4353b219ef47e542a37b5d4764",
-  "portable_url": "https://acrisum.com/download/launcher2-2.0.5-portabel.zip",
-  "portable_sha256": "ba64e74b252564f43287bbb8e1c365a322a5f1a1c32cdee0e8367210237f1eb3",
+  "version": "2.0.6",
+  "setup_url": "https://acrisum.com/download/launcher2-setup-2.0.6.exe",
+  "sha256": "debf0933812d5f6913669d86d4e94beffadb55b7ac3f413422f88447fdf8953f",
+  "portable_url": "https://acrisum.com/download/launcher2-2.0.6-portabel.zip",
+  "portable_sha256": "680060a7124e2dea8ca294e313c8920cdb7c5af77e41f5c805b8ab9fca406db7",
   "python": "3.12.8",
   "win_min": "6.3",
-  "hinweis": "Version 2.0.5 (T8): Feste Produkt-ID, sauberes Update von xx1lounger/älteren Einträgen, AppBar/Geist-Leiste behoben, Installationsordner merken. Enthält 2.0.4 (Stop/Deinstall) und 2.0.3-Neuerungen."
+  "hinweis": "Version 2.0.6 (T8): Leiste erscheint nach Installation von acrisum.com zuverlässig (Start-Race in 2.0.5 behoben). Enthält 2.0.5 Upgrade/AppBar und 2.0.4 Stop/Deinstall."
 }
