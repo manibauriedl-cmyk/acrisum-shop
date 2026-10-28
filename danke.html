@@ -44,11 +44,17 @@
     <h1 id="danke-titel">Danke für Ihren Kauf</h1>
     <p id="danke-text">Die Zahlung ist eingegangen. Hier können Sie den <strong>Launcher 2</strong> herunterladen.</p>
 
-    <p style="margin: 1.75rem 0;">
+    <p style="margin: 1.75rem 0; display:flex; flex-wrap:wrap; gap:0.75rem; align-items:center;">
       <a class="btn btn-primary" id="btn-download" href="download/launcher2-setup-2.0.4.exe">
         Setup herunterladen
       </a>
-      <!-- Portabel-ZIP folgt separat; Setup ist die Haupt-Auslieferung T8 -->
+      <a class="btn btn-ghost" id="btn-download-portabel" href="download/launcher2-2.0.4-portabel.zip">
+        Portabel-ZIP (Ordner / USB)
+      </a>
+    </p>
+    <p style="font-size:0.9rem;opacity:0.85;max-width:40rem;margin:-0.5rem 0 1rem;">
+      <strong>Setup</strong> = Installation unter Windows.
+      <strong>Portabel-ZIP</strong> = entpacken, dann <code>LAUNCHER2-START-PAKET.bat</code> — kein Installer nötig.
     </p>
     <p id="dl-zaehler" hidden style="font-size:0.95rem;opacity:0.85;margin:-0.75rem 0 1rem;"></p>
     <p style="font-size:0.95rem;opacity:0.85;">Version <strong>2.0.4</strong> (T8) —

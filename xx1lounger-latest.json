@@ -2,6 +2,8 @@
   "version": "2.0.4",
   "setup_url": "https://acrisum.com/download/launcher2-setup-2.0.4.exe",
   "sha256": "e10015c389bf0bc3e827b5177ecb3584f9100364ad96932cf8a75dd3f30648c8",
+  "portable_url": "https://acrisum.com/download/launcher2-2.0.4-portabel.zip",
+  "portable_sha256": "7a82efe96675c4103d7d8cf3c526b2eb794dd29b2c45e3165058afae9571e4fa",
   "python": "3.12.8",
   "win_min": "6.3",
   "hinweis": "Version 2.0.4 (Auslieferung T8): Setup und Deinstallation beenden eine laufende Leiste zuverlässig — behebt „öffnet nicht nach der Installation“ (Geist-Prozess hielt den Start fest). Enthält alle 2.0.3-Neuerungen: Leiste am Hauptmonitor, stabileres Ziehen, flüssige Anheften-Suche, sichtbarer »-Knopf."
