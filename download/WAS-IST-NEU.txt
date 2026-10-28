@@ -1,4 +1,17 @@
-﻿Hinweise zur Version 2.0.7 (Auslieferung T8)
+﻿Hinweise zur Version 2.0.8 (Auslieferung T8)
+============================================
+
+Datum: 28.10.2026
+
+
+Was sich für Sie ändert
+-----------------------
+• Deinstallieren entfernt Autostart vollständig: Startup-VBS (auch alte Namen),
+  Eintrag unter Windows-Autostart (StartupApproved) und der Hintergrund-Wächter —
+  kein Nachstart nach Deinstall.
+
+
+Hinweise zur Version 2.0.7 (Auslieferung T8)
 ============================================
 
 Datum: 28.10.2026
