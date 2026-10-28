@@ -7,7 +7,7 @@ set "STAMP=%DATE% %TIME%"
 set "OUT=%~dp0acrisum-protokoll.txt"
 set "DESK=%USERPROFILE%\Desktop\acrisum-protokoll.txt"
 
-set "ROOT=%LOCALAPPDATA%\Programs\Launcher2"
+set "ROOT=%LOCALAPPDATA%\Programs\launcher2"
 if not exist "%ROOT%\launcher2.py" if exist "%~dp0launcher2.py" set "ROOT=%~dp0"
 if not exist "%ROOT%\launcher2.py" if exist "%~dp0Launcher2\launcher2.py" set "ROOT=%~dp0Launcher2"
 
@@ -57,7 +57,7 @@ if exist "%ROOT%\python\pythonw.exe" (echo pythonw.exe: da>> "%L%") else (echo p
 echo.>> "%L%"
 
 echo ===== Programme / AppData =====>> "%L%"
-dir /b "%LOCALAPPDATA%\Programs\Launcher2" >> "%L%" 2>&1
+dir /b "%LOCALAPPDATA%\Programs\launcher2" >> "%L%" 2>&1
 echo.>> "%L%"
 if exist "%APPDATA%\Launcher2" (
   dir /b "%APPDATA%\Launcher2" >> "%L%" 2>&1

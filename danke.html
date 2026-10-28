@@ -102,6 +102,20 @@
       </p>
     </div>
 
+    <h2 style="margin-top:1.75rem;">Setup startet nicht? (Doppelklick tut nichts)</h2>
+    <p style="font-size:0.95rem;max-width:40rem;">
+      Das passiert oft nach dem Download — Windows blockiert still oder wartet auf
+      <strong>Entsperren</strong>. Bitte einmal so probieren:
+    </p>
+    <ol style="font-size:0.92rem;color:var(--muted);max-width:40rem;">
+      <li><a href="download/LAUNCHER2-SETUP-START.cmd"><strong>LAUNCHER2-SETUP-START.cmd</strong></a> speichern — in <strong>denselben Ordner</strong> wie die Setup-EXE legen — Doppelklick. (Oder Setup-EXE auf die CMD-Datei ziehen.)</li>
+      <li>Oder manuell: Rechtsklick auf die Setup-EXE → <strong>Eigenschaften</strong> → unten <strong>Entsperren</strong> → OK → erneut doppelklicken.</li>
+      <li>64 Bit nötig: <strong>Windows 8.1 / 10 / 11, 64 Bit</strong> — auf 32-Bit-PC startet das Setup nicht.</li>
+    </ol>
+    <p style="font-size:0.88rem;color:var(--muted);max-width:40rem;">
+      Die Hilfe schreibt ein Log auf den Desktop: <code>acrisum-setup.log</code> — zum Mitmailen an Support.
+    </p>
+
     <h2 style="margin-top:1.75rem;">Falls etwas blockiert</h2>
     <ul style="font-size:0.92rem;color:var(--muted);max-width:40rem;">
       <li><strong>„Auf das angegebene Gerät … kann nicht zugegriffen werden“</strong> (rotes X): Windows-Virenschutz hat die Datei blockiert — das Setup ist nicht kaputt. <strong>Windows-Sicherheit</strong> → Virenschutz → <strong>Schutzverlauf</strong> → Eintrag zu <code>launcher2-setup-2.0.3.exe</code> → <strong>Wiederherstellen</strong>. Dann Rechtsklick → <strong>Eigenschaften</strong> → unten <strong>Entsperren</strong> → Setup erneut starten.</li>
