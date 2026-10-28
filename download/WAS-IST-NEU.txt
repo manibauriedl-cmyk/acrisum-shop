@@ -1,4 +1,26 @@
-﻿Hinweise zur Version 2.0.3 (Auslieferung T8)
+﻿Hinweise zur Version 2.0.4 (Auslieferung T8)
+============================================
+
+Datum: 28.10.2026
+
+
+Was sich für Sie ändert
+-----------------------
+• Installation und Deinstallation beenden eine laufende Leiste jetzt
+  zuverlässig. Bisher konnte die Leiste dabei als Geist weiterlaufen —
+  danach tat ein Klick auf das Symbol „nichts“ (Meldung nur intern:
+  „läuft bereits“). Genau das hat bei einem Kunden zu „öffnet nicht
+  nach der Installation“ geführt.
+• Nach der Installation startet die Leiste jetzt von selbst (Häkchen
+  „Launcher 2 jetzt starten“ ist standardmäßig an).
+• Enthält alle Neuerungen aus 2.0.3 (siehe unten).
+
+Hinweis: Hatten Sie 2.0.3 installiert und die Leiste „ging nicht auf“,
+einmal den PC neu starten (oder im Task-Manager „pythonw“ beenden) —
+danach 2.0.4 installieren.
+
+
+Hinweise zur Version 2.0.3 (Auslieferung T8)
 ============================================
 
 Datum: 27.10.2026

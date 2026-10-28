@@ -27,9 +27,9 @@ echo.
 echo Windows-Version:
 ver
 echo Prozessor: %PROCESSOR_ARCHITECTURE%
-if /I not "%PROCESSOR_ARCHITECTURE%"=="AMD64" (
+if /I not "%PROCESSOR_ARCHITECTURE%"=="AMD64" if /I not "%PROCESSOR_ARCHITECTURE%"=="ARM64" (
   echo.
-  echo ABBRUCH: Launcher 2 braucht Windows 64 Bit ^(AMD64^).
+  echo ABBRUCH: Launcher 2 braucht Windows 64 Bit ^(AMD64 oder ARM64^).
   echo 32-Bit-Windows wird nicht unterstuetzt.
   echo.
   pause
