@@ -1,20 +1,20 @@
 {
 
-  "version": "2.0.8",
+  "version": "2.0.9",
 
-  "setup_url": "https://acrisum.com/download/launcher2-setup-2.0.8.exe",
+  "setup_url": "https://acrisum.com/download/launcher2-setup-2.0.9.exe",
 
-  "sha256": "06acd8aa585b2fbc1fb10e5292b326c67c4b977783d179570b81c49f7a8e103e",
+  "sha256": "7f3197e53be3f22be216dcf2934dad34adf72963173fe8c45db0e2c5a4f2e044",
 
-  "portable_url": "https://acrisum.com/download/launcher2-2.0.8-portabel.zip",
+  "portable_url": "https://acrisum.com/download/launcher2-2.0.9-portabel.zip",
 
-  "portable_sha256": "5d8a6078ef4f819bd1f0890a07afe568ec4b8e44cb9f6c90157b7d95bb273af3",
+  "portable_sha256": "daba235dfd4922e930ad034a78aab6b8dc66ad3794c129b3a0c19cff30382f14",
 
   "python": "3.12.8",
 
   "win_min": "6.3",
 
-  "hinweis": "Version 2.0.8 (T8): Deinstall entfernt Autostart (VBS + Windows-Autostart) und Wächter. Enthält 2.0.7 Install-Bereinigung, 2.0.6 Start-Fix."
+  "hinweis": "Version 2.0.9 (T8): Setup ein Durchlauf, kein blockierender Dialog am Ende; Upgrade ohne zweiten Deinstall-Assistenten. Enthält 2.0.8 Deinstall/Autostart."
 
 }
 

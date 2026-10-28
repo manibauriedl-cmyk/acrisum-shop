@@ -1,4 +1,18 @@
-﻿Hinweise zur Version 2.0.8 (Auslieferung T8)
+﻿Hinweise zur Version 2.0.9 (Auslieferung T8)
+============================================
+
+Datum: 28.10.2026
+
+
+Was sich für Sie ändert
+-----------------------
+• Setup läuft nur noch einmal durch (kein zweiter Deinstall-Assistent mitten
+  im Update).
+• Am Ende blockiert keine Fehlermeldung mehr die Klickfläche — „Launcher 2
+  jetzt starten“ läuft im Hintergrund, ohne Task-Manager-Hinweis.
+
+
+Hinweise zur Version 2.0.8 (Auslieferung T8)
 ============================================
 
 Datum: 28.10.2026
