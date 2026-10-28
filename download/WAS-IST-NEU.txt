@@ -1,4 +1,33 @@
-﻿Hinweise zur Version 2.0.9 (Auslieferung T8)
+﻿Hinweise zur Version 2.0.11 (Auslieferung T8)
+============================================
+
+Datum: 28.10.2026
+
+
+Was sich für Sie ändert
+-----------------------
+• Setup merkt sich Ihren Installationsordner (z. B. C:\ups\loun55) — auch
+  nach Deinstallation — und bietet ihn beim nächsten Mal wieder an.
+• „Für alle Benutzer“ / „Nur für mich“ wie bei anderen Programmen (Admin-Setup
+  mit Auswahl im Dialog).
+• Liegen noch Dateien im alten Ordner: Setup fragt Deinstallieren oder Ordner
+  übernehmen.
+
+
+Hinweise zur Version 2.0.10 (Auslieferung T8)
+============================================
+
+Datum: 28.10.2026
+
+
+Was sich für Sie ändert
+-----------------------
+• Das Setup startet keinen „Wächter“ — nur die Leiste (optional am Ende).
+  Der Wächter war ein internes Hilfsprogramm; acrisum.com-Setup nutzt ihn nicht.
+• Keine Meldung mehr „geht nicht, weil Wächter da ist“ nach der Installation.
+
+
+Hinweise zur Version 2.0.9 (Auslieferung T8)
 ============================================
 
 Datum: 28.10.2026

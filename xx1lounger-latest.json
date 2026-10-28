@@ -1,20 +1,10 @@
 {
-
-  "version": "2.0.9",
-
-  "setup_url": "https://acrisum.com/download/launcher2-setup-2.0.9.exe",
-
-  "sha256": "7f3197e53be3f22be216dcf2934dad34adf72963173fe8c45db0e2c5a4f2e044",
-
-  "portable_url": "https://acrisum.com/download/launcher2-2.0.9-portabel.zip",
-
-  "portable_sha256": "daba235dfd4922e930ad034a78aab6b8dc66ad3794c129b3a0c19cff30382f14",
-
+  "version": "2.0.11",
+  "setup_url": "https://acrisum.com/download/launcher2-setup-2.0.11.exe",
+  "sha256": "ff152d36b0029e64907c689d3e75578bb0de1e502038f06b30b389ec605f30c9",
+  "portable_url": "https://acrisum.com/download/launcher2-2.0.11-portabel.zip",
+  "portable_sha256": "c5f50e664cc7a6aea9f089613d543a0754789fb5b94150ad841c3b610eac2c37",
   "python": "3.12.8",
-
   "win_min": "6.3",
-
-  "hinweis": "Version 2.0.9 (T8): Setup ein Durchlauf, kein blockierender Dialog am Ende; Upgrade ohne zweiten Deinstall-Assistenten. Enthält 2.0.8 Deinstall/Autostart."
-
+  "hinweis": "Version 2.0.11 (T8): Installationsordner merken, für alle/nur ich, Restordner Deinstall oder übernehmen. Enthält 2.0.10 (kein Wächter nach Setup) und 2.0.9 (Setup ein Durchlauf)."
 }
-
