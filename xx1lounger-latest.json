@@ -1,10 +1,10 @@
 {
-  "version": "2.0.12",
-  "setup_url": "https://acrisum.com/download/launcher2-setup-2.0.12.exe",
-  "sha256": "a8e48943d325f9cdd2139677576e4947021bcb4f7e82418dee24aa31f0095fb7",
-  "portable_url": "https://acrisum.com/download/launcher2-2.0.12-portabel.zip",
-  "portable_sha256": "e473dfe64691c36eaa8acf78700db4bd5373615f779689fb42a9371ae0eb3cbb",
+  "version": "2.0.13",
+  "setup_url": "https://acrisum.com/download/launcher2-setup-2.0.13.exe",
+  "sha256": "b49a0113d3efe74661970385b87cddc0552ee2fdf2c2a2fb368efcb8c7b96450",
+  "portable_url": "https://acrisum.com/download/launcher2-2.0.13-portabel.zip",
+  "portable_sha256": "8da4d3e3e1131e05ac44b954206651a746fbf981ab56928241204bace53def63",
   "python": "3.11.9",
   "win_min": "6.3",
-  "hinweis": "Version 2.0.12 (T8): Leiste nach Installation nicht mehr leer (Editor, Explorer, Rechner) — bisher nur grauer Griff. Startsymbol ohne falsche Meldung „konnte nicht starten“. Enthält 2.0.11 (Installationsordner merken, für alle/nur ich)."
+  "hinweis": "Version 2.0.13 (T8): Windows 10 — ein offenes Explorer-Fenster „launcher2“ wurde für die laufende Leiste gehalten, nichts startete. Setup und Start erkennen die Leiste jetzt eindeutig. Enthält 2.0.12 (Leiste nach Installation nicht mehr leer: Editor, Explorer, Rechner)."
 }

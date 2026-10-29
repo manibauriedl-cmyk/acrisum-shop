@@ -1,4 +1,21 @@
-﻿Hinweise zur Version 2.0.12 (Auslieferung T8)
+﻿Hinweise zur Version 2.0.13 (Auslieferung T8)
+============================================
+
+Datum: 29.10.2026
+
+
+Was sich für Sie ändert
+-----------------------
+• Windows 10: Wenn ein Explorer-Fenster mit dem Installationsordner
+  („launcher2“) oder dem Startmenü-Ordner („Launcher 2“) offen war, hielt
+  der Start dieses Fenster für die laufende Leiste und startete nichts —
+  „es erscheint kein Launcher“. Setup und Start erkennen die Leiste jetzt
+  eindeutig am eigenen Fenstertyp; Explorer-Fenster werden ignoriert und
+  nicht mehr versehentlich geschlossen.
+• Enthält 2.0.12 (Leiste nach Installation nicht mehr leer).
+
+
+Hinweise zur Version 2.0.12 (Auslieferung T8)
 ============================================
 
 Datum: 29.10.2026
