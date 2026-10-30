@@ -1,10 +1,10 @@
 {
-  "version": "2.0.13",
-  "setup_url": "https://acrisum.com/download/launcher2-setup-2.0.13.exe",
-  "sha256": "b49a0113d3efe74661970385b87cddc0552ee2fdf2c2a2fb368efcb8c7b96450",
-  "portable_url": "https://acrisum.com/download/launcher2-2.0.13-portabel.zip",
-  "portable_sha256": "8da4d3e3e1131e05ac44b954206651a746fbf981ab56928241204bace53def63",
+  "version": "2.0.14",
+  "setup_url": "https://acrisum.com/download/launcher2-setup-2.0.14.exe",
+  "sha256": "3e942991efbce81b9e9658ad37174a1523e111b6433849f4f1b1f86603cbd333",
+  "portable_url": "https://acrisum.com/download/launcher2-2.0.14-portabel.zip",
+  "portable_sha256": "60cdb2201e552ca6b3060088b627efc204bf23b34344eae7243d4920b142f930",
   "python": "3.11.9",
   "win_min": "6.3",
-  "hinweis": "Version 2.0.13 (T8): Windows 10 — ein offenes Explorer-Fenster „launcher2“ wurde für die laufende Leiste gehalten, nichts startete. Setup und Start erkennen die Leiste jetzt eindeutig. Enthält 2.0.12 (Leiste nach Installation nicht mehr leer: Editor, Explorer, Rechner)."
+  "hinweis": "Version 2.0.14 (T8): Ältere 64-Bit-PCs — Leiste startete nicht (kurzer Kreis, dann nichts). Fix für Prozessor-Symbole. Enthält 2.0.13 (Explorer-Fenster) und 2.0.12 (Leiste nicht mehr leer nach Installation)."
 }

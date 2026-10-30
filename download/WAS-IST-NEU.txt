@@ -1,4 +1,24 @@
-﻿Hinweise zur Version 2.0.13 (Auslieferung T8)
+﻿Hinweise zur Version 2.0.14 (Auslieferung T8)
+============================================
+
+Datum: 29.10.2026
+
+
+Was sich für Sie ändert
+-----------------------
+• Ältere Computer (Prozessoren vor etwa 2009, z. B. Core 2 Duo, erste
+  Core-i-Generation) und ältere Windows-10-Rechner: Die Leiste startete
+  nicht — kein Fenster, keine Meldung. Ursache war ein Rechen-Baustein für
+  Programm-Symbole, der in den Versionen 2.0.0 bis 2.0.13 einen neueren
+  Prozessor voraussetzte. Die Leiste läuft jetzt auf allen 64-Bit-Rechnern;
+  die Symbole werden dort über einen zweiten, gleichwertigen Weg berechnet
+  (gleiches Ergebnis, Pixel für Pixel geprüft).
+• Auf neueren Rechnern ändert sich nichts.
+• Enthält 2.0.13 (Windows 10: Explorer-Fenster) und 2.0.12 (Leiste nach
+  Installation nicht mehr leer).
+
+
+Hinweise zur Version 2.0.13 (Auslieferung T8)
 ============================================
 
 Datum: 29.10.2026
