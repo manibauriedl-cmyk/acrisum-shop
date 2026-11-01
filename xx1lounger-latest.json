@@ -1,10 +1,10 @@
 {
-  "version": "2.0.14",
-  "setup_url": "https://acrisum.com/download/launcher2-setup-2.0.14.exe",
-  "sha256": "3e942991efbce81b9e9658ad37174a1523e111b6433849f4f1b1f86603cbd333",
-  "portable_url": "https://acrisum.com/download/launcher2-2.0.14-portabel.zip",
-  "portable_sha256": "60cdb2201e552ca6b3060088b627efc204bf23b34344eae7243d4920b142f930",
+  "version": "2.0.15",
+  "setup_url": "https://acrisum.com/download/launcher2-setup-2.0.15.exe",
+  "sha256": "1e3ee05265145921e5b80d9504be86226daea86fd15c87b057c24052e6fedf19",
+  "portable_url": "https://acrisum.com/download/launcher2-2.0.15-portabel.zip",
+  "portable_sha256": "3da3f84ba4a1662c227a17ece59f7320f997a2904380dee39fad49c861aa9944",
   "python": "3.11.9",
   "win_min": "6.3",
-  "hinweis": "Version 2.0.14 (T8): Ältere 64-Bit-PCs — Leiste startete nicht (kurzer Kreis, dann nichts). Fix für Prozessor-Symbole. Enthält 2.0.13 (Explorer-Fenster) und 2.0.12 (Leiste nicht mehr leer nach Installation)."
+  "hinweis": "Version 2.0.15 (T9): Desktop-Platz — Desktop-Symbole weg von der Leiste (Start + Menü, alle Kanten, auch Install). Slots entlang Kante wie Alle. Enthält 2.0.14 (Start ältere 64-Bit-PCs)."
 }

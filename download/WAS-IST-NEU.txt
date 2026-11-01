@@ -1,4 +1,24 @@
-﻿Hinweise zur Version 2.0.14 (Auslieferung T8)
+﻿Hinweise zur Version 2.0.15 (Auslieferung T9)
+============================================
+
+Datum: 01.11.2026
+
+
+Was sich für Sie ändert
+-----------------------
+• **Desktop-Platz reservieren:** Windows hält den Rand für Fenster frei — und
+  **Desktop-Symbole** werden unter bzw. neben der Leiste weggeschoben (oben,
+  unten, links, rechts). Beim **Start** (wenn der Haken an ist) und über
+  **Randstreifen freiräumen** im Menü — gleich auf Installations- und
+  Portable-Version wie in der Entwicklung.
+• **Ein Monitor:** zuverlässiger als in 2.0.14, wenn viele Symbole am Rand lagen.
+• **Eigenschaft „Slots“:** Die Leiste lässt sich entlang der Kante schieben und
+  verkürzt sich sichtbar (Rest hinter »), wie im Modus „Alle“.
+• Enthält **2.0.14** (ältere 64-Bit-PCs, Start fix) und die Verbesserungen der
+  Zwischenstände (grüner Lauf-Punkt, kompakter »-Knopf).
+
+
+Hinweise zur Version 2.0.14 (Auslieferung T8)
 ============================================
 
 Datum: 29.10.2026
