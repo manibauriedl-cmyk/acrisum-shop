@@ -9,7 +9,7 @@ window.ACRISUM_ZAHLUNG = {
   checkout_url: "https://buy.stripe.com/cNi4gy1En8dg4r30mTfIs0f",
   danke_url: "https://acrisum.com/danke.html",
   danke_path: "danke.html",
-  download_url: "download/launcher2-setup-2.0.15.exe",
+  download_url: "download/launcher2-setup-2.0.16.exe",
   button_bereit: "Jetzt kaufen",
   button_warten: "Bald kaufen",
   paypal_pflicht: true,

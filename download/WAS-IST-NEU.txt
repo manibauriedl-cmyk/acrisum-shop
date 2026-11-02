@@ -1,4 +1,22 @@
-﻿Hinweise zur Version 2.0.15 (Auslieferung T9)
+﻿Hinweise zur Version 2.0.16 (Auslieferung T10)
+============================================
+
+Datum: 02.11.2026
+
+
+Was sich für Sie ändert
+-----------------------
+• **Desktop-Platz reservieren ist bei Neuinstallation wieder standardmäßig an**
+  (Windows reserviert den Rand; Fenster und Symbole liegen nicht unter der Leiste).
+  Betrifft frühere Setup-Seeds, die das fälschlich aus hatten — Update repariert
+  alte configs automatisch, wenn Sie es nicht selbst abgeschaltet hatten.
+• **Setup:** Seite **Zielordner** wird wieder klar angezeigt; bei bereits
+  registrierter Installation Hinweis und **Deinstallations-Frage**, wenn Sie einen
+  **anderen** Ordner wählen (nicht mehr stilles „nur Program Files“).
+• Enthält **2.0.15** (Desktop-Symbole weg von der Leiste, Slots, 2.0.14 Start-Fix).
+
+
+Hinweise zur Version 2.0.15 (Auslieferung T9)
 ============================================
 
 Datum: 01.11.2026
