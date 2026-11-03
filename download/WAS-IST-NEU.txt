@@ -1,4 +1,20 @@
-﻿Hinweise zur Version 2.0.16 (Auslieferung T10)
+﻿Hinweise zur Version 2.0.17 (Auslieferung T11)
+============================================
+
+Datum: 03.11.2026
+
+
+Was sich für Sie ändert
+-----------------------
+• **Setup — nur noch Ordner wählen:** Seite **Zielordner** wie gewohnt; bei Update
+  ist der **bestehende Ordner** vorausgewählt — meist **Weiter** klicken reicht.
+  Keine Ja/Nein-Deinstall-Dialoge mehr. Wählen Sie einen **anderen** Ordner als die
+  registrierte Installation, erklärt **ein** kurzer Hinweis, dass Sie zum Aktualisieren
+  den bestehenden Ordner wählen sollen (Umzug = zuerst in Windows deinstallieren).
+• Enthält **2.0.16** (Desktop-Platz Seed, Ordnerseite) und **2.0.15**.
+
+
+Hinweise zur Version 2.0.16 (Auslieferung T10)
 ============================================
 
 Datum: 02.11.2026

@@ -1,10 +1,10 @@
 {
-  "version": "2.0.16",
-  "setup_url": "https://acrisum.com/download/launcher2-setup-2.0.16.exe",
-  "sha256": "a1c2574c90f86dfbad81e5e3bbdaaf50d49c3e58af8f2bebc80b2eab32c6b1a0",
-  "portable_url": "https://acrisum.com/download/launcher2-2.0.16-portabel.zip",
-  "portable_sha256": "5be5f5abc702cbe34beee6fc9ef592c5d95f1a7af9905395e5590d1ac269fbb4",
+  "version": "2.0.17",
+  "setup_url": "https://acrisum.com/download/launcher2-setup-2.0.17.exe",
+  "sha256": "fbde0e6994765a08ca802fad4c69f4b5c10f6ce628b1a48680350d7d81fc799b",
+  "portable_url": "https://acrisum.com/download/launcher2-2.0.17-portabel.zip",
+  "portable_sha256": "0757895afecdf0ad7ce6337f907a478757f7659222efec1c8da6590f663c2183",
   "python": "3.11.9",
   "win_min": "6.3",
-  "hinweis": "Version 2.0.16 (T10): Desktop-Platz bei Neuinstallation standardmäßig an (Seed-Fix + Update-Reparatur). Setup: Zielordner-Seite + Hinweis/Deinstall bei anderem Pfad. Enthält 2.0.15 (Symbole, Slots, 2.0.14 Start)."
+  "hinweis": "Version 2.0.17 (T11): Setup nur noch Ordner wählen — kein Ja/Nein-Deinstall; Update = bestehenden Ordner bestätigen und Weiter. Enthält 2.0.16 (Desktop-Platz) und 2.0.15."
 }
