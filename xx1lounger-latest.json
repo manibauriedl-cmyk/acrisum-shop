@@ -1,10 +1,10 @@
 {
-  "version": "2.0.17",
-  "setup_url": "https://acrisum.com/download/launcher2-setup-2.0.17.exe",
-  "sha256": "fbde0e6994765a08ca802fad4c69f4b5c10f6ce628b1a48680350d7d81fc799b",
-  "portable_url": "https://acrisum.com/download/launcher2-2.0.17-portabel.zip",
-  "portable_sha256": "0757895afecdf0ad7ce6337f907a478757f7659222efec1c8da6590f663c2183",
+  "version": "2.0.18",
+  "setup_url": "https://acrisum.com/download/launcher2-setup-2.0.18.exe",
+  "sha256": "4c8c7ded3ea6f61fac869ecf67937c1b5274ce3e266ab2347ea77e9136492880",
+  "portable_url": "https://acrisum.com/download/launcher2-2.0.18-portabel.zip",
+  "portable_sha256": "fe1fa278150d5a7e219ad0216d567ffbb0e31a472b738c3919b2477332f73670",
   "python": "3.11.9",
   "win_min": "6.3",
-  "hinweis": "Version 2.0.17 (T11): Setup nur noch Ordner wählen — kein Ja/Nein-Deinstall; Update = bestehenden Ordner bestätigen und Weiter. Enthält 2.0.16 (Desktop-Platz) und 2.0.15."
+  "hinweis": "Version 2.0.18 (T12): Ziehen vom Desktop klappt auch nach Setup „Als Administrator“ (Leiste startet ohne Admin-Rechte neu); Deinstall entfernt alles vom PC und fragt, ob Einstellungen gelöscht werden sollen. Enthält 2.0.17 (Setup UX), 2.0.16 und 2.0.15."
 }

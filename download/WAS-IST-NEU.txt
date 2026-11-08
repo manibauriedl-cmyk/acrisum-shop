@@ -1,4 +1,26 @@
-﻿Hinweise zur Version 2.0.17 (Auslieferung T11)
+﻿Hinweise zur Version 2.0.18 (Auslieferung T12)
+============================================
+
+Datum: 08.11.2026
+
+
+Was sich für Sie ändert
+-----------------------
+• **Ziehen vom Desktop funktioniert nach jeder Installation:** Wurde das Setup
+  „Als Administrator“ gestartet, lief die Leiste bisher mit Administrator-Rechten —
+  Windows lässt dann nichts vom Desktop hineinziehen. Die Leiste startet sich jetzt
+  selbst ohne diese Rechte neu.
+• **Deinstallation räumt sauber auf:** Die Leiste wird beim Deinstallieren zuverlässig
+  beendet (auch wenn sie mit Administrator-Rechten lief); das Startmenü-Symbol der
+  Leiste wird mit entfernt; gesperrte Dateien verschwinden spätestens beim Neustart.
+• **Deinstallation fragt:** „Sollen Ihre Einstellungen auch gelöscht werden?“ —
+  Ja = alle Buttons und Protokolle weg, Nein = bleiben für eine spätere Neuinstallation.
+  Ihre Buttons werden nie mehr ungefragt gelöscht.
+• **Fehlerbericht** zeigt jetzt, ob die Leiste mit Administrator-Rechten lief.
+• Enthält **2.0.17** (Setup nur Ordner wählen), **2.0.16** und **2.0.15**.
+
+
+Hinweise zur Version 2.0.17 (Auslieferung T11)
 ============================================
 
 Datum: 03.11.2026
