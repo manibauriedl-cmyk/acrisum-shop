@@ -2,47 +2,15 @@
   "_hinweis": "Von :6019 gespiegelt — nicht von Hand pflegen, außer Notfall.",
   "stimmen": [
     {
-      "id": "913dc19e0f36",
-      "name": "mab",
-      "text": "super teil kann ich nur sagen",
-      "ort": "",
-      "datum": "16.08.2026",
-      "datum_anzeige": "16.08.2026",
-      "von": "shop",
+      "id": "c011369e79a6",
+      "name": "Erster Tester",
+      "text": "Ich habe oben am Bildschirm nur ganz wenig Platz. Dann habe ich gesehen: Die Leiste geht auch ohne Beschriftung und ganz klein, nur mit Symbolen. Das ist super.",
+      "ort": "Büro",
+      "datum": "08.11.2026",
+      "datum_anzeige": "08.11.2026",
+      "von": "chef",
       "parent_id": "",
       "antworten": []
-    },
-    {
-      "id": "77dbd80d6b06",
-      "name": "Test Besucher",
-      "text": "Die Homepage sieht gut aus — aber wo kann ich Fragen stellen?",
-      "ort": "Passau",
-      "datum": "16.08.2026",
-      "datum_anzeige": "16.08.2026",
-      "von": "test",
-      "parent_id": "",
-      "antworten": [
-        {
-          "id": "b54c40b7786f",
-          "name": "Acrisum",
-          "text": "Habe von 90% der Tester absolutes Lob erhalten. Erststaunlich!",
-          "ort": "",
-          "datum": "16.08.2026",
-          "datum_anzeige": "16.08.2026",
-          "von": "chef",
-          "parent_id": "77dbd80d6b06"
-        },
-        {
-          "id": "f4038d7e2f36",
-          "name": "Acrisum",
-          "text": "Gute Frage! Am besten hier — und wenn niemand antwortet, antwortet wenigstens der Kaffee.",
-          "ort": "Team",
-          "datum": "16.08.2026",
-          "datum_anzeige": "16.08.2026",
-          "von": "chef",
-          "parent_id": "77dbd80d6b06"
-        }
-      ]
     }
   ]
 }
