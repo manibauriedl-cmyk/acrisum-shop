@@ -13,7 +13,7 @@
   --border: #2a3444;
   --muted: #8b96a8;
   --text: #eef2f6;
-  --bar: #9ec5eb;
+  --bar: #1e1e1e;
   --bar-w: 34px;
   --bar-h: 45px;
 }
@@ -115,8 +115,8 @@ body {
 .lbar.pos-top {
   opacity: 1; left: 0; top: 0; right: auto; bottom: auto;
   height: var(--bar-h); width: auto; max-width: 100%;
-  background: #9ec5eb;
-  border-bottom: 1px solid #7898b0;
+  background: #1e1e1e;
+  border-bottom: 1px solid #3a3a3a;
   transform: scale(var(--zoom));
   transform-origin: left top;
   overflow: hidden;
@@ -125,7 +125,7 @@ body {
 .lbar.pos-left {
   opacity: 1; left: 0; top: 0; bottom: 0; right: auto;
   width: var(--bar-w); height: 100%;
-  border-right: 1px solid #7898b0;
+  border-right: 1px solid #3a3a3a;
   transform: scale(var(--zoom));
   transform-origin: left top;
 }
@@ -137,7 +137,7 @@ body {
 .lbar.pos-right {
   opacity: 1; right: 0; left: auto; top: 0; bottom: 0;
   width: var(--bar-w); height: 100%;
-  border-left: 1px solid #7898b0;
+  border-left: 1px solid #3a3a3a;
   transform: scale(var(--zoom));
   transform-origin: right top;
 }
@@ -496,8 +496,8 @@ body {
 
 /* 1) Hintergrund transparent: hellblaue Platte weg — Desktop scheint durch die Lücken */
 .lbar.bar-solid {
-  background: #9ec5eb !important;
-  box-shadow: 0 3px 0 #5a7a9a !important;
+  background: #1e1e1e !important;
+  box-shadow: 0 3px 0 #000 !important;
   outline: 2px solid rgba(255, 235, 59, 0.55);
   outline-offset: 0;
 }
@@ -721,13 +721,13 @@ body {
     </div>
 
     <div class="chaos" id="chaos" aria-hidden="true">
-      <div class="cw w1"><div class="ct">Cursor — Winsu Vermarktung</div><div class="cb"></div></div>
-      <div class="cw w2"><div class="ct">Chrome — Launcher 2</div><div class="cb"></div></div>
-      <div class="cw w3"><div class="ct">Index Pro — 6011</div><div class="cb"></div></div>
-      <div class="cw w4"><div class="ct">Dev-Dashboard — :6019</div><div class="cb"></div></div>
-      <div class="cw w5"><div class="ct">Indexer5 — Job läuft</div><div class="cb"></div></div>
-      <div class="cw w6"><div class="ct">SearXNG — :8088</div><div class="cb"></div></div>
-      <div class="cw w7"><div class="ct">Cursor — Indexer2</div><div class="cb"></div></div>
+      <div class="cw w1"><div class="ct">Word — Angebot Müller.docx</div><div class="cb"></div></div>
+      <div class="cw w2"><div class="ct">Browser — Lieferanten-Portal</div><div class="cb"></div></div>
+      <div class="cw w3"><div class="ct">Excel — Rechnungen 2026.xlsx</div><div class="cb"></div></div>
+      <div class="cw w4"><div class="ct">E-Mail — Posteingang (14)</div><div class="cb"></div></div>
+      <div class="cw w5"><div class="ct">PDF — Rechnung 2026-117.pdf</div><div class="cb"></div></div>
+      <div class="cw w6"><div class="ct">Explorer — Kunden</div><div class="cb"></div></div>
+      <div class="cw w7"><div class="ct">Rechner</div><div class="cb"></div></div>
       <div class="cw w8"><div class="ct">Explorer — Projekte</div><div class="cb"></div></div>
     </div>
 
@@ -739,7 +739,7 @@ body {
       <div class="pk"><div class="pic">🌐</div><div class="lbl">Shop</div></div>
     </div>
     <div class="lbar pos-hidden" id="lbar">
-      <img id="lbarImg" src="bilder/leiste-kurz.png?v=m70" alt="Launcher 2" height="45">
+      <img id="lbarImg" src="bilder/leiste-kurz.png?v=t12" alt="Launcher 2" height="45">
     </div>
     <div class="cut-hint" id="cutHint" aria-hidden="true">
       &gt;&gt; 20 weitere
@@ -1021,10 +1021,10 @@ body {
     shand.style.top = y + "px";
   }
 
-  const H = IMG + "leiste-kurz.png?v=m70";
-  const H5 = IMG + "leiste-5.png?v=m70";
-  const H5K = IMG + "leiste-5-klar.png?v=m70";
-  const V = IMG + "leiste-kurz-vert.png?v=m72";
+  const H = IMG + "leiste-kurz.png?v=t12";
+  const H5 = IMG + "leiste-5.png?v=t12";
+  const H5K = IMG + "leiste-5-klar.png?v=t12";
+  const V = IMG + "leiste-kurz-vert.png?v=t12";
   const OV1 = IMG + "overflow-1.png?v=m75";
   const OV2 = IMG + "overflow-2.png?v=m75";
   // Vertikal = Original-Screen (88×1140), Anzeige mit contain — nicht verzerren

@@ -109,7 +109,8 @@ a:hover { text-decoration: underline; }
 }
 .hero-shot {
   margin: 0 0 1.1rem;
-  max-width: 36rem;
+  /* 08.11.2026: echte Leisten-Aufnahme 876 px — 1:1 zeigen statt auf die Hälfte schrumpfen */
+  max-width: 55rem;
 }
 .hero-shot img {
   display: block;
