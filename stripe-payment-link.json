@@ -1,9 +1,9 @@
 {
   "ok": true,
-  "cent": 305,
-  "euro": "3,05",
-  "checkout_url": "https://buy.stripe.com/9B69AS4Qz5142iV9XtfIs0P",
+  "cent": 310,
+  "euro": "3,10",
+  "checkout_url": "https://buy.stripe.com/4gM6oGgzh9hk4r30mTfIs0Q",
   "danke_url": "https://acrisum.com/danke.html",
-  "datum": "2026-11-08",
+  "datum": "2026-11-09",
   "hinweis": "Tagespreis — Cloud sync (GitHub Actions)"
 }
