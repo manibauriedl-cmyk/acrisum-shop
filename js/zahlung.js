@@ -6,7 +6,7 @@ window.ACRISUM_ZAHLUNG = {
   stripe_link_json: "stripe-payment-link.json",
   stripe_link_live: "https://acrisum.com/stripe-payment-link.json",
   stripe_link_github: "https://raw.githubusercontent.com/manibauriedl-cmyk/acrisum-shop/main/stripe-payment-link.json",
-  checkout_url: "https://buy.stripe.com/14AfZg4Qz2SW4r36LhfIs0W",
+  checkout_url: "https://buy.stripe.com/5kQ3cuer9bpsg9L1qXfIs0X",
   danke_url: "https://acrisum.com/danke.html",
   danke_path: "danke.html",
   download_url: "download/launcher2-setup-2.0.18.exe",
