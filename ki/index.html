@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Firmen-KI — Kennnummer</title>
+  <style>
+    body { font-family: "Segoe UI", system-ui, sans-serif; margin: 2rem auto; max-width: 22rem; padding: 0 1rem; }
+    h1 { font-size: 1.25rem; }
+    input { width: 100%; box-sizing: border-box; padding: 0.55rem; font-size: 1.1rem; margin: 0.5rem 0; }
+    button { width: 100%; padding: 0.65rem; font-size: 1rem; margin-top: 0.5rem; }
+    .hint { color: #57606a; font-size: 0.88rem; line-height: 1.45; }
+    .err { color: #cf222e; font-size: 0.9rem; min-height: 1.2em; }
+  </style>
+</head>
+<body>
+  <h1>Firmen-KI</h1>
+  <p class="hint">
+    <strong>Kennnummer</strong> vom Büro — Test für alle gleich (z.&nbsp;B. 2233).
+    Wer <em>Sie</em> sind, klären Benutzername und Passwort auf der nächsten Seite.
+  </p>
+  <label for="nr">Kennnummer</label>
+  <input id="nr" inputmode="numeric" autocomplete="off" placeholder="2233" value="2233" />
+  <button type="button" id="go">Weiter</button>
+  <p class="err" id="msg"></p>
+  <script>
+    let cfg = {};
+    const q = new URLSearchParams(location.search);
+  const vorf = (q.get("nr") || "").trim();
+  if (vorf) document.getElementById("nr").value = vorf;
+
+    fetch("/firmen-ki.json?" + Date.now())
+      .then((r) => r.json())
+      .then((j) => { cfg = j || {}; })
+      .catch(() => {});
+
+    document.getElementById("go").onclick = () => {
+      const msg = document.getElementById("msg");
+      const eingabe = (document.getElementById("nr").value || "").trim();
+      const gate = String(cfg.kennung_test || cfg.kennung_firma || "2233").trim();
+      const portal = (cfg.portal || cfg.url || "").trim();
+      if (!eingabe) {
+        msg.textContent = "Bitte Kennnummer eingeben.";
+        return;
+      }
+      if (eingabe !== gate) {
+        msg.textContent = "Kennnummer nicht bekannt.";
+        return;
+      }
+      if (!portal) {
+        msg.textContent = "Portal noch nicht verbunden — IT startet Tunnel in München.";
+        return;
+      }
+      const basis = portal.endsWith("/") ? portal : portal + "/";
+      const sep = basis.includes("?") ? "&" : "?";
+      location.replace(basis + sep + "nr=" + encodeURIComponent(eingabe));
+    };
+  </script>
+</body>
+</html>
