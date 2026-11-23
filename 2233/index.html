@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Firmen-KI</title>
+  <script>
+    fetch("/firmen-ki.json?" + Date.now())
+      .then((r) => r.json())
+      .then((j) => {
+        const z = (j.portal || j.url || "").trim();
+        if (z) {
+          const basis = z.endsWith("/") ? z : z + "/";
+          const gate = String(j.kennung_test || "2233").trim();
+          const sep = basis.includes("?") ? "&" : "?";
+          location.replace(basis + sep + "nr=" + encodeURIComponent(gate));
+        }
+        else document.body.innerText = "Kurz — IT startet Tunnel in München, dann neu laden.";
+      })
+      .catch(() => { document.body.innerText = "firmen-ki.json fehlt."; });
+  </script>
+</head>
+<body>Firmen-KI …</body>
+</html>
