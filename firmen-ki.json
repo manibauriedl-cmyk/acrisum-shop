@@ -1,4 +1,4 @@
-{
+﻿{
   "portal": "https://agents-springer-peoples-numbers.trycloudflare.com/",
   "kennung_test": "2233",
   "kennung_firma": "2233",
@@ -6,7 +6,7 @@
   "ziel_port": 4060,
   "kurz_url": "https://acrisum.com/ki",
   "kurz": "acrisum.com/ki",
-  "stand_de": "Stand 27.11.2026, 23:49",
+  "stand_de": "Stand 27.11.2026, 23:50",
   "hinweis": "Kurzadresse für Nutzer: https://acrisum.com/ki",
   "tel_ansage": "acrisum.com/ki",
   "tunnel_ok": true
