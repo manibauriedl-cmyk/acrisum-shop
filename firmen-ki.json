@@ -1,13 +1,15 @@
 {
-  "portal": "https://agents-springer-peoples-numbers.trycloudflare.com/",
+  "portal": "http://192.168.178.158:4060/",
   "kennung_test": "2233",
   "kennung_firma": "2233",
   "ziel": "freiberufler_onboarding",
   "ziel_port": 4060,
   "kurz_url": "https://acrisum.com/ki",
   "kurz": "acrisum.com/ki",
-  "stand_de": "Stand 28.11.2026, 00:02",
-  "hinweis": "Kurzadresse für Nutzer: https://acrisum.com/ki — Kennnummer 2233",
+  "stand_de": "Stand 28.11.2026, 01:29",
+  "hinweis": "Privatnetz/Peer: nach Kennnummer weiter zum Formular im LAN — keine öffentlichen Zufalls-Tunnel.",
   "tel_ansage": "acrisum.com/ki",
-  "tunnel_ok": true
+  "tunnel_ok": false,
+  "peer_lan": true,
+  "chat_peer": "http://192.168.178.158:3000/"
 }
