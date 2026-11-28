@@ -6,10 +6,16 @@
   "ziel_port": 4060,
   "kurz_url": "https://acrisum.com/ki",
   "kurz": "acrisum.com/ki",
-  "stand_de": "Stand 28.11.2026, 01:29",
-  "hinweis": "Privatnetz/Peer: nach Kennnummer weiter zum Formular im LAN — keine öffentlichen Zufalls-Tunnel.",
+  "stand_de": "Stand 28.11.2026, 01:40",
+  "hinweis": "acrisum.com/ki = nur Tor. Formular/Chat: Privatnetz (Peer). Keine Zufalls-Tunnel. Cloudflare-Domain-Tunnel = US-Datenweg — siehe dsgvo_klartext.",
+  "dsgvo_klartext": "Realität: Im gleichen WLAN bleiben Formular und Chat im Privatnetz (kein Cloudflare). Ein öffentlicher Tunnel — auch unter acrisum.com — leitet den Verkehr über Cloudflare (USA). Cloudflare beendet die TLS-Verbindung und kann den Inhalt technisch lesen. Ohne AVV/SCC und klare Zweckbindung ist das ein massives DSGVO-Risiko bei personen- oder mandatsbezogenen Daten. Zufalls-Adressen (*.trycloudflare.com) nutzen wir nicht.",
   "tel_ansage": "acrisum.com/ki",
   "tunnel_ok": false,
   "peer_lan": true,
-  "chat_peer": "http://192.168.178.158:3000/"
+  "datenweg": "peer_lan",
+  "chat_peer": "http://192.168.178.158:3000/",
+  "named_hosts": {
+    "onboarding": "ki.acrisum.com",
+    "chat": "chat.acrisum.com"
+  }
 }
